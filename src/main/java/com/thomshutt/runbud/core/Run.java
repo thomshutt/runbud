@@ -1,15 +1,13 @@
 package com.thomshutt.runbud.core;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "runs")
 public class Run {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "run_id")
     private String runId;
 
@@ -28,7 +26,7 @@ public class Run {
     public Run() {
     }
 
-    public Run(String runId, String initiatingUserId, String startLocation, double distanceKm, String description) {
+    public Run(String initiatingUserId, String startLocation, double distanceKm, String description) {
         this.runId = runId;
         this.initiatingUserId = initiatingUserId;
         this.startLocation = startLocation;
