@@ -1,6 +1,5 @@
 package com.thomshutt.runbud.views;
 
-import com.google.common.collect.ImmutableList;
 import com.thomshutt.runbud.core.Run;
 import io.dropwizard.views.View;
 
