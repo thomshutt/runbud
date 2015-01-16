@@ -69,6 +69,7 @@ public class RunResource {
             @FormParam("distance_km") int distanceKm,
             @FormParam("description") String description
     ) {
+        userDAO.persist(new User(initiatingUserId, "Jeff Banks"));
         runDAO.persist(new Run(initiatingUserId, startLocation, distanceKm, description));
         doRedirect("/runs");
     }
@@ -76,9 +77,7 @@ public class RunResource {
     private void doRedirect(String url) {
         try {
             throw new WebApplicationException(
-                    Response.seeOther(
-                            new URI(url)
-                    ).build()
+                    Response.seeOther(new URI(url)).build()
             );
         } catch (URISyntaxException e) {
             e.printStackTrace();
