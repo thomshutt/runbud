@@ -1,7 +1,9 @@
 package com.thomshutt.runbud;
 
+import com.thomshutt.runbud.core.Comment;
 import com.thomshutt.runbud.core.Run;
 import com.thomshutt.runbud.core.User;
+import com.thomshutt.runbud.data.CommentDAO;
 import com.thomshutt.runbud.data.RunDAO;
 import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.health.RunResourceHealthCheck;
@@ -15,7 +17,11 @@ import io.dropwizard.views.ViewBundle;
 
 public class RunbudApplication extends Application<RunbudConfiguration> {
 
-    private final HibernateBundle<RunbudConfiguration> runBundle = new HibernateBundle<RunbudConfiguration>(Run.class, User.class) {
+    private final HibernateBundle<RunbudConfiguration> runBundle = new HibernateBundle<RunbudConfiguration>(
+            Run.class,
+            User.class,
+            Comment.class
+    ) {
         @Override
         public DataSourceFactory getDataSourceFactory(RunbudConfiguration runbudConfiguration) {
             return runbudConfiguration.getDataSourceFactory();
@@ -36,7 +42,8 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
     public void run(RunbudConfiguration runbudConfiguration, Environment environment) throws Exception {
         final RunResource runResource = new RunResource(
                 new RunDAO(runBundle.getSessionFactory()),
-                new UserDAO(runBundle.getSessionFactory())
+                new UserDAO(runBundle.getSessionFactory()),
+                new CommentDAO(runBundle.getSessionFactory())
         );
         environment.jersey().register(runResource);
 

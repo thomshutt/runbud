@@ -4,10 +4,10 @@
         <style type="text/css">
             body, div, p {
                 margin: 0;
-		font-family: Arial, Helvetica, sans-serif;
+		        font-family: Arial, Helvetica, sans-serif;
                 color: #333;
             }
-            #header {
+            #header div {
                 color: #EEE;
             } 
         </style>

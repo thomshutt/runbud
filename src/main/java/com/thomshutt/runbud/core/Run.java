@@ -1,5 +1,7 @@
 package com.thomshutt.runbud.core;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.*;
 
 @Entity
@@ -27,7 +29,6 @@ public class Run {
     }
 
     public Run(String initiatingUserId, String startLocation, double distanceKm, String description) {
-        this.runId = runId;
         this.initiatingUserId = initiatingUserId;
         this.startLocation = startLocation;
         this.distanceKm = distanceKm;
@@ -57,4 +58,10 @@ public class Run {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
 }

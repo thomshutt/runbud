@@ -1,5 +1,7 @@
 package com.thomshutt.runbud.core;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -32,4 +34,10 @@ public class User {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
 }
