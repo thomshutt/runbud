@@ -1,5 +1,6 @@
 package com.thomshutt.runbud.resources;
 
+import com.thomshutt.runbud.views.HomeView;
 import io.dropwizard.jersey.caching.CacheControl;
 import io.dropwizard.views.View;
 
@@ -16,7 +17,7 @@ public class SiteResource {
     @GET
     @CacheControl(maxAge = 6, maxAgeUnit = TimeUnit.HOURS)
     public View getHomepage() {
-        return new View("home.htl"){};
+        return new HomeView();
     }
 
 }
