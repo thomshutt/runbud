@@ -8,6 +8,7 @@ import com.thomshutt.runbud.data.RunDAO;
 import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.health.RunResourceHealthCheck;
 import com.thomshutt.runbud.resources.RunResource;
+import com.thomshutt.runbud.resources.SiteResource;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
@@ -46,6 +47,7 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
                 new CommentDAO(runBundle.getSessionFactory())
         );
         environment.jersey().register(runResource);
+        environment.jersey().register(new SiteResource());
 
         environment.healthChecks().register("runresource", new RunResourceHealthCheck(runResource));
 

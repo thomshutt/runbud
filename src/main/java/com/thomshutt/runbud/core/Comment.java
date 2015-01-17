@@ -12,7 +12,6 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private String commentId;
-
     @Column(name = "run_id")
     private String runId;
 
@@ -22,12 +21,16 @@ public class Comment {
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "created_timestamp")
+    private long createdTimestampUtc;
+
     public Comment() {}
 
     public Comment(String runId, String userId, String comment) {
         this.runId = runId;
         this.userId = userId;
         this.comment = comment;
+        this.createdTimestampUtc = System.currentTimeMillis();
     }
 
     public String getUserId() {

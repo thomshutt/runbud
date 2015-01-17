@@ -1,10 +1,9 @@
 <#-- @ftlvariable name="" type="com.thomshutt.runbud.views.RunView" -->
 <#include "header.ftl">
-    <h1>Hello, ${run.name?html}!</h1>
-    <h2>Created By: ${initiatingUser.name}</h2>
-    <h2>Start Location: ${run.startLocation}</h2>
-    <h2>Distance: ${run.distanceKm}km</h2>
-    <h2>Description: ${run.description}</h2>
+    <h2>Created By: ${initiatingUser.name?html}</h2>
+    <h2>Start Location: ${run.startLocation?html}</h2>
+    <h2>Distance: ${run.distanceKm?html}km</h2>
+    <h2>Description: ${run.description?html}</h2>
 
     <br /><br />
 
@@ -12,7 +11,7 @@
 
     <#list comments as comment>
         <p>
-            ${comment.userId}: ${comment.comment}
+            ${comment.userId?html}: ${comment.comment?html}
         </p>
     </#list>
 
