@@ -21,6 +21,9 @@
                 text-decoration: none;
                 transition: border 0.1s ease 0s, box-shadow 0.1s ease 0s, background-color 0.1s ease 0s, opacity 0.1s ease 0s;
             }
+            input {
+                display: block;
+            }
             #header {
                 border-bottom: 1px solid #E5E5E5;
                 padding-left: 20px;
@@ -71,7 +74,10 @@
                     <li><a href="/runs">Runs</a></li>
                     <li><a href="/runs/1">Run 1</a></li>
                     <li><a href="/runs/create/new">Auto Create</a></li>
+                    <li><a href="/users/login">Auto Login</a></li>
+                    <li><a href="/users/logout">Auto Logout</a></li>
                     <li><a href="/runs/create">Create</a></li>
+                    <li><a href="/users/create">Sign Up</a></li>
                 </ul>
             </div>
         </div>

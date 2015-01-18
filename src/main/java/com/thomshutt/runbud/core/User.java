@@ -2,29 +2,32 @@ package com.thomshutt.runbud.core;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId")
     private String userId;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "name")
     private String name;
 
+    public User() {}
 
-    public User() {
-    }
-
-    public User(String userId, String name) {
-        this.userId = userId;
+    public User(String email, String password, String name) {
         this.name = name;
+        this.email = email;
+        this.password = password;
     }
 
     public String getUserId() {
@@ -33,6 +36,14 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override

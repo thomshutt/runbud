@@ -12,6 +12,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private String commentId;
+
     @Column(name = "run_id")
     private String runId;
 

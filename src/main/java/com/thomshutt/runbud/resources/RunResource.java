@@ -19,13 +19,13 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Path("/runs")
 @Produces(MediaType.TEXT_HTML)
 public class RunResource {
 
-    public static final String EXAMPLE_USER_ID = "userId1";
     private final RunDAO runDAO;
     private final UserDAO userDAO;
     private final CommentDAO commentDAO;
@@ -62,16 +62,23 @@ public class RunResource {
             @PathParam("runId") String runId,
             @FormParam("comment") String comment
     ) {
-        commentDAO.persist(new Comment(runId, EXAMPLE_USER_ID, comment));
-        doRedirect("/runs/" + runId);
+        final User newUser = userDAO.persist(
+                new User(
+                        (new Random(System.currentTimeMillis())).nextInt() + "@test.com",
+                        "password",
+                        "Jeff Goldblum"
+                )
+        );
+        commentDAO.persist(new Comment(runId, newUser.getUserId(), comment));
+        SiteResource.doRedirect("/runs/" + runId);
     }
 
     @GET
     @UnitOfWork
     @Path("/create/new")
     public void persistRun() {
-        userDAO.persist(new User(EXAMPLE_USER_ID, "Jeff Goldblum"));
-        runDAO.persist(new Run(EXAMPLE_USER_ID, "Piccadilly Circus", 5.2, "Gentle jog around central London"));
+        final User newUser = userDAO.persist(new User("test@test.com", "password", "Jeff Goldblum"));
+        runDAO.persist(new Run(newUser.getUserId(), "Piccadilly Circus", 5.2, "Gentle jog around central London"));
     }
 
     @GET
@@ -89,19 +96,8 @@ public class RunResource {
             @FormParam("distance_km") int distanceKm,
             @FormParam("description") String description
     ) {
-        userDAO.persist(new User(initiatingUserId, "Jeff Banks"));
         runDAO.persist(new Run(initiatingUserId, startLocation, distanceKm, description));
-        doRedirect("/runs");
-    }
-
-    private void doRedirect(String url) {
-        try {
-            throw new WebApplicationException(
-                    Response.seeOther(new URI(url)).build()
-            );
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        SiteResource.doRedirect("/runs");
     }
 
 }
