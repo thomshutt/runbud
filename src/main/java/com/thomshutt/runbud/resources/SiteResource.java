@@ -21,9 +21,8 @@ import java.util.concurrent.TimeUnit;
 public class SiteResource {
 
     @GET
-    @CacheControl(maxAge = 6, maxAgeUnit = TimeUnit.HOURS)
+    @CacheControl(maxAge = 0, maxAgeUnit = TimeUnit.SECONDS)
     public View getHomepage(@Auth User user) {
-        System.out.println(">>>>>>>>>> " + user);
         return new HomeView();
     }
 

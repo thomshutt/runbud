@@ -71,6 +71,7 @@
             <div class="row nav-bar">
                 <div id="logo">RUNBUD</div>
                 <ul class="global-nav text-right">
+                    <li><a href="/">Home</a></li>
                     <li><a href="/runs">Runs</a></li>
                     <li><a href="/runs/1">Run 1</a></li>
                     <li><a href="/runs/create/new">Auto Create</a></li>

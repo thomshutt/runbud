@@ -38,7 +38,7 @@ public class RunResource {
 
     @GET
     @UnitOfWork
-    @CacheControl(maxAge = 6, maxAgeUnit = TimeUnit.HOURS)
+    @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.SECONDS)
     public RunsView getRuns() {
         return new RunsView(runDAO.list());
     }
