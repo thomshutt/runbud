@@ -22,7 +22,7 @@ public class SiteResource {
 
     @GET
     @CacheControl(maxAge = 0, maxAgeUnit = TimeUnit.SECONDS)
-    public View getHomepage(@Auth User user) {
+    public View getHomepage() {
         return new HomeView();
     }
 

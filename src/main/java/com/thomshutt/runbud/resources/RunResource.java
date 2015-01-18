@@ -9,6 +9,7 @@ import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.views.CreateRunView;
 import com.thomshutt.runbud.views.RunView;
 import com.thomshutt.runbud.views.RunsView;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.caching.CacheControl;
 import io.dropwizard.views.View;
@@ -59,6 +60,7 @@ public class RunResource {
     @Path("/{runId}/comment")
     @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.SECONDS)
     public void postComment(
+            @Auth User user,
             @PathParam("runId") String runId,
             @FormParam("comment") String comment
     ) {

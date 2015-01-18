@@ -13,6 +13,7 @@ import com.thomshutt.runbud.resources.SiteResource;
 import com.thomshutt.runbud.resources.UserResource;
 import com.thomshutt.runbud.security.BasicAuthFactory;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthFactory;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
@@ -46,6 +47,7 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
     public void initialize(Bootstrap<RunbudConfiguration> bootstrap) {
         bootstrap.addBundle(new ViewBundle());
         bootstrap.addBundle(runBundle);
+        bootstrap.addBundle(new AssetsBundle());
     }
 
     @Override
