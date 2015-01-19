@@ -2,7 +2,9 @@ package com.thomshutt.runbud.resources;
 
 import com.thomshutt.runbud.core.User;
 import com.thomshutt.runbud.data.UserDAO;
+import com.thomshutt.runbud.views.CreateUserSuccessView;
 import com.thomshutt.runbud.views.CreateUserView;
+import com.thomshutt.runbud.views.LoginView;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.views.View;
 
@@ -38,16 +40,22 @@ public class UserResource {
     @POST
     @UnitOfWork
     @Path("/create")
-    public void createNewRun(
+    public CreateUserSuccessView createNewRun(
             @FormParam("name") String name,
             @FormParam("email") String email,
             @FormParam("password") String password
     ) {
         userDAO.persist(new User(email, password, name));
-        SiteResource.doRedirect("/");
+        return new CreateUserSuccessView();
     }
 
     @GET
+    @Path("/login")
+    public LoginView loginPage() {
+        return new LoginView();
+    }
+
+    @POST
     @UnitOfWork
     @Path("/login")
     public Response login() {
