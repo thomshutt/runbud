@@ -73,11 +73,10 @@
                 <ul class="global-nav text-right">
                     <li><a href="/">Home</a></li>
                     <li><a href="/runs">Runs</a></li>
-                    <li><a href="/runs/1">Run 1</a></li>
                     <li><a href="/runs/create/new">Auto Create</a></li>
-                    <li><a href="/users/login">Auto Login</a></li>
-                    <li><a href="/users/logout">Auto Logout</a></li>
                     <li><a href="/runs/create">Create</a></li>
+                    <li><a href="/users/login">Login</a></li>
+                    <li><a href="/users/logout">Logout</a></li>
                     <li><a href="/users/create">Sign Up</a></li>
                 </ul>
             </div>

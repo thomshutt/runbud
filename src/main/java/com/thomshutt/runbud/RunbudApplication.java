@@ -4,8 +4,10 @@ import com.google.common.base.Optional;
 import com.thomshutt.runbud.core.Comment;
 import com.thomshutt.runbud.core.Run;
 import com.thomshutt.runbud.core.User;
+import com.thomshutt.runbud.core.UserCredentials;
 import com.thomshutt.runbud.data.CommentDAO;
 import com.thomshutt.runbud.data.RunDAO;
+import com.thomshutt.runbud.data.UserCredentialsDAO;
 import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.health.RunResourceHealthCheck;
 import com.thomshutt.runbud.resources.RunResource;
@@ -31,7 +33,8 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
     private final HibernateBundle<RunbudConfiguration> runBundle = new HibernateBundle<RunbudConfiguration>(
             Run.class,
             User.class,
-            Comment.class
+            Comment.class,
+            UserCredentials.class
     ) {
         @Override
         public DataSourceFactory getDataSourceFactory(RunbudConfiguration runbudConfiguration) {
@@ -53,6 +56,7 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
     @Override
     public void run(RunbudConfiguration runbudConfiguration, Environment environment) throws Exception {
         final UserDAO userDAO = new UserDAO(runBundle.getSessionFactory());
+        final UserCredentialsDAO userCredentialsDAO = new UserCredentialsDAO(runBundle.getSessionFactory());
         final RunResource runResource = new RunResource(
                 new RunDAO(runBundle.getSessionFactory()),
                 userDAO,
@@ -60,13 +64,16 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
         );
         environment.jersey().register(runResource);
         environment.jersey().register(new SiteResource());
-        environment.jersey().register(new UserResource(userDAO));
+        environment.jersey().register(new UserResource(userDAO, userCredentialsDAO));
         environment.jersey().register(AuthFactory.binder(new BasicAuthFactory<User>(new Authenticator<Cookie[], User>() {
             @Override
             public Optional<User> authenticate(Cookie[] cookies) throws AuthenticationException {
                 for (Cookie cookie : cookies) {
-                    if("runbud.cookie".equals(cookie.getName())) {
-                        return Optional.of(new User("email", "password", "name"));
+                    if(UserResource.RUNBUD_COOKIE_KEY.equals(cookie.getName())) {
+                        final UserCredentials credentials = userCredentialsDAO.getForToken(cookie.getValue());
+                        if(credentials != null) {
+                            return Optional.of(userDAO.get(credentials.getUserId()));
+                        }
                     }
                 }
                 return Optional.absent();

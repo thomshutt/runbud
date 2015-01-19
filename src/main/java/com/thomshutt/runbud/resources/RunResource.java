@@ -64,23 +64,15 @@ public class RunResource {
             @PathParam("runId") String runId,
             @FormParam("comment") String comment
     ) {
-        final User newUser = userDAO.persist(
-                new User(
-                        (new Random(System.currentTimeMillis())).nextInt() + "@test.com",
-                        "password",
-                        "Jeff Goldblum"
-                )
-        );
-        commentDAO.persist(new Comment(runId, newUser.getUserId(), comment));
+        commentDAO.persist(new Comment(runId, user.getUserId(), comment));
         SiteResource.doRedirect("/runs/" + runId);
     }
 
     @GET
     @UnitOfWork
     @Path("/create/new")
-    public void persistRun() {
-        final User newUser = userDAO.persist(new User("test@test.com", "password", "Jeff Goldblum"));
-        runDAO.persist(new Run(newUser.getUserId(), "Piccadilly Circus", 5.2, "Gentle jog around central London"));
+    public void persistRun(@Auth User user) {
+        runDAO.persist(new Run(user.getUserId(), "Piccadilly Circus", 5.2, "Gentle jog around central London"));
     }
 
     @GET
@@ -93,12 +85,12 @@ public class RunResource {
     @UnitOfWork
     @Path("/create")
     public void createNewRun(
-            @FormParam("initiating_user_id") String initiatingUserId,
+            @Auth User user,
             @FormParam("start_location") String startLocation,
             @FormParam("distance_km") int distanceKm,
             @FormParam("description") String description
     ) {
-        runDAO.persist(new Run(initiatingUserId, startLocation, distanceKm, description));
+        runDAO.persist(new Run(user.getUserId(), startLocation, distanceKm, description));
         SiteResource.doRedirect("/runs");
     }
 

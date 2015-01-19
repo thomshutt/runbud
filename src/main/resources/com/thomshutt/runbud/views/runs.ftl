@@ -3,7 +3,7 @@
     <div>
         <ol>
             <#list runs as run>
-                <li>${run.name?html}</li>
+                <li><a href="/runs/${runs.id?html}">${run.name?html}</a></li>
             </#list>
         </ol>
     </div>

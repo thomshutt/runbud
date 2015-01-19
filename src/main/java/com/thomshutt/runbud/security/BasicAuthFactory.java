@@ -4,7 +4,6 @@ import com.google.common.base.Optional;
 import io.dropwizard.auth.AuthFactory;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
-import io.dropwizard.auth.basic.BasicCredentials;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

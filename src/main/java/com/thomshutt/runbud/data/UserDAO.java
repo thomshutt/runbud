@@ -1,9 +1,11 @@
 package com.thomshutt.runbud.data;
 
+import com.thomshutt.runbud.core.Comment;
 import com.thomshutt.runbud.core.User;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,8 +21,8 @@ public class UserDAO extends AbstractDAO<User> {
         return super.get(id);
     }
 
-    public List<User> list() throws HibernateException {
-        return super.list(criteria());
+    public User getForEmail(String email) throws HibernateException {
+        return super.uniqueResult(super.criteria().add(Restrictions.eq("email", email)));
     }
 
     @Override

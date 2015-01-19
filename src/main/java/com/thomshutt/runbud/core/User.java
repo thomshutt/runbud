@@ -16,18 +16,14 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "name")
     private String name;
 
     public User() {}
 
-    public User(String email, String password, String name) {
+    public User(String email, String name) {
         this.name = name;
         this.email = email;
-        this.password = password;
     }
 
     public String getUserId() {
@@ -40,10 +36,6 @@ public class User {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override
