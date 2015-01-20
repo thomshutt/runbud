@@ -15,10 +15,12 @@
         </p>
     </#list>
 
-    <h2>Post Comment:</h2>
+    <#if loggedIn>
+        <h2>Post Comment:</h2>
 
-    <form action="/runs/${run.runId}/comment" method="post">
-          <input type="text" name="comment" value="Some comment here" />
-          <input type="submit" />
-    </form>
+        <form action="/runs/${run.runId}/comment" method="post">
+              <input type="text" name="comment" value="Some comment here" />
+              <input type="submit" />
+        </form>
+    </#if>
 <#include "footer.ftl">
