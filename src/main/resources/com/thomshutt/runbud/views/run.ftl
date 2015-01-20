@@ -1,9 +1,23 @@
-<#-- @ftlvariable name="" type="com.thomshutt.runbud.views.RunView" -->
 <#include "header.ftl">
     <h2>Created By: ${initiatingUser.name?html}</h2>
     <h2>Start Location: ${run.startLocation?html}</h2>
     <h2>Distance: ${run.distanceKm?html}km</h2>
     <h2>Description: ${run.description?html}</h2>
+    <h2>Attendees: ${runAttendees?size}</h2>
+
+    <br /><br />
+
+    <#if loggedIn>
+        <#if userIsAttending>
+             <form action="/runs/${run.runId}/unattending" method="post">
+                   <input type="submit" value="I'm not attending" />
+             </form>
+         <#else>
+             <form action="/runs/${run.runId}/attending" method="post">
+                    <input type="submit" value="I'm attending" />
+              </form>
+         </#if>
+    </#if>
 
     <br /><br />
 

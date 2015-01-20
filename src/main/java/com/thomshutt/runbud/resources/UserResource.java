@@ -77,7 +77,7 @@ public class UserResource {
     @UnitOfWork
     @Path("/login")
     public LoginView loginPage(@Auth(required = false) User user) {
-        return new LoginView(Optional.fromNullable(user));
+        return new LoginView(Optional.fromNullable(user), false);
     }
 
     @POST
@@ -87,7 +87,11 @@ public class UserResource {
             @FormParam("email") String email,
             @FormParam("password") String password
     ) {
+        final View loginFailureView = new LoginView(Optional.<User>absent(), true);
         final User user = userDAO.getForEmail(email);
+        if(user == null) {
+            return Response.ok().entity(loginFailureView).build();
+        }
         final String userId = user.getUserId();
         final UserCredentials userCredentials = userCredentialsDAO.get(userId);
         final boolean passwordMatches = passwordHasher.passwordMatches(password, userCredentials.getSalt(), userCredentials.getPassword());
@@ -98,8 +102,7 @@ public class UserResource {
             final NewCookie c = new NewCookie(RUNBUD_COOKIE_KEY, userCredentials.getToken(), "/", c_.getDomain(), "", (int) TimeUnit.DAYS.toSeconds(7), false);
             return Response.seeOther(URL_SITE_ROOT).cookie(c).build();
         } else {
-            // TODO: Something more sensible
-            return Response.seeOther(URL_SITE_ROOT).build();
+            return Response.ok().entity(loginFailureView).build();
         }
     }
 

@@ -6,8 +6,15 @@ import io.dropwizard.views.View;
 
 public class LoginView extends LoggedInAwareView {
 
-    public LoginView(Optional<User> user) {
+    private final boolean previousLoginFailed;
+
+    public LoginView(Optional<User> user, boolean previousLoginFailed) {
         super("login.ftl", user);
+        this.previousLoginFailed = previousLoginFailed;
+    }
+
+    public boolean isPreviousLoginFailed() {
+        return previousLoginFailed;
     }
 
 }

@@ -3,8 +3,10 @@ package com.thomshutt.runbud.resources;
 import com.google.common.base.Optional;
 import com.thomshutt.runbud.core.Comment;
 import com.thomshutt.runbud.core.Run;
+import com.thomshutt.runbud.core.RunAttendee;
 import com.thomshutt.runbud.core.User;
 import com.thomshutt.runbud.data.CommentDAO;
+import com.thomshutt.runbud.data.RunAttendeeDAO;
 import com.thomshutt.runbud.data.RunDAO;
 import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.views.CreateRunView;
@@ -31,16 +33,22 @@ public class RunResource {
     private final RunDAO runDAO;
     private final UserDAO userDAO;
     private final CommentDAO commentDAO;
+    private final RunAttendeeDAO runAttendeeDAO;
 
-    public RunResource(RunDAO runDAO, UserDAO userDAO, CommentDAO commentDAO) {
+    public RunResource(
+            RunDAO runDAO,
+            UserDAO userDAO,
+            CommentDAO commentDAO,
+            RunAttendeeDAO runAttendeeDAO
+    ) {
         this.runDAO = runDAO;
         this.userDAO = userDAO;
         this.commentDAO = commentDAO;
+        this.runAttendeeDAO = runAttendeeDAO;
     }
 
     @GET
     @UnitOfWork
-    @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.SECONDS)
     public RunsView getRuns(@Auth(required = false) User user) {
         return new RunsView(Optional.fromNullable(user), runDAO.list());
     }
@@ -48,24 +56,55 @@ public class RunResource {
     @GET
     @UnitOfWork
     @Path("/{runId}")
-    @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.SECONDS)
     public RunView getRun(@Auth(required = false) User user, @PathParam("runId") String runId) {
         final Run run = runDAO.get(runId);
         final List<Comment> comments = commentDAO.listForRunId(runId);
+        final List<RunAttendee> runAttendees = runAttendeeDAO.listForRunId(runId);
         final User initiatingUser = userDAO.get(run.getInitiatingUserId());
-        return new RunView(Optional.fromNullable(user), run, initiatingUser, comments);
+        return new RunView(Optional.fromNullable(user), run, initiatingUser, comments, runAttendees);
     }
 
     @POST
     @UnitOfWork
     @Path("/{runId}/comment")
-    @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.SECONDS)
     public void postComment(
             @Auth User user,
             @PathParam("runId") String runId,
             @FormParam("comment") String comment
     ) {
         commentDAO.persist(new Comment(runId, user.getUserId(), comment));
+        SiteResource.doRedirect("/runs/" + runId);
+    }
+
+    @POST
+    @UnitOfWork
+    @Path("/{runId}/attending")
+    public void markAsAttending(
+            @Auth User user,
+            @PathParam("runId") String runId
+    ) {
+        final RunAttendee attendee = runAttendeeDAO.getForRunIdAndUserId(runId, user.getUserId());
+        if(attendee == null) {
+            runAttendeeDAO.persist(new RunAttendee(runId, user.getUserId(), true));
+        } else {
+            attendee.setAttending(true);
+            runAttendeeDAO.persist(attendee);
+        }
+        SiteResource.doRedirect("/runs/" + runId);
+    }
+
+    @POST
+    @UnitOfWork
+    @Path("/{runId}/unattending")
+    public void markAsUnattending(
+            @Auth User user,
+            @PathParam("runId") String runId
+    ) {
+        final RunAttendee runAttendee = runAttendeeDAO.getForRunIdAndUserId(runId, user.getUserId());
+        if(runAttendee != null) {
+            runAttendee.setAttending(false);
+            runAttendeeDAO.persist(runAttendee);
+        }
         SiteResource.doRedirect("/runs/" + runId);
     }
 

@@ -3,6 +3,7 @@ package com.thomshutt.runbud.core;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "user_credentials")
@@ -55,8 +56,7 @@ public class UserCredentials {
     }
 
     public void generateNewToken(long newTokenExpiryUtcMillis) {
-        // TODO: Generate actual token
-        this.token = "TODO!";
+        this.token = UUID.randomUUID().toString();
         this.tokenExpiryUtcMillis = newTokenExpiryUtcMillis;
     }
 

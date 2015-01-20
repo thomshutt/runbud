@@ -1,14 +1,8 @@
 package com.thomshutt.runbud;
 
 import com.google.common.base.Optional;
-import com.thomshutt.runbud.core.Comment;
-import com.thomshutt.runbud.core.Run;
-import com.thomshutt.runbud.core.User;
-import com.thomshutt.runbud.core.UserCredentials;
-import com.thomshutt.runbud.data.CommentDAO;
-import com.thomshutt.runbud.data.RunDAO;
-import com.thomshutt.runbud.data.UserCredentialsDAO;
-import com.thomshutt.runbud.data.UserDAO;
+import com.thomshutt.runbud.core.*;
+import com.thomshutt.runbud.data.*;
 import com.thomshutt.runbud.health.RunResourceHealthCheck;
 import com.thomshutt.runbud.resources.RunResource;
 import com.thomshutt.runbud.resources.SiteResource;
@@ -25,6 +19,7 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
+import org.hibernate.SessionFactory;
 
 import javax.servlet.http.Cookie;
 
@@ -34,7 +29,8 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
             Run.class,
             User.class,
             Comment.class,
-            UserCredentials.class
+            UserCredentials.class,
+            RunAttendee.class
     ) {
         @Override
         public DataSourceFactory getDataSourceFactory(RunbudConfiguration runbudConfiguration) {
@@ -55,12 +51,14 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
 
     @Override
     public void run(RunbudConfiguration runbudConfiguration, Environment environment) throws Exception {
-        final UserDAO userDAO = new UserDAO(runBundle.getSessionFactory());
-        final UserCredentialsDAO userCredentialsDAO = new UserCredentialsDAO(runBundle.getSessionFactory());
+        final SessionFactory sessionFactory = runBundle.getSessionFactory();
+        final UserDAO userDAO = new UserDAO(sessionFactory);
+        final UserCredentialsDAO userCredentialsDAO = new UserCredentialsDAO(sessionFactory);
         final RunResource runResource = new RunResource(
-                new RunDAO(runBundle.getSessionFactory()),
+                new RunDAO(sessionFactory),
                 userDAO,
-                new CommentDAO(runBundle.getSessionFactory())
+                new CommentDAO(sessionFactory),
+                new RunAttendeeDAO(sessionFactory)
         );
         environment.jersey().register(runResource);
         environment.jersey().register(new SiteResource());
