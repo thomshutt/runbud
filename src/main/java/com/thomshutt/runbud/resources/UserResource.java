@@ -66,7 +66,7 @@ public class UserResource {
             final UserCredentials userCredentials = new UserCredentials(user.getUserId(), passwordHasher.hash(password, salt), salt, "", 0);
             userCredentials.generateNewToken(System.currentTimeMillis() + ONE_WEEK_MILLIS);
             userCredentialsDAO.persist(userCredentials);
-            return new CreateUserSuccessView(Optional.fromNullable(user));
+            return new CreateUserSuccessView(Optional.<User>absent());
         } catch (IOException e) {
             // TODO: Handle this better
             throw new RuntimeException(e);
