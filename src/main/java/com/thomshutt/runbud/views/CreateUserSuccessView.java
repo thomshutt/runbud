@@ -1,11 +1,12 @@
 package com.thomshutt.runbud.views;
 
-import io.dropwizard.views.View;
+import com.google.common.base.Optional;
+import com.thomshutt.runbud.core.User;
 
-public class CreateUserSuccessView extends View {
+public class CreateUserSuccessView extends LoggedInAwareView {
 
-    public CreateUserSuccessView() {
-        super("create_user_confirmation.ftl");
+    public CreateUserSuccessView(Optional<User> user) {
+        super("create_user_confirmation.ftl", user);
     }
 
 }

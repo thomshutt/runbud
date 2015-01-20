@@ -1,8 +1,6 @@
 package com.thomshutt.runbud.security;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
+import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -50,13 +48,11 @@ public class PasswordHasher {
     }
 
     public static byte[] base64ToByte(String data) throws IOException {
-        BASE64Decoder decoder = new BASE64Decoder();
-        return decoder.decodeBuffer(data);
+        return DatatypeConverter.parseBase64Binary(data);
     }
 
     public static String byteToBase64(byte[] data){
-        BASE64Encoder endecoder = new BASE64Encoder();
-        return endecoder.encode(data);
+        return DatatypeConverter.printBase64Binary(data);
     }
 
 }

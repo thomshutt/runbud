@@ -1,5 +1,6 @@
 package com.thomshutt.runbud.resources;
 
+import com.google.common.base.Optional;
 import com.thomshutt.runbud.core.User;
 import com.thomshutt.runbud.views.HomeView;
 import io.dropwizard.auth.Auth;
@@ -22,8 +23,8 @@ public class SiteResource {
 
     @GET
     @CacheControl(maxAge = 0, maxAgeUnit = TimeUnit.SECONDS)
-    public View getHomepage() {
-        return new HomeView();
+    public View getHomepage(@Auth(required = false) User user) {
+        return new HomeView(Optional.fromNullable(user));
     }
 
     public static void doRedirect(String url) {

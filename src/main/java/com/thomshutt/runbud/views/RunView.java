@@ -1,5 +1,6 @@
 package com.thomshutt.runbud.views;
 
+import com.google.common.base.Optional;
 import com.thomshutt.runbud.core.Comment;
 import com.thomshutt.runbud.core.Run;
 import com.thomshutt.runbud.core.User;
@@ -7,14 +8,14 @@ import io.dropwizard.views.View;
 
 import java.util.List;
 
-public class RunView extends View {
+public class RunView extends LoggedInAwareView {
 
     private final Run run;
     private final User initiatingUser;
     private final List<Comment> comments;
 
-    public RunView(Run run, User initiatingUser, List<Comment> comments) {
-        super("run.ftl");
+    public RunView(Optional<User> user, Run run, User initiatingUser, List<Comment> comments) {
+        super("run.ftl", user);
         this.run = run;
         this.initiatingUser = initiatingUser;
         this.comments = comments;

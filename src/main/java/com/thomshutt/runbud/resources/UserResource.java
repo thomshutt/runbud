@@ -1,5 +1,6 @@
 package com.thomshutt.runbud.resources;
 
+import com.google.common.base.Optional;
 import com.thomshutt.runbud.core.User;
 import com.thomshutt.runbud.core.UserCredentials;
 import com.thomshutt.runbud.data.UserCredentialsDAO;
@@ -8,6 +9,7 @@ import com.thomshutt.runbud.security.PasswordHasher;
 import com.thomshutt.runbud.views.CreateUserSuccessView;
 import com.thomshutt.runbud.views.CreateUserView;
 import com.thomshutt.runbud.views.LoginView;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.views.View;
 
@@ -45,8 +47,8 @@ public class UserResource {
 
     @GET
     @Path("/create")
-    public View getCreateUserPage() {
-        return new CreateUserView();
+    public View getCreateUserPage(@Auth(required = false) User user) {
+        return new CreateUserView(Optional.fromNullable(user));
     }
 
     @POST
@@ -63,7 +65,7 @@ public class UserResource {
             final UserCredentials userCredentials = new UserCredentials(user.getUserId(), passwordHasher.hash(password, salt), salt, "", 0);
             userCredentials.generateNewToken(System.currentTimeMillis() + ONE_WEEK_MILLIS);
             userCredentialsDAO.persist(userCredentials);
-            return new CreateUserSuccessView();
+            return new CreateUserSuccessView(Optional.fromNullable(user));
         } catch (IOException e) {
             // TODO: Handle this better
             throw new RuntimeException(e);
@@ -72,8 +74,8 @@ public class UserResource {
 
     @GET
     @Path("/login")
-    public LoginView loginPage() {
-        return new LoginView();
+    public LoginView loginPage(@Auth(required = false) User user) {
+        return new LoginView(Optional.fromNullable(user));
     }
 
     @POST

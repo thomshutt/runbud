@@ -1,5 +1,6 @@
 package com.thomshutt.runbud.resources;
 
+import com.google.common.base.Optional;
 import com.thomshutt.runbud.core.Comment;
 import com.thomshutt.runbud.core.Run;
 import com.thomshutt.runbud.core.User;
@@ -40,19 +41,19 @@ public class RunResource {
     @GET
     @UnitOfWork
     @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.SECONDS)
-    public RunsView getRuns() {
-        return new RunsView(runDAO.list());
+    public RunsView getRuns(@Auth(required = false) User user) {
+        return new RunsView(Optional.fromNullable(user), runDAO.list());
     }
 
     @GET
     @UnitOfWork
     @Path("/{runId}")
     @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.SECONDS)
-    public RunView getRun(@PathParam("runId") String runId) {
+    public RunView getRun(@Auth(required = false) User user, @PathParam("runId") String runId) {
         final Run run = runDAO.get(runId);
         final List<Comment> comments = commentDAO.listForRunId(runId);
         final User initiatingUser = userDAO.get(run.getInitiatingUserId());
-        return new RunView(run, initiatingUser, comments);
+        return new RunView(Optional.fromNullable(user), run, initiatingUser, comments);
     }
 
     @POST
@@ -77,8 +78,8 @@ public class RunResource {
 
     @GET
     @Path("/create")
-    public View getCreateRunPage() {
-        return new CreateRunView();
+    public View getCreateRunPage(@Auth(required = false) User user) {
+        return new CreateRunView(Optional.fromNullable(user));
     }
 
     @POST

@@ -68,6 +68,9 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
         environment.jersey().register(AuthFactory.binder(new BasicAuthFactory<User>(new Authenticator<Cookie[], User>() {
             @Override
             public Optional<User> authenticate(Cookie[] cookies) throws AuthenticationException {
+                if(cookies == null) {
+                    return Optional.absent();
+                }
                 for (Cookie cookie : cookies) {
                     if(UserResource.RUNBUD_COOKIE_KEY.equals(cookie.getName())) {
                         final UserCredentials credentials = userCredentialsDAO.getForToken(cookie.getValue());
