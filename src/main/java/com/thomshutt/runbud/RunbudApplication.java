@@ -81,7 +81,7 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
                 }
                 return Optional.absent();
             }
-        }, User.class)));
+        }, User.class, true)));
 
         environment.healthChecks().register("runresource", new RunResourceHealthCheck(runResource));
 

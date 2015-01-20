@@ -11,8 +11,8 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 
 public final class BasicAuthFactory<T> extends AuthFactory<Cookie[], T> {
-    private final Class<T> generatedClass
-            ;
+    private final Class<T> generatedClass;
+    private final boolean required;
     private UnauthorizedHandler unauthorizedHandler = new DefaultUnauthorizedHandler();
 
     @Context
@@ -20,10 +20,12 @@ public final class BasicAuthFactory<T> extends AuthFactory<Cookie[], T> {
 
     public BasicAuthFactory(
             final Authenticator<Cookie[], T> authenticator,
-            final Class<T> generatedClass
+            final Class<T> generatedClass,
+            boolean required
     ) {
         super(authenticator);
         this.generatedClass = generatedClass;
+        this.required = required;
     }
 
     public BasicAuthFactory<T> responseBuilder(UnauthorizedHandler unauthorizedHandler) {
@@ -32,7 +34,7 @@ public final class BasicAuthFactory<T> extends AuthFactory<Cookie[], T> {
     }
     @Override
     public AuthFactory<Cookie[], T> clone(boolean required) {
-        return new BasicAuthFactory(authenticator(), this.generatedClass).responseBuilder(unauthorizedHandler);
+        return new BasicAuthFactory(authenticator(), this.generatedClass, required).responseBuilder(unauthorizedHandler);
     }
     @Override
     public void setRequest(HttpServletRequest request) {
@@ -46,7 +48,8 @@ public final class BasicAuthFactory<T> extends AuthFactory<Cookie[], T> {
                 final Optional<T> result = authenticator().authenticate(cookies);
                 if(result.isPresent()) {
                     return result.get();
-                } else {
+                }
+                if(required) {
                     throw new WebApplicationException(unauthorizedHandler.buildResponse());
                 }
             } catch (AuthenticationException e) {
