@@ -46,6 +46,7 @@ public class UserResource {
     }
 
     @GET
+    @UnitOfWork
     @Path("/create")
     public View getCreateUserPage(@Auth(required = false) User user) {
         return new CreateUserView(Optional.fromNullable(user));
@@ -73,6 +74,7 @@ public class UserResource {
     }
 
     @GET
+    @UnitOfWork
     @Path("/login")
     public LoginView loginPage(@Auth(required = false) User user) {
         return new LoginView(Optional.fromNullable(user));

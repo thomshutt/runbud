@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 import com.thomshutt.runbud.core.User;
 import com.thomshutt.runbud.views.HomeView;
 import io.dropwizard.auth.Auth;
+import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.caching.CacheControl;
 import io.dropwizard.views.View;
 
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class SiteResource {
 
     @GET
+    @UnitOfWork
     @CacheControl(maxAge = 0, maxAgeUnit = TimeUnit.SECONDS)
     public View getHomepage(@Auth(required = false) User user) {
         return new HomeView(Optional.fromNullable(user));

@@ -71,12 +71,6 @@ public class RunResource {
 
     @GET
     @UnitOfWork
-    @Path("/create/new")
-    public void persistRun(@Auth User user) {
-        runDAO.persist(new Run(user.getUserId(), "Piccadilly Circus", 5.2, "Gentle jog around central London"));
-    }
-
-    @GET
     @Path("/create")
     public View getCreateRunPage(@Auth(required = false) User user) {
         return new CreateRunView(Optional.fromNullable(user));

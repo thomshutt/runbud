@@ -73,11 +73,13 @@
                 <ul class="global-nav text-right">
                     <li><a href="/">Home</a></li>
                     <li><a href="/runs">Runs</a></li>
-                    <li><a href="/runs/create/new">Auto Create</a></li>
-                    <li><a href="/runs/create">Create</a></li>
-                    <li><a href="/users/login">Login</a></li>
-                    <li><a href="/users/logout">Logout</a></li>
-                    <li><a href="/users/create">Sign Up</a></li>
+                    <#if loggedIn>
+                        <li><a href="/runs/create">Create</a></li>
+                        <li><a href="/users/logout">Logout</a></li>
+                    <#else>
+                        <li><a href="/users/login">Login</a></li>
+                        <li><a href="/users/create">Sign Up</a></li>
+                     </#if>
                 </ul>
             </div>
         </div>
