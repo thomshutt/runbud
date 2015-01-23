@@ -122,6 +122,26 @@ public class RunResource {
         return new EditRunView(Optional.of(user), run);
     }
 
+    @POST
+    @UnitOfWork
+    @Path("/{runId}/edit")
+    public void doEditRun(
+            @Auth User user,
+            @FormParam("runId") String runId,
+            @FormParam("start_location") String startLocation,
+            @FormParam("distance_km") int distanceKm,
+            @FormParam("description") String description
+    ) {
+        // TODO: Confirm user is owner
+        // TODO: Confirm run not null
+        final Run run = runDAO.get(runId);
+        run.setDescription(description);
+        run.setDistanceKm(distanceKm);
+        run.setStartLocation(startLocation);
+        runDAO.persist(run);
+        SiteResource.doRedirect("/runs/" + runId);
+    }
+
     @GET
     @UnitOfWork
     @Path("/create")

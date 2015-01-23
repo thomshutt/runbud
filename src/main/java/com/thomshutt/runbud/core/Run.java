@@ -59,6 +59,18 @@ public class Run {
         return description;
     }
 
+    public void setStartLocation(String startLocation) {
+        this.startLocation = startLocation;
+    }
+
+    public void setDistanceKm(double distanceKm) {
+        this.distanceKm = distanceKm;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
