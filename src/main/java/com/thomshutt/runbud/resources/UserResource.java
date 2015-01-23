@@ -6,6 +6,7 @@ import com.thomshutt.runbud.core.UserCredentials;
 import com.thomshutt.runbud.data.UserCredentialsDAO;
 import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.security.PasswordHasher;
+import com.thomshutt.runbud.util.email.EmailSender;
 import com.thomshutt.runbud.views.CreateUserSuccessView;
 import com.thomshutt.runbud.views.CreateUserView;
 import com.thomshutt.runbud.views.LoginView;
@@ -33,11 +34,17 @@ public class UserResource {
 
     private final UserDAO userDAO;
     private final UserCredentialsDAO userCredentialsDAO;
+    private final EmailSender emailSender;
     private final URI URL_SITE_ROOT;
 
-    public UserResource(UserDAO userDAO, UserCredentialsDAO userCredentialsDAO) {
+    public UserResource(
+            UserDAO userDAO,
+            UserCredentialsDAO userCredentialsDAO,
+            EmailSender emailSender
+    ) {
         this.userDAO = userDAO;
         this.userCredentialsDAO = userCredentialsDAO;
+        this.emailSender = emailSender;
         try {
             URL_SITE_ROOT = new URI("/");
         } catch (URISyntaxException e) {
@@ -48,14 +55,14 @@ public class UserResource {
     @GET
     @UnitOfWork
     @Path("/create")
-    public View getCreateUserPage(@Auth(required = false) User user) {
+    public View createUser(@Auth(required = false) User user) {
         return new CreateUserView(Optional.fromNullable(user));
     }
 
     @POST
     @UnitOfWork
     @Path("/create")
-    public CreateUserSuccessView createNewRun(
+    public View doCreateUser(
             @FormParam("name") String name,
             @FormParam("email") String email,
             @FormParam("password") String password
@@ -66,6 +73,7 @@ public class UserResource {
             final UserCredentials userCredentials = new UserCredentials(user.getUserId(), passwordHasher.hash(password, salt), salt, "", 0);
             userCredentials.generateNewToken(System.currentTimeMillis() + ONE_WEEK_MILLIS);
             userCredentialsDAO.persist(userCredentials);
+            emailSender.sendSignupSuccessMessage(name, email);
             return new CreateUserSuccessView(Optional.<User>absent());
         } catch (IOException e) {
             // TODO: Handle this better

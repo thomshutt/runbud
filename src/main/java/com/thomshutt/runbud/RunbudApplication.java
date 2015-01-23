@@ -8,6 +8,7 @@ import com.thomshutt.runbud.resources.RunResource;
 import com.thomshutt.runbud.resources.SiteResource;
 import com.thomshutt.runbud.resources.UserResource;
 import com.thomshutt.runbud.security.BasicAuthFactory;
+import com.thomshutt.runbud.util.email.EmailSender;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthFactory;
@@ -62,7 +63,7 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
         );
         environment.jersey().register(runResource);
         environment.jersey().register(new SiteResource());
-        environment.jersey().register(new UserResource(userDAO, userCredentialsDAO));
+        environment.jersey().register(new UserResource(userDAO, userCredentialsDAO, new EmailSender()));
         environment.jersey().register(AuthFactory.binder(new BasicAuthFactory<User>(new Authenticator<Cookie[], User>() {
             @Override
             public Optional<User> authenticate(Cookie[] cookies) throws AuthenticationException {
