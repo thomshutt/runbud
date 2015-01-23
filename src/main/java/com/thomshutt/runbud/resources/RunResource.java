@@ -10,6 +10,7 @@ import com.thomshutt.runbud.data.RunAttendeeDAO;
 import com.thomshutt.runbud.data.RunDAO;
 import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.views.CreateRunView;
+import com.thomshutt.runbud.views.EditRunView;
 import com.thomshutt.runbud.views.RunView;
 import com.thomshutt.runbud.views.RunsView;
 import io.dropwizard.auth.Auth;
@@ -106,6 +107,19 @@ public class RunResource {
             runAttendeeDAO.persist(runAttendee);
         }
         SiteResource.doRedirect("/runs/" + runId);
+    }
+
+    @GET
+    @UnitOfWork
+    @Path("/{runId}/edit")
+    public View editRun(
+            @Auth User user,
+            @PathParam("runId") String runId
+    ) {
+        // TODO: Confirm user is owner
+        // TODO: Confirm run not null
+        final Run run = runDAO.get(runId);
+        return new EditRunView(Optional.of(user), run);
     }
 
     @GET
