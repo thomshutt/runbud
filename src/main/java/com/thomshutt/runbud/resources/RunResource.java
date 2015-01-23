@@ -9,15 +9,13 @@ import com.thomshutt.runbud.data.CommentDAO;
 import com.thomshutt.runbud.data.RunAttendeeDAO;
 import com.thomshutt.runbud.data.RunDAO;
 import com.thomshutt.runbud.data.UserDAO;
-import com.thomshutt.runbud.views.CreateRunView;
-import com.thomshutt.runbud.views.EditRunView;
-import com.thomshutt.runbud.views.RunView;
-import com.thomshutt.runbud.views.RunsView;
+import com.thomshutt.runbud.views.*;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.caching.CacheControl;
 import io.dropwizard.views.View;
 
+import javax.swing.text.html.Option;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -127,7 +125,7 @@ public class RunResource {
     @Path("/{runId}/edit")
     public void doEditRun(
             @Auth User user,
-            @FormParam("runId") String runId,
+            @PathParam("runId") String runId,
             @FormParam("start_location") String startLocation,
             @FormParam("distance_km") int distanceKm,
             @FormParam("description") String description
@@ -140,6 +138,20 @@ public class RunResource {
         run.setStartLocation(startLocation);
         runDAO.persist(run);
         SiteResource.doRedirect("/runs/" + runId);
+    }
+
+    @POST
+    @UnitOfWork
+    @Path("/{runId}/cancel")
+    public View doCancelRun(
+            @Auth User user,
+            @PathParam("runId") String runId
+    ) {
+        // TODO: Confirm user is owner
+        final Run run = runDAO.get(runId);
+        run.setCancelled(true);
+        runDAO.persist(run);
+        return new CancelRunSuccessView(Optional.of(user));
     }
 
     @GET

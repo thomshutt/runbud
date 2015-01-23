@@ -5,6 +5,7 @@ import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,11 +18,12 @@ public class RunDAO extends AbstractDAO<Run> {
 
     @Override
     public Run get(Serializable id) {
-        return super.get(id);
+        final Run run = super.get(id);
+        return run.isCancelled() ? null : run;
     }
 
     public List<Run> list() throws HibernateException {
-        return super.list(criteria());
+        return super.list(super.criteria().add(Restrictions.eq("isCancelled", false)));
     }
 
     @Override

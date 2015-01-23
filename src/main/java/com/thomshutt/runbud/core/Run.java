@@ -25,6 +25,9 @@ public class Run {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "isCancelled")
+    private boolean isCancelled;
+
     public Run() {
     }
 
@@ -33,6 +36,7 @@ public class Run {
         this.startLocation = startLocation;
         this.distanceKm = distanceKm;
         this.description = description;
+        this.isCancelled = false;
     }
 
     public String getName() {
@@ -59,6 +63,10 @@ public class Run {
         return description;
     }
 
+    public boolean isCancelled() {
+        return isCancelled;
+    }
+
     public void setStartLocation(String startLocation) {
         this.startLocation = startLocation;
     }
@@ -69,6 +77,10 @@ public class Run {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setCancelled(boolean isCancelled) {
+        this.isCancelled = isCancelled;
     }
 
     @Override
