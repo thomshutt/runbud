@@ -1,35 +1,38 @@
 package com.thomshutt.runbud.util.email;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
-import org.glassfish.jersey.client.ClientResponse;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
 
-import javax.ws.rs.core.MediaType;
+import javax.xml.bind.DatatypeConverter;
+import java.io.IOException;
 
 public class EmailSender {
 
-    private final Client client;
-    private final WebResource webResource;
+    public static final String MAILGUN_URL = "https://api.mailgun.net/v2/sandboxb537115489554c9882a653427036f2bb.mailgun.org/messages";
+    public static final String API_KEY = DatatypeConverter.printBase64Binary("api:key-79f9a3d0330c0a4933a156f8b2db34a4".getBytes());
+    public static final String FROM_VALUE = "Runbud <postmaster@sandboxb537115489554c9882a653427036f2bb.mailgun.org>";
+
+    private final HttpClient client;
 
     public EmailSender() {
-        client = Client.create();
-        client.addFilter(new HTTPBasicAuthFilter("api", "key-79f9a3d0330c0a4933a156f8b2db34a4"));
-
-        webResource = client.resource("https://api.mailgun.net/v2/sandboxb537115489554c9882a653427036f2bb.mailgun.org/messages");
+        client = new HttpClient();
     }
 
     public void sendSignupSuccessMessage(String toName, String toEmail) {
-        final MultivaluedMapImpl formData = new MultivaluedMapImpl();
-        formData.add("from", "Runbud <postmaster@sandboxb537115489554c9882a653427036f2bb.mailgun.org>");
-        formData.add("to", toName + " <" + toEmail + ">");
-        formData.add("subject", "Hello " + toName);
-        formData.add("text", "Thanks for signing up to Runbud!");
+        final PostMethod post = new PostMethod(MAILGUN_URL);
 
-        webResource
-            .type(MediaType.APPLICATION_FORM_URLENCODED)
-            .post(ClientResponse.class, formData);
+        post.addRequestHeader("Authorization", "Basic " + API_KEY);
+
+        post.addParameter("from", FROM_VALUE);
+        post.addParameter("to", toName + " <" + toEmail + ">");
+        post.addParameter("subject", "Hello " + toName);
+        post.addParameter("text", "Thanks for signing up to Runbud!");
+
+        try {
+            int response = client.executeMethod(post);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
