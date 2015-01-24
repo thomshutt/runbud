@@ -5,6 +5,9 @@ import org.apache.commons.httpclient.methods.PostMethod;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class EmailSender {
 
@@ -13,26 +16,32 @@ public class EmailSender {
     public static final String FROM_VALUE = "Runbud <postmaster@sandboxb537115489554c9882a653427036f2bb.mailgun.org>";
 
     private final HttpClient client;
+    private final Executor executor = Executors.newFixedThreadPool(10);
 
     public EmailSender() {
         client = new HttpClient();
     }
 
-    public void sendSignupSuccessMessage(String toName, String toEmail) {
-        final PostMethod post = new PostMethod(MAILGUN_URL);
+    public void sendSignupSuccessMessage(final String toName, final String toEmail) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                final PostMethod post = new PostMethod(MAILGUN_URL);
 
-        post.addRequestHeader("Authorization", "Basic " + API_KEY);
+                post.addRequestHeader("Authorization", "Basic " + API_KEY);
 
-        post.addParameter("from", FROM_VALUE);
-        post.addParameter("to", toName + " <" + toEmail + ">");
-        post.addParameter("subject", "Hello " + toName);
-        post.addParameter("text", "Thanks for signing up to Runbud!");
+                post.addParameter("from", FROM_VALUE);
+                post.addParameter("to", toName + " <" + toEmail + ">");
+                post.addParameter("subject", "Hello " + toName);
+                post.addParameter("text", "Thanks for signing up to Runbud!");
 
-        try {
-            int response = client.executeMethod(post);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                try {
+                    int response = client.executeMethod(post);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }
