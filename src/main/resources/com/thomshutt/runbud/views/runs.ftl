@@ -1,5 +1,6 @@
 <#-- @ftlvariable name="" type="com.thomshutt.runbud.views.RunsView" -->
 <#include "header.ftl">
+    <h1>Runs</h1>
     <div>
         <ol>
             <#list runs as run>

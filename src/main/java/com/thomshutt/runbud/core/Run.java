@@ -16,8 +16,14 @@ public class Run {
     @Column(name = "initiating_user_id")
     private String initiatingUserId;
 
-    @Column(name = "start_location")
-    private String startLocation;
+    @Column(name = "start_latitude")
+    private double startLatitude;
+
+    @Column(name = "start_longitude")
+    private double startLongitude;
+
+    @Column(name = "start_address")
+    private String startAddress;
 
     @Column(name = "distance_km")
     private double distanceKm;
@@ -31,9 +37,11 @@ public class Run {
     public Run() {
     }
 
-    public Run(String initiatingUserId, String startLocation, double distanceKm, String description) {
+    public Run(String initiatingUserId, double startLatitude, double startLongitude, String startAddress, double distanceKm, String description) {
         this.initiatingUserId = initiatingUserId;
-        this.startLocation = startLocation;
+        this.startLatitude = startLatitude;
+        this.startLongitude = startLongitude;
+        this.startAddress = startAddress;
         this.distanceKm = distanceKm;
         this.description = description;
         this.isCancelled = false;
@@ -51,10 +59,6 @@ public class Run {
         return runId;
     }
 
-    public String getStartLocation() {
-        return startLocation;
-    }
-
     public double getDistanceKm() {
         return distanceKm;
     }
@@ -63,12 +67,32 @@ public class Run {
         return description;
     }
 
-    public boolean isCancelled() {
-        return isCancelled;
+    public double getStartLatitude() {
+        return startLatitude;
     }
 
-    public void setStartLocation(String startLocation) {
-        this.startLocation = startLocation;
+    public void setStartLatitude(double startLatitude) {
+        this.startLatitude = startLatitude;
+    }
+
+    public double getStartLongitude() {
+        return startLongitude;
+    }
+
+    public void setStartLongitude(double startLongitude) {
+        this.startLongitude = startLongitude;
+    }
+
+    public String getStartAddress() {
+        return startAddress;
+    }
+
+    public void setStartAddress(String startAddress) {
+        this.startAddress = startAddress;
+    }
+
+    public boolean isCancelled() {
+        return isCancelled;
     }
 
     public void setDistanceKm(double distanceKm) {

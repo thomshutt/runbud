@@ -21,14 +21,40 @@
                 text-decoration: none;
                 transition: border 0.1s ease 0s, box-shadow 0.1s ease 0s, background-color 0.1s ease 0s, opacity 0.1s ease 0s;
             }
+            h1 {
+                text-align: left;
+            }
+            label {
+                font-size:1.3em;
+                font-family:Arial, sans-serif;
+                color:#333;
+                padding-left: 4px;
+            }
             input {
                 display: block;
+                border:0;
+                padding:10px;
+                font-size:1.3em;
+                font-family:Arial, sans-serif;
+                color:#555;
+                border:solid 1px #ccc;
+                margin:0 0 20px;
+                width:300px;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+                margin-top: 8px;
+            }
+            input[type="submit"] {
+                cursor: pointer;
+                color: #333;
             }
             #header {
                 border-bottom: 1px solid #E5E5E5;
                 padding-left: 20px;
                 padding-right: 20px;
                 height: 50px;
+                margin-bottom: 20px;
             }
             .row {
                 margin: 0px auto;
@@ -64,6 +90,14 @@
                 color: rgb(61, 79, 93);
                 font-size: 20px;
             }
+            #content {
+                width: 960px;
+                margin: auto;
+                text-align: center;
+            }
+            #content2 {
+                display: inline-block;
+            }
         </style>
     </head>
     <body>
@@ -75,11 +109,14 @@
                     <li><a href="/runs">Runs</a></li>
                     <#if loggedIn>
                         <li><a href="/runs/create">Create</a></li>
-                        <li><a href="/users/logout">Logout</a></li>
+                        <li><a href="/users/logout">Log Out</a></li>
                     <#else>
-                        <li><a href="/users/login">Login</a></li>
+                        <li><a href="/users/login">Log In</a></li>
                         <li><a href="/users/create">Sign Up</a></li>
                      </#if>
                 </ul>
             </div>
         </div>
+
+        <div id="content">
+            <div id="content2">

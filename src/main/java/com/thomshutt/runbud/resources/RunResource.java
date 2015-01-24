@@ -12,18 +12,11 @@ import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.views.*;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.caching.CacheControl;
 import io.dropwizard.views.View;
 
-import javax.swing.text.html.Option;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 @Path("/runs")
 @Produces(MediaType.TEXT_HTML)
@@ -126,7 +119,9 @@ public class RunResource {
     public void doEditRun(
             @Auth User user,
             @PathParam("runId") String runId,
-            @FormParam("start_location") String startLocation,
+            @FormParam("start_latitude") double startLatitude,
+            @FormParam("start_longitude") double startLongitude,
+            @FormParam("start_address") String startAddress,
             @FormParam("distance_km") int distanceKm,
             @FormParam("description") String description
     ) {
@@ -135,7 +130,9 @@ public class RunResource {
         final Run run = runDAO.get(runId);
         run.setDescription(description);
         run.setDistanceKm(distanceKm);
-        run.setStartLocation(startLocation);
+        run.setStartLatitude(startLatitude);
+        run.setStartLongitude(startLongitude);
+        run.setStartAddress(startAddress);
         runDAO.persist(run);
         SiteResource.doRedirect("/runs/" + runId);
     }
@@ -166,11 +163,22 @@ public class RunResource {
     @Path("/create")
     public void createNewRun(
             @Auth User user,
-            @FormParam("start_location") String startLocation,
+            @FormParam("start_latitude") double startLatitude,
+            @FormParam("start_longitude") double startLongitude,
+            @FormParam("start_address") String startAddress,
             @FormParam("distance_km") int distanceKm,
             @FormParam("description") String description
     ) {
-        runDAO.persist(new Run(user.getUserId(), startLocation, distanceKm, description));
+        runDAO.persist(
+                new Run(
+                        user.getUserId(),
+                        startLatitude,
+                        startLongitude,
+                        startAddress,
+                        distanceKm,
+                        description
+                )
+        );
         SiteResource.doRedirect("/runs");
     }
 

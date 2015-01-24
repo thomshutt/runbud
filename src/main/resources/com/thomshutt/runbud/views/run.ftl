@@ -1,9 +1,11 @@
 <#include "header.ftl">
     <h2>Created By: ${initiatingUser.name?html}</h2>
-    <h2>Start Location: ${run.startLocation?html}</h2>
+    <h2>Start Latitude: ${run.startLatitude?html}</h2>
+    <h2>Start Longitude: ${run.startLongitude?html}</h2>
+    <h2>Start Address: ${run.startAddress?html}</h2>
     <h2>Distance: ${run.distanceKm?html}km</h2>
     <h2>Description: ${run.description?html}</h2>
-    <h2>Attendees: ${runAttendees?size}</h2>
+    <h2>Attendees: ${runAttendees?size + 1}</h2>
 
     <br /><br />
 
