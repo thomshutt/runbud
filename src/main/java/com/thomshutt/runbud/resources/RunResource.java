@@ -167,6 +167,7 @@ public class RunResource {
             @FormParam("start_longitude") double startLongitude,
             @FormParam("start_address") String startAddress,
             @FormParam("distance_km") int distanceKm,
+            @FormParam("run_name") String runName,
             @FormParam("description") String description
     ) {
         runDAO.persist(
@@ -176,6 +177,7 @@ public class RunResource {
                         startLongitude,
                         startAddress,
                         distanceKm,
+                        runName,
                         description
                 )
         );

@@ -14,6 +14,7 @@
             }
             li {
                 list-style: outside none none;
+                margin-bottom: 20px;
             }
             a {
                 color: #007FB6;
@@ -97,6 +98,30 @@
             }
             #content2 {
                 display: inline-block;
+            }
+            .rounded-corners {
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+            }
+            .info-box {
+                padding: 20px;
+                margin-bottom: 20px;
+                background-color: #3D4F5D;
+                padding: 20px;
+                margin-bottom: 20px;
+                vertical-align: middle;
+                text-align: left;
+            }
+            .info-box form {
+                display: inline-block;
+                float: right;
+                margin: -5px 0 0 0;
+            }
+            .info-box p {
+                color: white;
+                display: inline-block;
+                font-size: 24px;
             }
         </style>
     </head>

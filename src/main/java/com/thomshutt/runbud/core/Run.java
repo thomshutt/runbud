@@ -28,6 +28,9 @@ public class Run {
     @Column(name = "distance_km")
     private double distanceKm;
 
+    @Column(name = "run_name")
+    private String runName;
+
     @Column(name = "description")
     private String description;
 
@@ -37,12 +40,13 @@ public class Run {
     public Run() {
     }
 
-    public Run(String initiatingUserId, double startLatitude, double startLongitude, String startAddress, double distanceKm, String description) {
+    public Run(String initiatingUserId, double startLatitude, double startLongitude, String startAddress, double distanceKm, String runName, String description) {
         this.initiatingUserId = initiatingUserId;
         this.startLatitude = startLatitude;
         this.startLongitude = startLongitude;
         this.startAddress = startAddress;
         this.distanceKm = distanceKm;
+        this.runName = runName;
         this.description = description;
         this.isCancelled = false;
     }
@@ -85,6 +89,14 @@ public class Run {
 
     public String getStartAddress() {
         return startAddress;
+    }
+
+    public String getRunName() {
+        return runName;
+    }
+
+    public void setRunName(String runName) {
+        this.runName = runName;
     }
 
     public void setStartAddress(String startAddress) {

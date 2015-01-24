@@ -1,10 +1,12 @@
 <#include "header.ftl">
+    <h1>Create A Run</h1>
+
     <div id="googleMap" style="width: 500px; height: 400px; display: inline-block; margin-right: 20px;"></div>
 
     <div style="display: inline-block; vertical-align: top; text-align: left;">
         <form action="/runs/create" method="post">
             <label>Run Name</label>
-            <input type="text" name="description" value="Give your run a name..." />
+            <input type="text" name="run_name" value="Give your run a name..." />
 
             <label>Distance (km)</label>
             <input type="number" name="distance_km" value="1" />

@@ -5,8 +5,8 @@
         var _marker = new google.maps.Marker({
             position: new google.maps.LatLng(54.19335, -3.92695),
             map: _map,
-            title: "Drag Me",
-            draggable: options.draggable
+            title: (options.draggableMarker ? "Drag Me" : null),
+            draggable: options.draggableMarker
         });
         return {
             map: _map,
@@ -255,7 +255,8 @@
                 radius: settings.radius,
                 locationName: settings.locationName,
                 settings: settings,
-                draggable: settings.draggable
+                draggable: settings.draggable,
+                draggableMarker: settings.draggableMarker
             });
             $target.data("locationpicker", gmapContext);
             amazingFunction = function(event) {
@@ -292,6 +293,7 @@
         enableAutocomplete: false,
         enableReverseGeocode: true,
         draggable: true,
+        draggableMarker: true,
         onchanged: function(currentLocation, radius, isMarkerDropped) {},
         onlocationnotfound: function(locationName) {},
         oninitialized: function(component) {}

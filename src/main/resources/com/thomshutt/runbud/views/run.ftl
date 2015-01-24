@@ -1,29 +1,40 @@
 <#include "header.ftl">
-    <h2>Created By: ${initiatingUser.name?html}</h2>
-    <h2>Start Latitude: ${run.startLatitude?html}</h2>
-    <h2>Start Longitude: ${run.startLongitude?html}</h2>
-    <h2>Start Address: ${run.startAddress?html}</h2>
-    <h2>Distance: ${run.distanceKm?html}km</h2>
-    <h2>Description: ${run.description?html}</h2>
-    <h2>Attendees: ${runAttendees?size + 1}</h2>
+
+    <h1>${run.runName?html}</h1>
+
+    <div class="info-box">
+        <#if loggedIn>
+            <#if userIsAttending>
+                <p>
+                     You're attending this run!
+                </p>
+                <form action="/runs/${run.runId}/unattending" method="post">
+                    <input type="submit" value="I can't make it anymore" style="margin: 0px;" />
+                </form>
+            <#else>
+                <p>
+                     Want to be part of this run?
+                </p>
+                <form action="/runs/${run.runId}/attending" method="post">
+                    <input type="submit" value="I'll be there!" style="margin: 0px;" />
+                </form>
+             </#if>
+        </#if>
+    </div>
+
+    <div id="googleMap" style="width: 500px; height: 400px; display: inline-block; margin-right: 20px;"></div>
+
+    <div style="display: inline-block; vertical-align: top; text-align: left;">
+            <p>Created By: ${initiatingUser.name?html}</p>
+            <p>Start Address: ${run.startAddress?html}</p>
+            <p>Distance: ${run.distanceKm?html}km</p>
+            <p>Description: ${run.description?html}</p>
+            <p>Attendees: ${runAttendees?size + 1}</p>
+    </div>
 
     <br /><br />
 
-    <#if loggedIn>
-        <#if userIsAttending>
-             <form action="/runs/${run.runId}/unattending" method="post">
-                   <input type="submit" value="I'm not attending" />
-             </form>
-         <#else>
-             <form action="/runs/${run.runId}/attending" method="post">
-                    <input type="submit" value="I'm attending" />
-              </form>
-         </#if>
-    </#if>
-
-    <br /><br />
-
-    <h2>Comments:</h2>
+    <h1>Comments:</h1>
 
     <#list comments as comment>
         <p>
@@ -36,7 +47,23 @@
 
         <form action="/runs/${run.runId}/comment" method="post">
               <input type="text" name="comment" value="Some comment here" />
-              <input type="submit" />
+              <input type="submit" value="Post Comment" />
         </form>
     </#if>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+    <script src="/assets/js/locationpicker.jquery.js"></script>
+
+    <script>
+        $('#googleMap').locationpicker({
+            draggable: true,
+            draggableMarker: false,
+            radius: 0,
+            location: {
+                latitude: ${run.startLatitude},
+                longitude: ${run.startLongitude}
+            }
+        });
+    </script>
 <#include "footer.ftl">
