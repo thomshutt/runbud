@@ -61,7 +61,7 @@ public class RunResource {
     @Path("/{runId}/comment")
     public void postComment(
             @Auth User user,
-            @PathParam("runId") String runId,
+            @PathParam("runId") long runId,
             @FormParam("comment") String comment
     ) {
         commentDAO.persist(new Comment(runId, user.getUserId(), comment));
@@ -73,7 +73,7 @@ public class RunResource {
     @Path("/{runId}/attending")
     public void markAsAttending(
             @Auth User user,
-            @PathParam("runId") String runId
+            @PathParam("runId") long runId
     ) {
         final RunAttendee attendee = runAttendeeDAO.getForRunIdAndUserId(runId, user.getUserId());
         if(attendee == null) {
@@ -90,7 +90,7 @@ public class RunResource {
     @Path("/{runId}/unattending")
     public void markAsUnattending(
             @Auth User user,
-            @PathParam("runId") String runId
+            @PathParam("runId") long runId
     ) {
         final RunAttendee runAttendee = runAttendeeDAO.getForRunIdAndUserId(runId, user.getUserId());
         if(runAttendee != null) {

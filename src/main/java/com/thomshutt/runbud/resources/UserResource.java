@@ -100,7 +100,7 @@ public class UserResource {
         if(user == null) {
             return Response.ok().entity(loginFailureView).build();
         }
-        final String userId = user.getUserId();
+        final long userId = user.getUserId();
         final UserCredentials userCredentials = userCredentialsDAO.get(userId);
         final boolean passwordMatches = passwordHasher.passwordMatches(password, userCredentials.getSalt(), userCredentials.getPassword());
         if (passwordMatches) {

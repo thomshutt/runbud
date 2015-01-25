@@ -27,7 +27,7 @@ public class RunView extends LoggedInAwareView {
         boolean userIsAttending = false;
         if(user.isPresent()) {
             for (RunAttendee runAttendee : runAttendees) {
-                if(runAttendee.getUserId().equals(user.get().getUserId())) {
+                if(runAttendee.getUserId() == user.get().getUserId()) {
                     userIsAttending = true;
                 }
             }

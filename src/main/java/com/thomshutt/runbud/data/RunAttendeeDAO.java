@@ -1,8 +1,6 @@
 package com.thomshutt.runbud.data;
 
-import com.thomshutt.runbud.core.Comment;
 import com.thomshutt.runbud.core.RunAttendee;
-import com.thomshutt.runbud.core.User;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -30,7 +28,7 @@ public class RunAttendeeDAO extends AbstractDAO<RunAttendee> {
         );
     }
 
-    public RunAttendee getForRunIdAndUserId(String runId, String userId) throws HibernateException {
+    public RunAttendee getForRunIdAndUserId(long runId, long userId) throws HibernateException {
         return uniqueResult(
                     criteria()
                         .add(Restrictions.eq("runId", runId))

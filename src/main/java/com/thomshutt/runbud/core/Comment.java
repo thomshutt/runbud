@@ -11,13 +11,13 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
-    private String commentId;
+    private long commentId;
 
     @Column(name = "run_id")
-    private String runId;
+    private long runId;
 
     @Column(name = "user_id")
-    private String userId;
+    private long userId;
 
     @Column(name = "comment")
     private String comment;
@@ -27,14 +27,14 @@ public class Comment {
 
     public Comment() {}
 
-    public Comment(String runId, String userId, String comment) {
+    public Comment(long runId, long userId, String comment) {
         this.runId = runId;
         this.userId = userId;
         this.comment = comment;
         this.createdTimestampUtc = System.currentTimeMillis();
     }
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 

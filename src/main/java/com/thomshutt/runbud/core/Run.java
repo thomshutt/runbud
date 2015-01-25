@@ -11,10 +11,10 @@ public class Run {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "run_id")
-    private String runId;
+    private long runId;
 
     @Column(name = "initiating_user_id")
-    private String initiatingUserId;
+    private long initiatingUserId;
 
     @Column(name = "start_latitude")
     private double startLatitude;
@@ -40,7 +40,7 @@ public class Run {
     public Run() {
     }
 
-    public Run(String initiatingUserId, double startLatitude, double startLongitude, String startAddress, double distanceKm, String runName, String description) {
+    public Run(long initiatingUserId, double startLatitude, double startLongitude, String startAddress, double distanceKm, String runName, String description) {
         this.initiatingUserId = initiatingUserId;
         this.startLatitude = startLatitude;
         this.startLongitude = startLongitude;
@@ -51,15 +51,15 @@ public class Run {
         this.isCancelled = false;
     }
 
-    public String getName() {
+    public long getName() {
         return runId;
     }
 
-    public String getInitiatingUserId() {
+    public long getInitiatingUserId() {
         return initiatingUserId;
     }
 
-    public String getRunId() {
+    public long getRunId() {
         return runId;
     }
 

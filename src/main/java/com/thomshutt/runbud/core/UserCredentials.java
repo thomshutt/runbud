@@ -11,7 +11,7 @@ public class UserCredentials {
 
     @Id
     @Column(name = "userId")
-    private String userId;
+    private long userId;
 
     @Column(name = "password")
     private String password;
@@ -27,7 +27,7 @@ public class UserCredentials {
 
     public UserCredentials() {}
 
-    public UserCredentials(String userId, String password, String salt, String token, long tokenExpiryUtcMillis) {
+    public UserCredentials(long userId, String password, String salt, String token, long tokenExpiryUtcMillis) {
         this.userId = userId;
         this.password = password;
         this.salt = salt;
@@ -35,7 +35,7 @@ public class UserCredentials {
         this.tokenExpiryUtcMillis = tokenExpiryUtcMillis;
     }
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 

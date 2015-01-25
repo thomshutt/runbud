@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <changeSet author="thomshutt (generated)" id="1422183697819-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422184302150-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable catalogName="RUNBUDDB" schemaName="PUBLIC" tableName="COMMENTS">
-            <column autoIncrement="true" name="COMMENT_ID" type="VARCHAR(255)">
+            <column autoIncrement="true" name="COMMENT_ID" type="BIGINT(19)">
                 <constraints primaryKey="true" primaryKeyName="CONSTRAINT_A"/>
             </column>
             <column name="COMMENT" type="VARCHAR(255)"/>
             <column name="CREATED_TIMESTAMP" type="BIGINT(19)"/>
-            <column name="RUN_ID" type="VARCHAR(255)"/>
-            <column name="USER_ID" type="VARCHAR(255)"/>
+            <column name="RUN_ID" type="BIGINT(19)"/>
+            <column name="USER_ID" type="BIGINT(19)"/>
         </createTable>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422183697819-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422184302150-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable catalogName="RUNBUDDB" schemaName="PUBLIC" tableName="RUNS">
-            <column autoIncrement="true" name="RUN_ID" type="VARCHAR(255)">
+            <column autoIncrement="true" name="RUN_ID" type="BIGINT(19)">
                 <constraints primaryKey="true" primaryKeyName="CONSTRAINT_2"/>
             </column>
             <column name="DESCRIPTION" type="VARCHAR(255)"/>
             <column name="DISTANCE_KM" type="DOUBLE(17)"/>
-            <column name="INITIATING_USER_ID" type="VARCHAR(255)"/>
+            <column name="INITIATING_USER_ID" type="BIGINT(19)"/>
             <column name="ISCANCELLED" type="BOOLEAN(1)"/>
             <column name="RUN_NAME" type="VARCHAR(255)"/>
             <column name="START_ADDRESS" type="VARCHAR(255)"/>
@@ -26,28 +26,28 @@
             <column name="START_LONGITUDE" type="DOUBLE(17)"/>
         </createTable>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422183697819-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422184302150-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable catalogName="RUNBUDDB" schemaName="PUBLIC" tableName="RUN_ATTENDEES">
-            <column autoIncrement="true" name="RUN_ATTENDEE_ID" type="VARCHAR(255)">
+            <column autoIncrement="true" name="RUN_ATTENDEE_ID" type="BIGINT(19)">
                 <constraints primaryKey="true" primaryKeyName="CONSTRAINT_8"/>
             </column>
             <column name="ATTENDING" type="BOOLEAN(1)"/>
-            <column name="RUN_ID" type="VARCHAR(255)"/>
-            <column name="USER_ID" type="VARCHAR(255)"/>
+            <column name="RUN_ID" type="BIGINT(19)"/>
+            <column name="USER_ID" type="BIGINT(19)"/>
         </createTable>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422183697819-4" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422184302150-4" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable catalogName="RUNBUDDB" schemaName="PUBLIC" tableName="USERS">
-            <column autoIncrement="true" name="USERID" type="VARCHAR(255)">
+            <column autoIncrement="true" name="USERID" type="BIGINT(19)">
                 <constraints primaryKey="true" primaryKeyName="CONSTRAINT_4"/>
             </column>
             <column name="EMAIL" type="VARCHAR(255)"/>
             <column name="NAME" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422183697819-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422184302150-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable catalogName="RUNBUDDB" schemaName="PUBLIC" tableName="USER_CREDENTIALS">
-            <column name="USERID" type="VARCHAR(255)">
+            <column name="USERID" type="BIGINT(19)">
                 <constraints nullable="false"/>
             </column>
             <column name="PASSWORD" type="VARCHAR(255)"/>
@@ -56,13 +56,13 @@
             <column name="TOKEN_EXPIRY" type="BIGINT(19)"/>
         </createTable>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422183697819-6" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422184302150-6" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <addPrimaryKey catalogName="RUNBUDDB" columnNames="USERID" constraintName="CONSTRAINT_B" schemaName="PUBLIC" tableName="USER_CREDENTIALS"/>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422183697819-7" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422184302150-7" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <addUniqueConstraint catalogName="RUNBUDDB" columnNames="" constraintName="UK_P2BPASLYY8TNRHR15RO9RQ5L0" deferrable="false" disabled="false" initiallyDeferred="false" schemaName="PUBLIC" tableName="RUN_ATTENDEES"/>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422183697819-8" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422184302150-8" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createIndex catalogName="RUNBUDDB" indexName="UK_P2BPASLYY8TNRHR15RO9RQ5L0_INDEX_8" schemaName="PUBLIC" tableName="RUN_ATTENDEES" unique="true">
             <column name="RUN_ID"/>
             <column name="USER_ID"/>

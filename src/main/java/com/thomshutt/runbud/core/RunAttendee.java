@@ -21,30 +21,30 @@ public class RunAttendee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "run_attendee_id")
-    private String runAttendeeId;
+    private long runAttendeeId;
 
     @Column(name = "run_id")
-    private String runId;
+    private long runId;
 
     @Column(name = "user_id")
-    private String userId;
+    private long userId;
 
     @Column(name = "attending")
     private boolean attending;
 
     public RunAttendee() { }
 
-    public RunAttendee(String runId, String userId, boolean attending) {
+    public RunAttendee(long runId, long userId, boolean attending) {
         this.runId = runId;
         this.userId = userId;
         this.attending = attending;
     }
 
-    public String getRunId() {
+    public long getRunId() {
         return runId;
     }
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 
