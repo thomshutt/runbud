@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <changeSet author="thomshutt" id="1422184302150-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <createTable catalogName="RUNBUDDB" tableName="COMMENTS">
-            <column autoIncrement="true" name="COMMENT_ID" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_A"/>
-            </column> 
+    <changeSet author="thomshutt (generated)" id="1422192391141-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createSequence catalogName="RUNBUDDB" schemaName="PUBLIC" sequenceName="COMMENT_ID_SEQ"/>
+    </changeSet>
+    <changeSet author="thomshutt (generated)" id="1422192391141-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createSequence catalogName="RUNBUDDB" schemaName="PUBLIC" sequenceName="RUN_ATTENDEE_ID_SEQ"/>
+    </changeSet>
+    <changeSet author="thomshutt (generated)" id="1422192391141-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createSequence catalogName="RUNBUDDB" schemaName="PUBLIC" sequenceName="RUN_ID_SEQ"/>
+    </changeSet>
+    <changeSet author="thomshutt (generated)" id="1422192391141-4" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createSequence catalogName="RUNBUDDB" schemaName="PUBLIC" sequenceName="USER_ID_SEQ"/>
+    </changeSet>
+    <changeSet author="thomshutt (generated)" id="1422192391141-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable catalogName="RUNBUDDB" schemaName="PUBLIC" tableName="COMMENTS">
+            <column name="COMMENT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
             <column name="COMMENT" type="VARCHAR(255)"/>
             <column name="CREATED_TIMESTAMP" type="BIGINT"/>
             <column name="RUN_ID" type="BIGINT"/>
-            <column name="USER_ID" type="BIGINT"/> 
+            <column name="USER_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="thomshutt" id="1422184302150-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <createTable catalogName="RUNBUDDB" tableName="RUNS">
-            <column autoIncrement="true" name="RUN_ID" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_2"/>
+    <changeSet author="thomshutt (generated)" id="1422192391141-6" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable catalogName="RUNBUDDB" schemaName="PUBLIC" tableName="RUNS">
+            <column name="RUN_ID" type="BIGINT">
+                <constraints nullable="false"/>
             </column>
             <column name="DESCRIPTION" type="VARCHAR(255)"/>
             <column name="DISTANCE_KM" type="NUMERIC(10,10)"/>
@@ -26,27 +38,27 @@
             <column name="START_LONGITUDE" type="NUMERIC(10,10)"/>
         </createTable>
     </changeSet>
-    <changeSet author="thomshutt" id="1422184302150-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <createTable catalogName="RUNBUDDB" tableName="RUN_ATTENDEES">
-            <column autoIncrement="true" name="RUN_ATTENDEE_ID" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_8"/>
+    <changeSet author="thomshutt (generated)" id="1422192391141-7" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable catalogName="RUNBUDDB" schemaName="PUBLIC" tableName="RUN_ATTENDEES">
+            <column name="RUN_ATTENDEE_ID" type="BIGINT">
+                <constraints nullable="false"/>
             </column>
             <column name="ATTENDING" type="BOOLEAN"/>
             <column name="RUN_ID" type="BIGINT"/>
             <column name="USER_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="thomshutt" id="1422184302150-4" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <createTable catalogName="RUNBUDDB" tableName="USERS">
-            <column autoIncrement="true" name="USERID" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_4"/>
+    <changeSet author="thomshutt (generated)" id="1422192391141-8" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable catalogName="RUNBUDDB" schemaName="PUBLIC" tableName="USERS">
+            <column name="USERID" type="BIGINT">
+                <constraints nullable="false"/>
             </column>
             <column name="EMAIL" type="VARCHAR(255)"/>
             <column name="NAME" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="thomshutt" id="1422184302150-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <createTable catalogName="RUNBUDDB" tableName="USER_CREDENTIALS">
+    <changeSet author="thomshutt (generated)" id="1422192391141-9" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable catalogName="RUNBUDDB" schemaName="PUBLIC" tableName="USER_CREDENTIALS">
             <column name="USERID" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
@@ -56,11 +68,23 @@
             <column name="TOKEN_EXPIRY" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="thomshutt" id="1422184302150-6" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addPrimaryKey catalogName="RUNBUDDB" columnNames="USERID" constraintName="CONSTRAINT_B" tableName="USER_CREDENTIALS"/>
+    <changeSet author="thomshutt (generated)" id="1422192391141-10" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey catalogName="RUNBUDDB" columnNames="RUN_ID" constraintName="CONSTRAINT_2" schemaName="PUBLIC" tableName="RUNS"/>
     </changeSet>
-    <changeSet author="thomshutt" id="1422184302150-8" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <createIndex catalogName="RUNBUDDB" indexName="UK_P2BPASLYY8TNRHR15RO9RQ5L0_INDEX_8" tableName="RUN_ATTENDEES" unique="true">
+    <changeSet author="thomshutt (generated)" id="1422192391141-11" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey catalogName="RUNBUDDB" columnNames="USERID" constraintName="CONSTRAINT_4" schemaName="PUBLIC" tableName="USERS"/>
+    </changeSet>
+    <changeSet author="thomshutt (generated)" id="1422192391141-12" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey catalogName="RUNBUDDB" columnNames="RUN_ATTENDEE_ID" constraintName="CONSTRAINT_8" schemaName="PUBLIC" tableName="RUN_ATTENDEES"/>
+    </changeSet>
+    <changeSet author="thomshutt (generated)" id="1422192391141-13" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey catalogName="RUNBUDDB" columnNames="COMMENT_ID" constraintName="CONSTRAINT_A" schemaName="PUBLIC" tableName="COMMENTS"/>
+    </changeSet>
+    <changeSet author="thomshutt (generated)" id="1422192391141-14" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey catalogName="RUNBUDDB" columnNames="USERID" constraintName="CONSTRAINT_B" schemaName="PUBLIC" tableName="USER_CREDENTIALS"/>
+    </changeSet>
+    <changeSet author="thomshutt (generated)" id="1422192391141-16" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createIndex catalogName="RUNBUDDB" indexName="UK_P2BPASLYY8TNRHR15RO9RQ5L0_INDEX_8" schemaName="PUBLIC" tableName="RUN_ATTENDEES" unique="true">
             <column name="RUN_ID"/>
             <column name="USER_ID"/>
         </createIndex>

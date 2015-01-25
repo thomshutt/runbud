@@ -11,7 +11,8 @@ server:
 database:
 
   properties:
-    hibernate.dialect: org.hibernate.dialect.H2Dialect
+    #hibernate.dialect: org.hibernate.dialect.H2Dialect
+    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate.hbm2ddl.auto: create
 
   # the name of your JDBC driver
