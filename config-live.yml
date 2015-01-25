@@ -1,0 +1,26 @@
+# Server settings.
+# HEROKU NOTE - the port gets be overridden with the Heroku $PORT in the Procfile
+server:
+  type: simple
+  applicationContextPath: /
+  connector:
+    type: http
+    port: 8080
+
+# Database settings.
+# HEROKU NOTE - none of these are used since the values come from the Heroku $DATABASE_URL
+database:
+  driverClass: org.postgresql.Driver
+  user: unused-user
+  password: unused-pw
+  url: unused-url
+  validationQuery: SHOW TABLES
+
+# Logging settings.
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  appenders:
+    - type: console
