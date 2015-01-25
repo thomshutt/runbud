@@ -4,7 +4,7 @@
         <createTable catalogName="RUNBUDDB" tableName="COMMENTS">
             <column autoIncrement="true" name="COMMENT_ID" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="CONSTRAINT_A"/>
-            </column>
+            </column> 
             <column name="COMMENT" type="VARCHAR(255)"/>
             <column name="CREATED_TIMESTAMP" type="BIGINT"/>
             <column name="RUN_ID" type="BIGINT"/>
