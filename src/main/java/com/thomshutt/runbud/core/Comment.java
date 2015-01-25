@@ -9,8 +9,9 @@ import javax.persistence.*;
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
+    @SequenceGenerator(name = "commentSeq", sequenceName="comment_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "commentSeq")
     private long commentId;
 
     @Column(name = "run_id")

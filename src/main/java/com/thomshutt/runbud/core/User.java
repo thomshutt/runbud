@@ -9,8 +9,9 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId")
+    @SequenceGenerator(name = "userSeq", sequenceName="user_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "userSeq")
     private long userId;
 
     @Column(name = "email")

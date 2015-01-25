@@ -19,8 +19,9 @@ import javax.persistence.*;
 public class RunAttendee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "run_attendee_id")
+    @SequenceGenerator(name = "runAttendeeSeq", sequenceName="run_attendee_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "runAttendeeSeq")
     private long runAttendeeId;
 
     @Column(name = "run_id")
