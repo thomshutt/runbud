@@ -17,6 +17,7 @@ import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.basic.BasicCredentials;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
@@ -48,6 +49,12 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
         bootstrap.addBundle(new ViewBundle());
         bootstrap.addBundle(runBundle);
         bootstrap.addBundle(new AssetsBundle());
+        bootstrap.addBundle(new MigrationsBundle<RunbudConfiguration>() {
+            @Override
+            public DataSourceFactory getDataSourceFactory(RunbudConfiguration configuration) {
+                return configuration.getDataSourceFactory();
+            }
+        });
     }
 
     @Override
