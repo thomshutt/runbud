@@ -17,13 +17,13 @@
                 <constraints primaryKey="true" primaryKeyName="CONSTRAINT_2"/>
             </column>
             <column name="DESCRIPTION" type="VARCHAR(255)"/>
-            <column name="DISTANCE_KM" type="NUMERIC(10,16)"/>
+            <column name="DISTANCE_KM" type="NUMERIC(10,10)"/>
             <column name="INITIATING_USER_ID" type="BIGINT"/>
             <column name="ISCANCELLED" type="BOOLEAN"/>
             <column name="RUN_NAME" type="VARCHAR(255)"/>
             <column name="START_ADDRESS" type="VARCHAR(255)"/>
-            <column name="START_LATITUDE" type="NUMERIC(10,16)"/>
-            <column name="START_LONGITUDE" type="NUMERIC(10,16)"/>
+            <column name="START_LATITUDE" type="NUMERIC(10,10)"/>
+            <column name="START_LONGITUDE" type="NUMERIC(10,10)"/>
         </createTable>
     </changeSet>
     <changeSet author="thomshutt" id="1422184302150-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
