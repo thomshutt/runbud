@@ -8,7 +8,7 @@
             <column name="COMMENT" type="VARCHAR(255)"/>
             <column name="CREATED_TIMESTAMP" type="BIGINT"/>
             <column name="RUN_ID" type="BIGINT"/>
-            <column name="USER_ID" type="BIGINT"/>
+            <column name="USER_ID" type="BIGINT"/> 
         </createTable>
     </changeSet>
     <changeSet author="thomshutt" id="1422184302150-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
