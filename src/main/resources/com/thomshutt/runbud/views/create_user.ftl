@@ -4,6 +4,6 @@
         <input type="text" name="name" value="Thom Scott" />
         <input type="text" name="email" value="thomscott@thomshutt.com" />
         <input type="password" name="password" value="password" />
-        <input type="submit" />
+        <input type="submit" value="Sign Up" />
     </form>
 <#include "footer.ftl">

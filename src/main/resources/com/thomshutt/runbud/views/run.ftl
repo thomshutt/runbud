@@ -25,11 +25,20 @@
     <div id="googleMap" style="width: 500px; height: 400px; display: inline-block; margin-right: 20px;"></div>
 
     <div style="display: inline-block; vertical-align: top; text-align: left;">
-            <p>Created By: ${initiatingUser.name?html}</p>
-            <p>Start Address: ${run.startAddress?html}</p>
-            <p>Distance: ${run.distanceKm?html}km</p>
-            <p>Description: ${run.description?html}</p>
-            <p>Attendees: ${runAttendees?size + 1}</p>
+            <label>Created By</label>
+            <p>${initiatingUser.name?html}</p>
+
+            <label>Start Address</label>
+            <p>${run.startAddress?html}</p>
+
+            <label>Distance</label>
+            <p>${run.distanceKm?html}km</p>
+
+            <label>Description</label>
+            <p>${run.description?html}</p>
+
+            <label>Number Of Runners</label>
+            <p>${runAttendees?size + 1}</p>
     </div>
 
     <br /><br />
