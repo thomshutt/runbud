@@ -11,7 +11,7 @@ public class Run {
 
     @Id
     @Column(name = "RUN_ID")
-    @SequenceGenerator(name = "runSeq", sequenceName="RUN_ID_SEQ", allocationSize=1)
+    @SequenceGenerator(name = "runSeq", sequenceName = "RUN_ID_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "runSeq")
     private long runId;
 
@@ -42,7 +42,7 @@ public class Run {
     @Column(name = "RUN_NAME")
     private String runName;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "IS_CANCELLED")

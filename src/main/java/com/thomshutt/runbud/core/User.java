@@ -14,7 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "userSeq")
     private long userId;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
     @Column(name = "NAME")

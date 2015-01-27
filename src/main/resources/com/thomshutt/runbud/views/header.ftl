@@ -14,7 +14,8 @@
             }
             li {
                 list-style: outside none none;
-                margin-bottom: 20px;
+                padding: 20px;
+                border-bottom: 1px solid #E5E5E5;
             }
             a {
                 color: #007FB6;
@@ -61,6 +62,10 @@
                 height: 50px;
                 margin-bottom: 20px;
             }
+            p.label-body {
+                margin-bottom: 15px;
+                padding-left: 6px;
+            }
             .row {
                 margin: 0px auto;
                 max-width: 1148px;
@@ -92,8 +97,10 @@
             #header #logo {
                 margin: 9px 0px 0px;
                 float: left;
-                color: rgb(61, 79, 93);
                 font-size: 20px;
+            }
+            #header #logo, h1 {
+                color: rgb(61, 79, 93);
             }
             #content {
                 width: 960px;
@@ -137,7 +144,7 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/runs">Runs</a></li>
                     <#if loggedIn>
-                        <li><a href="/runs/create">Create</a></li>
+                        <li><a href="/runs/create">Create A Run</a></li>
                         <li><a href="/users/logout">Log Out</a></li>
                     <#else>
                         <li><a href="/users/login">Log In</a></li>

@@ -24,21 +24,21 @@
 
     <div id="googleMap" style="width: 500px; height: 400px; display: inline-block; margin-right: 20px;"></div>
 
-    <div style="display: inline-block; vertical-align: top; text-align: left;">
+    <div style="display: inline-block; vertical-align: top; text-align: left; width: 435px; overflow: hidden;">
             <label>Created By</label>
-            <p>${initiatingUser.name?html}</p>
+            <p class="label-body">${initiatingUser.name?html}</p>
 
             <label>Start Address</label>
-            <p>${run.startAddress?html}</p>
+            <p class="label-body">${run.startAddress?html}</p>
 
             <label>Distance</label>
-            <p>${run.distanceKm?html}km</p>
-
-            <label>Description</label>
-            <p>${run.description?html}</p>
+            <p class="label-body">${run.distanceKm?html}km</p>
 
             <label>Number Of Runners</label>
-            <p>${runAttendees?size + 1}</p>
+            <p class="label-body">${runAttendees?size + 1}</p>
+
+            <label>Description</label>
+            <p class="label-body">${run.description?html}</p>
     </div>
 
     <br /><br />

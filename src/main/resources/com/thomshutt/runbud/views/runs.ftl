@@ -5,8 +5,11 @@
         <ol>
             <#list runs as run>
                 <li>
-                    <a href="/runs/${run.runId?html}">${run.runName?html}</a>
-                    <p>${run.description}</p>
+                    <img style="vertical-align: top; border: 1px solid #3D4F5D;" src="http://lorempixel.com/80/80/?random=${run.runId?html}">
+                    <div style="display: inline-block; padding: 20px;">
+                        <a href="/runs/${run.runId?html}">${run.runName?html}</a>
+                        <p>${run.description}</p>
+                    </div>
                 </li>
             </#list>
         </ol>
