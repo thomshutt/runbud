@@ -14,28 +14,28 @@
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable catalogName="RUNBUDDB" tableName="comments">
-            <column name="COMMENT_ID" type="BIGINT">
+            <column name="comment_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="COMMENT" type="VARCHAR(255)"/>
-            <column name="CREATED_TIMESTAMP" type="BIGINT"/>
-            <column name="RUN_ID" type="BIGINT"/>
-            <column name="USER_ID" type="BIGINT"/>
+            <column name="comment" type="VARCHAR(255)"/>
+            <column name="created_timestamp" type="BIGINT"/>
+            <column name="run_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-6" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable catalogName="RUNBUDDB" tableName="runs">
-            <column name="RUN_ID" type="BIGINT">
+            <column name="run_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="DESCRIPTION" type="VARCHAR(255)"/>
-            <column name="DISTANCE_KM" type="NUMERIC(10,10)"/>
-            <column name="INITIATING_USER_ID" type="BIGINT"/>
-            <column name="ISCANCELLED" type="BOOLEAN"/>
-            <column name="RUN_NAME" type="VARCHAR(255)"/>
-            <column name="START_ADDRESS" type="VARCHAR(255)"/>
-            <column name="START_LATITUDE" type="NUMERIC(10,10)"/>
-            <column name="START_LONGITUDE" type="NUMERIC(10,10)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="distance_km" type="NUMERIC(10,10)"/>
+            <column name="initiating_user_id" type="BIGINT"/>
+            <column name="is_cancelled" type="BOOLEAN"/>
+            <column name="run_name" type="VARCHAR(255)"/>
+            <column name="start_address" type="VARCHAR(255)"/>
+            <column name="start_latitude" type="NUMERIC(10,10)"/>
+            <column name="start_longitude" type="NUMERIC(10,10)"/>
         </createTable>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-7" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
@@ -69,16 +69,16 @@
         </createTable>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-10" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addPrimaryKey catalogName="RUNBUDDB" columnNames="RUN_ID" constraintName="CONSTRAINT_2" tableName="runs"/>
+        <addPrimaryKey catalogName="RUNBUDDB" columnNames="run_id" constraintName="CONSTRAINT_2" tableName="runs"/>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-11" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <addPrimaryKey catalogName="RUNBUDDB" columnNames="user_id" constraintName="CONSTRAINT_4" tableName="users"/>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-12" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addPrimaryKey catalogName="RUNBUDDB" columnNames="RUN_ATTENDEE_ID" constraintName="CONSTRAINT_8" tableName="run_attendees"/>
+        <addPrimaryKey catalogName="RUNBUDDB" columnNames="run_attendee_id" constraintName="CONSTRAINT_8" tableName="run_attendees"/>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-13" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addPrimaryKey catalogName="RUNBUDDB" columnNames="COMMENT_ID" constraintName="CONSTRAINT_A" tableName="comments"/>
+        <addPrimaryKey catalogName="RUNBUDDB" columnNames="comment_id" constraintName="CONSTRAINT_A" tableName="comments"/>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-14" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <addPrimaryKey catalogName="RUNBUDDB" columnNames="user_id" constraintName="CONSTRAINT_B" tableName="user_credentials"/>
