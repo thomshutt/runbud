@@ -12,7 +12,7 @@
     <changeSet author="thomshutt (generated)" id="1422392477458-20" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createSequence catalogName="RUNBUDDB" sequenceName="user_id_seq"/>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422392477458-21" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422392477458-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable catalogName="RUNBUDDB" tableName="COMMENTS">
             <column name="COMMENT_ID" type="BIGINT">
                 <constraints nullable="false"/>
