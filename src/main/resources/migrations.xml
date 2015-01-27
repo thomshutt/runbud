@@ -34,8 +34,8 @@
             <column name="is_cancelled" type="BOOLEAN"/>
             <column name="run_name" type="VARCHAR(255)"/>
             <column name="start_address" type="VARCHAR(255)"/>
-            <column name="start_latitude" type="NUMERIC(10,10)"/>
-            <column name="start_longitude" type="NUMERIC(10,10)"/>
+            <column name="start_latitude" type="FLOAT"/>
+            <column name="start_longitude" type="FLOAT"/>
             <column name="date" type="VARCHAR(16)"/>
             <column name="start_time_hours" type="NUMERIC"/>
             <column name="start_time_mins" type="NUMERIC"/>
