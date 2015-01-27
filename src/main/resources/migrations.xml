@@ -83,9 +83,6 @@
     <changeSet author="thomshutt (generated)" id="1422193108033-14" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <addPrimaryKey catalogName="RUNBUDDB" columnNames="USERID" constraintName="CONSTRAINT_B" tableName="USER_CREDENTIALS"/>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422193108033-15" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addUniqueConstraint catalogName="RUNBUDDB" columnNames="" constraintName="UK_P2BPASLYY8TNRHR15RO9RQ5L0" deferrable="false" disabled="false" initiallyDeferred="false" tableName="RUN_ATTENDEES"/>
-    </changeSet>
     <changeSet author="thomshutt (generated)" id="1422193108033-16" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createIndex catalogName="RUNBUDDB" indexName="UK_P2BPASLYY8TNRHR15RO9RQ5L0_INDEX_8" tableName="RUN_ATTENDEES" unique="true">
             <column name="RUN_ID"/>
