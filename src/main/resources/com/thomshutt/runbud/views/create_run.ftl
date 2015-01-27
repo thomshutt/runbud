@@ -36,9 +36,9 @@
         </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
-    <script src="/assets/js/locationpicker.jquery.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src='/assets/js/googlemaps.js'></script>
+    <script type="text/javascript" src="/assets/js/locationpicker.jquery.js"></script>
 
     <script>
         var mapPosChanged = function(currentLocation, radius, isMarkerDropped) {
