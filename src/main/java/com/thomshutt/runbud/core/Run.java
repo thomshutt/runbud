@@ -29,24 +29,42 @@ public class Run {
     @Column(name = "distance_km")
     private double distanceKm;
 
+    @Column(name = "start_time_hours")
+    private int startTimeHours;
+
+    @Column(name = "start_time_mins")
+    private int startTimeMins;
+
     @Column(name = "run_name")
     private String runName;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "isCancelled")
+    @Column(name = "is_cancelled")
     private boolean isCancelled;
 
     public Run() {
     }
 
-    public Run(long initiatingUserId, double startLatitude, double startLongitude, String startAddress, double distanceKm, String runName, String description) {
+    public Run(
+            long initiatingUserId,
+            double startLatitude,
+            double startLongitude,
+            String startAddress,
+            double distanceKm,
+            int startTimeHours,
+            int startTimeMins,
+            String runName,
+            String description
+    ) {
         this.initiatingUserId = initiatingUserId;
         this.startLatitude = startLatitude;
         this.startLongitude = startLongitude;
         this.startAddress = startAddress;
         this.distanceKm = distanceKm;
+        this.startTimeHours = startTimeHours;
+        this.startTimeMins = startTimeMins;
         this.runName = runName;
         this.description = description;
         this.isCancelled = false;

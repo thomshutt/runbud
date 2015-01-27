@@ -20,7 +20,7 @@ public class RunAttendeeDAO extends AbstractDAO<RunAttendee> {
         return super.get(id);
     }
 
-    public List<RunAttendee> listForRunId(String runId) throws HibernateException {
+    public List<RunAttendee> listForRunId(long runId) throws HibernateException {
         return super.list(
                 criteria()
                         .add(Restrictions.eq("runId", runId))

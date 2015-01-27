@@ -48,7 +48,7 @@ public class RunResource {
     @GET
     @UnitOfWork
     @Path("/{runId}")
-    public RunView getRun(@Auth(required = false) User user, @PathParam("runId") String runId) {
+    public RunView getRun(@Auth(required = false) User user, @PathParam("runId") long runId) {
         final Run run = runDAO.get(runId);
         final List<Comment> comments = commentDAO.listForRunId(runId);
         final List<RunAttendee> runAttendees = runAttendeeDAO.listForRunId(runId);
@@ -105,7 +105,7 @@ public class RunResource {
     @Path("/{runId}/edit")
     public View editRun(
             @Auth User user,
-            @PathParam("runId") String runId
+            @PathParam("runId") long runId
     ) {
         // TODO: Confirm user is owner
         // TODO: Confirm run not null
@@ -118,7 +118,7 @@ public class RunResource {
     @Path("/{runId}/edit")
     public void doEditRun(
             @Auth User user,
-            @PathParam("runId") String runId,
+            @PathParam("runId") long runId,
             @FormParam("start_latitude") double startLatitude,
             @FormParam("start_longitude") double startLongitude,
             @FormParam("start_address") String startAddress,
@@ -142,7 +142,7 @@ public class RunResource {
     @Path("/{runId}/cancel")
     public View doCancelRun(
             @Auth User user,
-            @PathParam("runId") String runId
+            @PathParam("runId") long runId
     ) {
         // TODO: Confirm user is owner
         final Run run = runDAO.get(runId);
@@ -154,34 +154,44 @@ public class RunResource {
     @GET
     @UnitOfWork
     @Path("/create")
-    public View getCreateRunPage(@Auth(required = false) User user) {
-        return new CreateRunView(Optional.fromNullable(user));
+    public View getCreateRunPage(@Auth User user) {
+        return new CreateRunView(Optional.fromNullable(user), Optional.<String>absent());
     }
 
     @POST
     @UnitOfWork
     @Path("/create")
-    public void createNewRun(
+    public View createNewRun(
             @Auth User user,
             @FormParam("start_latitude") double startLatitude,
             @FormParam("start_longitude") double startLongitude,
+            @FormParam("start_time_hours") int startTimeHours,
+            @FormParam("start_time_mins") int startTimeMins,
             @FormParam("start_address") String startAddress,
             @FormParam("distance_km") int distanceKm,
             @FormParam("run_name") String runName,
             @FormParam("description") String description
     ) {
-        runDAO.persist(
+        if(startTimeHours > 23 || startTimeHours < 0) {
+            return new CreateRunView(Optional.of(user), Optional.of("Invalid value for 'Hours'"));
+        }
+        if(startTimeMins > 59 || startTimeMins < 0) {
+            return new CreateRunView(Optional.of(user), Optional.of("Invalid value for 'Minutes'"));
+        }
+        final Run run = runDAO.persist(
                 new Run(
                         user.getUserId(),
                         startLatitude,
                         startLongitude,
                         startAddress,
                         distanceKm,
+                        startTimeHours,
+                        startTimeMins,
                         runName,
                         description
                 )
         );
-        SiteResource.doRedirect("/runs");
+        return new CreateRunSuccessView(Optional.of(user), run);
     }
 
 }

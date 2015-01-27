@@ -22,7 +22,7 @@ public class CommentDAO extends AbstractDAO<Comment> {
         return super.get(id);
     }
 
-    public List<Comment> listForRunId(String runId) throws HibernateException {
+    public List<Comment> listForRunId(long runId) throws HibernateException {
         return super.list(super.criteria().add(Restrictions.eq("runId", runId)));
     }
 
