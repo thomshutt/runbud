@@ -1,5 +1,6 @@
 package com.thomshutt.runbud.core;
 
+import com.thomshutt.runbud.util.SimpleDate;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
@@ -28,6 +29,9 @@ public class Run {
 
     @Column(name = "distance_km")
     private double distanceKm;
+
+    @Column(name = "date")
+    private String date;
 
     @Column(name = "start_time_hours")
     private int startTimeHours;
@@ -68,6 +72,7 @@ public class Run {
         this.runName = runName;
         this.description = description;
         this.isCancelled = false;
+        this.date = new SimpleDate(3, 2, 1988).toDbFormat();
     }
 
     public long getName() {
@@ -136,6 +141,10 @@ public class Run {
 
     public void setCancelled(boolean isCancelled) {
         this.isCancelled = isCancelled;
+    }
+
+    public void setDate(SimpleDate date) {
+        this.date = date.toDbFormat();
     }
 
     @Override
