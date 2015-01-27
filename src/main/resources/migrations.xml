@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <changeSet author="thomshutt (generated)" id="1422392477458-17" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422392477458-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createSequence catalogName="RUNBUDDB" sequenceName="comment_id_seq"/>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422392477458-18" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422392477458-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createSequence catalogName="RUNBUDDB" sequenceName="run_attendee_id_seq"/>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422392477458-19" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422392477458-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createSequence catalogName="RUNBUDDB" sequenceName="run_id_seq"/>
     </changeSet>
-    <changeSet author="thomshutt (generated)" id="1422392477458-20" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomshutt (generated)" id="1422392477458-4" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createSequence catalogName="RUNBUDDB" sequenceName="user_id_seq"/>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
