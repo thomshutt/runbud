@@ -29,7 +29,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="VARCHAR(255)"/>
-            <column name="distance_km" type="NUMERIC(10,10)"/>
+            <column name="distance_km" type="FLOAT"/>
             <column name="initiating_user_id" type="BIGINT"/>
             <column name="is_cancelled" type="BOOLEAN"/>
             <column name="run_name" type="VARCHAR(255)"/>
