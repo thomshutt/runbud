@@ -5,25 +5,25 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "COMMENTS")
 public class Comment {
 
     @Id
-    @Column(name = "comment_id")
-    @SequenceGenerator(name = "commentSeq", sequenceName="comment_id_seq", allocationSize=1)
+    @Column(name = "COMMENT_ID")
+    @SequenceGenerator(name = "commentSeq", sequenceName="COMMENT_ID_SEQ", allocationSize=1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "commentSeq")
     private long commentId;
 
-    @Column(name = "run_id")
+    @Column(name = "RUN_ID")
     private long runId;
 
-    @Column(name = "user_id")
+    @Column(name = "USER_ID")
     private long userId;
 
-    @Column(name = "comment")
+    @Column(name = "COMMENT")
     private String comment;
 
-    @Column(name = "created_timestamp")
+    @Column(name = "CREATED_TIMESTAMP")
     private long createdTimestampUtc;
 
     public Comment() {}

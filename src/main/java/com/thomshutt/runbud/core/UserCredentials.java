@@ -6,23 +6,23 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "user_credentials")
+@Table(name = "USER_CREDENTIALS")
 public class UserCredentials {
 
     @Id
-    @Column(name = "userId")
+    @Column(name = "USER_ID")
     private long userId;
 
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "salt")
+    @Column(name = "SALT")
     private String salt;
 
-    @Column(name = "token")
+    @Column(name = "TOKEN")
     private String token;
 
-    @Column(name = "token_expiry")
+    @Column(name = "TOKEN_EXPIRY")
     private long tokenExpiryUtcMillis;
 
     public UserCredentials() {}

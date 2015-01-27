@@ -6,12 +6,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(
-        name = "run_attendees",
+        name = "RUN_ATTENDEES",
         uniqueConstraints = {
                 @UniqueConstraint(
                         columnNames = {
-                                "run_id",
-                                "user_id"
+                                "RUN_ID",
+                                "USER_ID"
                         }
                 )
         }
@@ -19,18 +19,18 @@ import javax.persistence.*;
 public class RunAttendee {
 
     @Id
-    @Column(name = "run_attendee_id")
-    @SequenceGenerator(name = "runAttendeeSeq", sequenceName="run_attendee_id_seq", allocationSize=1)
+    @Column(name = "RUN_ATTENDEE_ID")
+    @SequenceGenerator(name = "runAttendeeSeq", sequenceName="RUN_ATTENDEE_ID_SEQ", allocationSize=1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "runAttendeeSeq")
     private long runAttendeeId;
 
-    @Column(name = "run_id")
+    @Column(name = "RUN_ID")
     private long runId;
 
-    @Column(name = "user_id")
+    @Column(name = "USER_ID")
     private long userId;
 
-    @Column(name = "attending")
+    @Column(name = "ATTENDING")
     private boolean attending;
 
     public RunAttendee() { }

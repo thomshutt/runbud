@@ -5,19 +5,19 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User {
 
     @Id
-    @Column(name = "userId")
-    @SequenceGenerator(name = "userSeq", sequenceName="user_id_seq", allocationSize=1)
+    @Column(name = "USER_ID")
+    @SequenceGenerator(name = "userSeq", sequenceName="USER_ID_SEQ", allocationSize=1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "userSeq")
     private long userId;
 
-    @Column(name = "email")
+    @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;
 
     public User() {}

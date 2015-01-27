@@ -6,46 +6,46 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "runs")
+@Table(name = "RUNS")
 public class Run {
 
     @Id
-    @Column(name = "run_id")
-    @SequenceGenerator(name = "runSeq", sequenceName="run_id_seq", allocationSize=1)
+    @Column(name = "RUN_ID")
+    @SequenceGenerator(name = "runSeq", sequenceName="RUN_ID_SEQ", allocationSize=1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "runSeq")
     private long runId;
 
-    @Column(name = "initiating_user_id")
+    @Column(name = "INITIATING_USER_ID")
     private long initiatingUserId;
 
-    @Column(name = "start_latitude")
+    @Column(name = "START_LATITUDE")
     private double startLatitude;
 
-    @Column(name = "start_longitude")
+    @Column(name = "START_LONGITUDE")
     private double startLongitude;
 
-    @Column(name = "start_address")
+    @Column(name = "START_ADDRESS")
     private String startAddress;
 
-    @Column(name = "distance_km")
+    @Column(name = "DISTANCE_KM")
     private double distanceKm;
 
-    @Column(name = "date")
+    @Column(name = "DATE")
     private String date;
 
-    @Column(name = "start_time_hours")
+    @Column(name = "START_TIME_HOURS")
     private int startTimeHours;
 
-    @Column(name = "start_time_mins")
+    @Column(name = "START_TIME_MINS")
     private int startTimeMins;
 
-    @Column(name = "run_name")
+    @Column(name = "RUN_NAME")
     private String runName;
 
-    @Column(name = "description")
+    @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "is_cancelled")
+    @Column(name = "IS_CANCELLED")
     private boolean isCancelled;
 
     public Run() {
