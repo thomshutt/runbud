@@ -23,6 +23,10 @@ public class EmailSender {
     }
 
     public void sendSignupSuccessMessage(final String toName, final String toEmail) {
+        sendEmail(toName, toEmail, "Welcome to Runbud " + toName, "Thanks for signing up to Runbud!");
+    }
+
+    private void sendEmail(final String toName, final String toEmail, final String subject, final String message) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -32,8 +36,8 @@ public class EmailSender {
 
                 post.addParameter("from", FROM_VALUE);
                 post.addParameter("to", toName + " <" + toEmail + ">");
-                post.addParameter("subject", "Hello " + toName);
-                post.addParameter("text", "Thanks for signing up to Runbud!");
+                post.addParameter("subject", subject);
+                post.addParameter("text", message);
 
                 try {
                     int response = client.executeMethod(post);
