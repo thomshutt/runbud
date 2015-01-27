@@ -30,21 +30,25 @@
                 font-family:Arial, sans-serif;
                 color:#333;
                 padding-left: 4px;
-            }
-            input {
                 display: block;
+                margin: 0 0 10px 0;
+            }
+            input, select {
                 border:0;
                 padding:10px;
                 font-size:1.3em;
                 font-family:Arial, sans-serif;
                 color:#555;
                 border:solid 1px #ccc;
-                margin:0 0 20px;
-                width:300px;
                 -webkit-border-radius: 3px;
                 -moz-border-radius: 3px;
                 border-radius: 3px;
                 margin-top: 8px;
+                margin:0 0 20px;
+            }
+            input {
+                display: block;
+                width:300px;
             }
             input[type="submit"] {
                 cursor: pointer;

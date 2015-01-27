@@ -11,6 +11,21 @@
             <label>Distance (km)</label>
             <input type="number" name="distance_km" value="1" />
 
+            <label>Start Time</label>
+            <select>
+                <#assign x=24>
+                <#list 0..x as i>
+                  <option>${i}</option>
+                </#list>
+            </select>
+            :
+            <select>
+                <option>00</option>
+                <option>15</option>
+                <option>30</option>
+                <option>45</option>
+            </select>
+
             <label>Description</label>
             <input type="text" name="description" value="Some description..." />
 
