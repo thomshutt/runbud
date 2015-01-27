@@ -36,6 +36,9 @@
             <column name="start_address" type="VARCHAR(255)"/>
             <column name="start_latitude" type="NUMERIC(10,10)"/>
             <column name="start_longitude" type="NUMERIC(10,10)"/>
+            <column name="date" type="VARCHAR(16)"/>
+            <column name="start_time_hours" type="NUMERIC"/>
+            <column name="start_time_mins" type="NUMERIC"/>
         </createTable>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-7" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
