@@ -50,29 +50,29 @@
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-8" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable catalogName="RUNBUDDB" tableName="users">
-            <column name="USERID" type="BIGINT">
+            <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="EMAIL" type="VARCHAR(255)"/>
-            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-9" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable catalogName="RUNBUDDB" tableName="user_credentials">
-            <column name="USERID" type="BIGINT">
+            <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="PASSWORD" type="VARCHAR(255)"/>
-            <column name="SALT" type="VARCHAR(255)"/>
-            <column name="TOKEN" type="VARCHAR(255)"/>
-            <column name="TOKEN_EXPIRY" type="BIGINT"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="salt" type="VARCHAR(255)"/>
+            <column name="token" type="VARCHAR(255)"/>
+            <column name="token_expiry" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-10" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <addPrimaryKey catalogName="RUNBUDDB" columnNames="RUN_ID" constraintName="CONSTRAINT_2" tableName="runs"/>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-11" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addPrimaryKey catalogName="RUNBUDDB" columnNames="USERID" constraintName="CONSTRAINT_4" tableName="users"/>
+        <addPrimaryKey catalogName="RUNBUDDB" columnNames="user_id" constraintName="CONSTRAINT_4" tableName="users"/>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-12" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <addPrimaryKey catalogName="RUNBUDDB" columnNames="RUN_ATTENDEE_ID" constraintName="CONSTRAINT_8" tableName="run_attendees"/>
@@ -81,12 +81,12 @@
         <addPrimaryKey catalogName="RUNBUDDB" columnNames="COMMENT_ID" constraintName="CONSTRAINT_A" tableName="comments"/>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-14" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addPrimaryKey catalogName="RUNBUDDB" columnNames="USERID" constraintName="CONSTRAINT_B" tableName="user_credentials"/>
+        <addPrimaryKey catalogName="RUNBUDDB" columnNames="user_id" constraintName="CONSTRAINT_B" tableName="user_credentials"/>
     </changeSet>
     <changeSet author="thomshutt (generated)" id="1422392477458-16" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createIndex catalogName="RUNBUDDB" indexName="UK_P2BPASLYY8TNRHR15RO9RQ5L0_INDEX_8" tableName="run_attendees" unique="true">
-            <column name="RUN_ID"/>
-            <column name="USER_ID"/>
+            <column name="run_id"/>
+            <column name="user_id"/>
         </createIndex>
     </changeSet>
 </databaseChangeLog>
