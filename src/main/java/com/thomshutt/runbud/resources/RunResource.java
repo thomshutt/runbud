@@ -9,6 +9,7 @@ import com.thomshutt.runbud.data.CommentDAO;
 import com.thomshutt.runbud.data.RunAttendeeDAO;
 import com.thomshutt.runbud.data.RunDAO;
 import com.thomshutt.runbud.data.UserDAO;
+import com.thomshutt.runbud.util.ImageFetcher;
 import com.thomshutt.runbud.views.*;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -26,6 +27,7 @@ public class RunResource {
     private final UserDAO userDAO;
     private final CommentDAO commentDAO;
     private final RunAttendeeDAO runAttendeeDAO;
+    private final ImageFetcher imageFetcher = new ImageFetcher();
 
     public RunResource(
             RunDAO runDAO,
@@ -178,6 +180,9 @@ public class RunResource {
         if(startTimeMins > 59 || startTimeMins < 0) {
             return new CreateRunView(Optional.of(user), Optional.of("Invalid value for 'Minutes'"));
         }
+
+        final String imageUrl = imageFetcher.fetchImage(startLatitude, startLongitude);
+
         final Run run = runDAO.persist(
                 new Run(
                         user.getUserId(),
@@ -188,7 +193,8 @@ public class RunResource {
                         startTimeHours,
                         startTimeMins,
                         runName,
-                        description
+                        description,
+                        imageUrl
                 )
         );
         return new CreateRunSuccessView(Optional.of(user), run);
