@@ -35,7 +35,9 @@ public class ImageFetcher {
                 if("image".equalsIgnoreCase(imageObject.getString("type"))) {
                     final JSONObject imageUrls = imageObject.getJSONObject("images");
                     final int numLikes = imageObject.getJSONObject("likes").getInt("count");
-                    final String imageUrl = imageUrls.getJSONObject("low_resolution").getString("url");
+                    final String imageUrl = imageUrls
+                            .getJSONObject("thumbnail")
+                            .getString("url");
 
                     final JSONObject location = imageObject.getJSONObject("location");
                     final double photoLatitude = location.getDouble("latitude");
@@ -46,6 +48,9 @@ public class ImageFetcher {
                     if(distanceKmBetween < minDistance) {
                         currentUmageUrl = imageUrl;
                         minDistance = distanceKmBetween;
+                        System.out.println("---------------------------------------------------------");
+                        System.out.println(imageObject.toString(2));
+                        System.out.println("---------------------------------------------------------");
                     }
                 }
             }

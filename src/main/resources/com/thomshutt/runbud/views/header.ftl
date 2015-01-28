@@ -134,6 +134,14 @@
                 display: inline-block;
                 font-size: 24px;
             }
+            .circular {
+                width: 80px;
+                height: 80px;
+                border-radius: 40px;
+                -webkit-border-radius: 40px;
+                -moz-border-radius: 40px;
+                background: url(http://link-to-your/image.jpg) no-repeat;
+            }
         </style>
     </head>
     <body>
