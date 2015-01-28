@@ -13,10 +13,12 @@ public class ImageFetcher {
 
     public String fetchImage(double latitude, double longitude) {
 
+        final LatitudeLongitude latitudeLongitude = new LatitudeLongitude(latitude, longitude);
+
         final String url = "https://api.instagram.com/v1/media/search?" +
                 "lat=" + latitude +
                 "&lng=" + longitude +
-                "&distance=" + 50 +
+                "&distance=" + 1000 +
                 "&access_token=31433758.5b9e1e6.5f0609ae684143dd984d587bc9a2954b";
 
         final GetMethod get = new GetMethod(url);
@@ -27,7 +29,7 @@ public class ImageFetcher {
             final JSONObject responseJSON = new JSONObject(responseBody);
             final JSONArray imageObjects = responseJSON.getJSONArray("data");
             String currentUmageUrl = "";
-            int maxLikeCount = 0;
+            double minDistance = 1000000000;
             for(int x = 0; x < imageObjects.length(); x++) {
                 final JSONObject imageObject = imageObjects.getJSONObject(x);
                 if("image".equalsIgnoreCase(imageObject.getString("type"))) {
@@ -35,9 +37,15 @@ public class ImageFetcher {
                     final int numLikes = imageObject.getJSONObject("likes").getInt("count");
                     final String imageUrl = imageUrls.getJSONObject("low_resolution").getString("url");
 
-                    if(numLikes >= maxLikeCount) {
+                    final JSONObject location = imageObject.getJSONObject("location");
+                    final double photoLatitude = location.getDouble("latitude");
+                    final double photoLongitude = location.getDouble("longitude");
+
+                    final double distanceKmBetween = LatitudeLongitude.calculateDistanceKmBetween(latitudeLongitude, new LatitudeLongitude(photoLatitude, photoLongitude));
+
+                    if(distanceKmBetween < minDistance) {
                         currentUmageUrl = imageUrl;
-                        maxLikeCount = numLikes;
+                        minDistance = distanceKmBetween;
                     }
                 }
             }
