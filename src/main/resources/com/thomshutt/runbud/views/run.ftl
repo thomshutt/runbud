@@ -19,6 +19,19 @@
                     <input type="submit" value="I'll be there!" style="margin: 0px;" />
                 </form>
              </#if>
+        <#else>
+             <#if 1 = runAttendees?size>
+                 <p>
+                      Join ${initiatingUser.name?html} on this run
+                 </p>
+             <#else>
+                 <p>
+                      Join ${runAttendees?size} other runners
+                 </p>
+             </#if>
+             <form action="/users/create" method="get">
+                 <input type="submit" value="Sign Up" style="margin: 0px;" />
+             </form>
         </#if>
     </div>
 
