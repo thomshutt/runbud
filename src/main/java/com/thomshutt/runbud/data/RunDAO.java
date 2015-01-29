@@ -1,6 +1,7 @@
 package com.thomshutt.runbud.data;
 
 import com.thomshutt.runbud.core.Run;
+import com.thomshutt.runbud.core.User;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -24,6 +25,10 @@ public class RunDAO extends AbstractDAO<Run> {
 
     public List<Run> list() throws HibernateException {
         return super.list(super.criteria().add(Restrictions.eq("isCancelled", false)));
+    }
+
+    public List<Run> listForInitiatingUser(User user) throws HibernateException {
+        return super.list(super.criteria().add(Restrictions.eq("initiatingUserId", user.getUserId())));
     }
 
     @Override

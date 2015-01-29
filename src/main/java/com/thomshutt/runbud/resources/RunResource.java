@@ -23,6 +23,8 @@ import java.util.List;
 @Produces(MediaType.TEXT_HTML)
 public class RunResource {
 
+    private static final int MAX_RUNS_PER_USER = 2;
+
     private final RunDAO runDAO;
     private final UserDAO userDAO;
     private final CommentDAO commentDAO;
@@ -157,6 +159,10 @@ public class RunResource {
     @UnitOfWork
     @Path("/create")
     public View getCreateRunPage(@Auth User user) {
+        final List<Run> runs = runDAO.listForInitiatingUser(user);
+        if(runs.size() == MAX_RUNS_PER_USER) {
+            return new CreateRunBlockedView(Optional.of(user));
+        }
         return new CreateRunView(Optional.fromNullable(user), Optional.<String>absent());
     }
 
