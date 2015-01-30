@@ -4,20 +4,26 @@
 
     <div class="info-box">
         <#if loggedIn>
-            <#if userIsAttending>
+            <#if isInitiatingUser>
                 <p>
-                     You're attending this run!
+                     You're hosting this run!
                 </p>
-                <form action="/runs/${run.runId}/unattending" method="post">
-                    <input type="submit" value="I can't make it anymore" style="margin: 0px;" />
-                </form>
             <#else>
-                <p>
-                     Want to be part of this run?
-                </p>
-                <form action="/runs/${run.runId}/attending" method="post">
-                    <input type="submit" value="I'll be there!" style="margin: 0px;" />
-                </form>
+                <#if userIsAttending>
+                    <p>
+                         You're attending this run!
+                    </p>
+                    <form action="/runs/${run.runId}/unattending" method="post">
+                        <input type="submit" value="I can't make it anymore" style="margin: 0px;" />
+                    </form>
+                <#else>
+                    <p>
+                         Want to be part of this run?
+                    </p>
+                    <form action="/runs/${run.runId}/attending" method="post">
+                        <input type="submit" value="I'll be there!" style="margin: 0px;" />
+                    </form>
+                 </#if>
              </#if>
         <#else>
              <#if 1 = runAttendees?size>
