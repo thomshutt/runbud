@@ -1,5 +1,42 @@
 <#include "header.ftl">
 
-    <img style="position: absolute; left: 0; margin-top: -20px;" src="http://d3nn82uaxijpm6.cloudfront.net/assets/website/marquee/prove-it/carousel-2-1e4dc12e3c109e7eaa26d19ddd07b705.jpg" />
+    <div style="
+        position: absolute;
+        left: 0;
+        margin-top: -20px;
+        width: 100%;
+        height: 480px;
+        background-image: url('/assets/img/home_banner.jpg');
+    ">
+        <h1 style="
+            width: 100%;
+            text-align: center;
+            margin-top: 220px;
+            color: white;
+            font-size: 80px;
+        ">
+            Running Is Better With Friends
+        </h1>
+    </div>
+
+    <h1 style="margin-top: 480px;">How It Works</h1>
+
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
 
 <#include "footer.ftl">

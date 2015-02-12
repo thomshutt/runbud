@@ -39,6 +39,10 @@ public class User {
         return email;
     }
 
+    public String getImageUrl() {
+        return "/assets/img/user/" + (userId % 9) + ".gif";
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);

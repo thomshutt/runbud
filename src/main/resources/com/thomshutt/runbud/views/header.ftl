@@ -62,6 +62,19 @@
                 height: 50px;
                 margin-bottom: 20px;
             }
+            #footer {
+                width: 100%;
+                border-top: 1px solid #E5E5E5;
+                background-color: rgb(61, 79, 93);
+            }
+            #footer li {
+                padding-left: 125px;
+                color: white;
+                text-transform: uppercase;
+                border-bottom: none;
+                font-size: 11px;
+                padding-top: 12px;
+            }
             p.label-body {
                 margin-bottom: 15px;
                 padding-left: 6px;
@@ -106,6 +119,7 @@
                 width: 960px;
                 margin: auto;
                 text-align: center;
+                min-height: 500px;
             }
             #content2 {
                 display: inline-block;

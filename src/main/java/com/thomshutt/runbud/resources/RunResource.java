@@ -9,7 +9,8 @@ import com.thomshutt.runbud.data.CommentDAO;
 import com.thomshutt.runbud.data.RunAttendeeDAO;
 import com.thomshutt.runbud.data.RunDAO;
 import com.thomshutt.runbud.data.UserDAO;
-import com.thomshutt.runbud.util.ImageFetcher;
+import com.thomshutt.runbud.util.image.ImageFetcher;
+import com.thomshutt.runbud.util.image.InstagramImageFetcher;
 import com.thomshutt.runbud.views.*;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -29,24 +30,26 @@ public class RunResource {
     private final UserDAO userDAO;
     private final CommentDAO commentDAO;
     private final RunAttendeeDAO runAttendeeDAO;
-    private final ImageFetcher imageFetcher = new ImageFetcher();
+    private final ImageFetcher imageFetcher;
 
     public RunResource(
             RunDAO runDAO,
             UserDAO userDAO,
             CommentDAO commentDAO,
-            RunAttendeeDAO runAttendeeDAO
-    ) {
+            RunAttendeeDAO runAttendeeDAO,
+            ImageFetcher imageFetcher) {
         this.runDAO = runDAO;
         this.userDAO = userDAO;
         this.commentDAO = commentDAO;
         this.runAttendeeDAO = runAttendeeDAO;
+        this.imageFetcher = imageFetcher;
     }
 
     @GET
     @UnitOfWork
     public RunsView getRuns(@Auth(required = false) User user) {
-        return new RunsView(Optional.fromNullable(user), runDAO.list());
+        List<Run> list = runDAO.list();
+        return new RunsView(Optional.fromNullable(user), list);
     }
 
     @GET
@@ -161,7 +164,12 @@ public class RunResource {
     public View getCreateRunPage(@Auth User user) {
         final List<Run> runs = runDAO.listForInitiatingUser(user);
         if(runs.size() == MAX_RUNS_PER_USER) {
-            return new CreateRunBlockedView(Optional.of(user));
+            return new InformationView(
+                    Optional.of(user),
+                    "/assets/img/default_run.png",
+                    "Sorry!",
+                    "You can't create more than two runs each day."
+            );
         }
         return new CreateRunView(Optional.fromNullable(user), Optional.<String>absent());
     }
@@ -187,8 +195,6 @@ public class RunResource {
             return new CreateRunView(Optional.of(user), Optional.of("Invalid value for 'Minutes'"));
         }
 
-        final String imageUrl = imageFetcher.fetchImage(startLatitude, startLongitude);
-
         final Run run = runDAO.persist(
                 new Run(
                         user.getUserId(),
@@ -200,10 +206,18 @@ public class RunResource {
                         startTimeMins,
                         runName,
                         description,
-                        imageUrl
+                        "/assets/img/default_run.png"
                 )
         );
-        return new CreateRunSuccessView(Optional.of(user), run);
+
+        imageFetcher.fetchImageUrl(run, run.getRunId(), startLatitude, startLongitude);
+
+        return new InformationView(
+                Optional.of(user),
+                run.getImageUrl(),
+                "Run Created!",
+                "Your run has been created, click here to view it."
+        );
     }
 
 }

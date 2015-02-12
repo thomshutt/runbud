@@ -9,12 +9,14 @@ import com.thomshutt.runbud.resources.SiteResource;
 import com.thomshutt.runbud.resources.UserResource;
 import com.thomshutt.runbud.security.BasicAuthFactory;
 import com.thomshutt.runbud.util.email.EmailSender;
+import com.thomshutt.runbud.util.image.FlickrImageFetcher;
+import com.thomshutt.runbud.util.image.ImageFetcher;
+import com.thomshutt.runbud.util.image.InstagramImageFetcher;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthFactory;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
-import io.dropwizard.auth.basic.BasicCredentials;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.migrations.MigrationsBundle;
@@ -62,12 +64,15 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
         final SessionFactory sessionFactory = runBundle.getSessionFactory();
         final UserDAO userDAO = new UserDAO(sessionFactory);
         final UserCredentialsDAO userCredentialsDAO = new UserCredentialsDAO(sessionFactory);
+        final ImageFetcher imageFetcher = new InstagramImageFetcher(sessionFactory);
+//        final ImageFetcher imageFetcher = new FlickrImageFetcher(sessionFactory);
+
         final RunResource runResource = new RunResource(
                 new RunDAO(sessionFactory),
                 userDAO,
                 new CommentDAO(sessionFactory),
-                new RunAttendeeDAO(sessionFactory)
-        );
+                new RunAttendeeDAO(sessionFactory),
+                imageFetcher);
         environment.jersey().register(runResource);
         environment.jersey().register(new SiteResource());
         environment.jersey().register(new UserResource(userDAO, userCredentialsDAO, new EmailSender()));

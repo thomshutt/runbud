@@ -9,6 +9,7 @@ import com.thomshutt.runbud.security.PasswordHasher;
 import com.thomshutt.runbud.util.email.EmailSender;
 import com.thomshutt.runbud.views.CreateUserSuccessView;
 import com.thomshutt.runbud.views.CreateUserView;
+import com.thomshutt.runbud.views.InformationView;
 import com.thomshutt.runbud.views.LoginView;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -74,7 +75,12 @@ public class UserResource {
             userCredentials.generateNewToken(System.currentTimeMillis() + ONE_WEEK_MILLIS);
             userCredentialsDAO.persist(userCredentials);
             emailSender.sendSignupSuccessMessage(name, email);
-            return new CreateUserSuccessView(Optional.<User>absent());
+            return new InformationView(
+                    Optional.<User>absent(),
+                    "/assets/img/default_run.png",
+                    "Sign Up Success!",
+                    "Now that you've signed up, you can log in and find a run to join or create one of your own."
+                    );
         } catch (IOException e) {
             // TODO: Handle this better
             throw new RuntimeException(e);

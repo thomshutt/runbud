@@ -49,7 +49,7 @@ public class Run {
     private boolean isCancelled;
 
     @Column(name = "IMAGE")
-    private String image;
+    private String imageUrl;
 
     public Run() {
     }
@@ -64,7 +64,7 @@ public class Run {
             int startTimeMins,
             String runName,
             String description,
-            String image
+            String imageUrl
     ) {
         this.initiatingUserId = initiatingUserId;
         this.startLatitude = startLatitude;
@@ -77,7 +77,7 @@ public class Run {
         this.description = description;
         this.isCancelled = false;
         this.date = new SimpleDate(3, 2, 1988).toDbFormat();
-        this.image = image;
+        this.imageUrl = imageUrl;
     }
 
     public long getName() {
@@ -152,8 +152,12 @@ public class Run {
         this.date = date.toDbFormat();
     }
 
-    public String getImage() {
-        return image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     @Override

@@ -4,7 +4,7 @@
 
     <div class="info-box">
         <#if loggedIn>
-            <#if isInitiatingUser>
+            <#if userIsInitiating>
                 <p>
                      You're hosting this run!
                 </p>
@@ -61,6 +61,15 @@
     </div>
 
     <br /><br />
+
+    <h1>Who's Running:</h1>
+
+        <div id="runners" style="text-align: left; padding-left: 10px;">
+            <div class="circular" style="vertical-align: top; background: url(${initiatingUser.imageUrl?html}) no-repeat; background-position: center; display: inline-block;"></div>
+            <#list runAttendees as runner>
+                <div class="circular" style="margin-left: 10px; vertical-align: top; background: url(${runner.imageUrl?html}) no-repeat; background-position: center; display: inline-block;"></div>
+            </#list>
+        </div>
 
     <h1>Comments:</h1>
 

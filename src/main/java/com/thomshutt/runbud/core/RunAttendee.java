@@ -49,6 +49,10 @@ public class RunAttendee {
         return userId;
     }
 
+    public String getImageUrl() {
+        return "/assets/img/user/" + (userId % 9) + ".gif";
+    }
+
     public boolean isAttending() {
         return attending;
     }
