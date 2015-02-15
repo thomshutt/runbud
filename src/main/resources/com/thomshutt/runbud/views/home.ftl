@@ -15,7 +15,7 @@
             color: white;
             font-size: 80px;
         ">
-            Running Is Better With Friends
+            Running Is Better Together
         </h1>
     </div>
 

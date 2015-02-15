@@ -7,21 +7,26 @@ import com.thomshutt.runbud.data.UserCredentialsDAO;
 import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.security.PasswordHasher;
 import com.thomshutt.runbud.util.email.EmailSender;
-import com.thomshutt.runbud.views.CreateUserSuccessView;
 import com.thomshutt.runbud.views.CreateUserView;
 import com.thomshutt.runbud.views.InformationView;
 import com.thomshutt.runbud.views.LoginView;
+import com.thomshutt.runbud.views.SettingsView;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.views.View;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.util.concurrent.TimeUnit;
 
 @Path("/users")
@@ -129,6 +134,30 @@ public class UserResource {
                 .seeOther(URL_SITE_ROOT)
                 .cookie(new NewCookie(RUNBUD_COOKIE_KEY, "ok", "/", c_.getDomain(), "", 0, false))
                 .build();
+    }
+
+    @GET
+    @UnitOfWork
+    @Path("/settings")
+    public SettingsView settingsPage(@Auth(required = true) User user) {
+        return new SettingsView(Optional.fromNullable(user));
+    }
+
+    @POST
+    @UnitOfWork
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Path("/settings")
+    public SettingsView uploadImage(
+            @Auth(required = true) User user,
+            @FormDataParam("image") FormDataContentDisposition contentDispositionHeader,
+            @FormDataParam("image") InputStream fileInputStream) {
+        java.nio.file.Path outputPath = FileSystems.getDefault().getPath("/tmp/", user.getUserId() + "");
+        try {
+            Files.copy(fileInputStream, outputPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new SettingsView(Optional.fromNullable(user));
     }
 
 }

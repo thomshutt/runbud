@@ -23,6 +23,7 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.hibernate.SessionFactory;
 
 import javax.servlet.http.Cookie;
@@ -73,6 +74,7 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
                 new CommentDAO(sessionFactory),
                 new RunAttendeeDAO(sessionFactory),
                 imageFetcher);
+        environment.jersey().register(MultiPartFeature.class);
         environment.jersey().register(runResource);
         environment.jersey().register(new SiteResource());
         environment.jersey().register(new UserResource(userDAO, userCredentialsDAO, new EmailSender()));

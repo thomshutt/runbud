@@ -167,6 +167,7 @@
                     <li><a href="/runs">Runs</a></li>
                     <#if loggedIn>
                         <li><a href="/runs/create">Create A Run</a></li>
+                        <li><a href="/users/settings">Settings</a></li>
                         <li><a href="/users/logout">Log Out</a></li>
                     <#else>
                         <li><a href="/users/login">Log In</a></li>
