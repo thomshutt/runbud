@@ -77,6 +77,10 @@ public class UserResource {
             @FormParam("email") String email,
             @FormParam("password") String password
     ) {
+        final User existingUser = userDAO.getForEmail(email);
+        if(existingUser != null) {
+            return new CreateUserView(Optional.<User>absent(), "Looks like someone has already registered with that Email Address");
+        }
         final String salt = passwordHasher.generateSalt();
         try {
             final User user = userDAO.persist(new User(email, name));
@@ -85,10 +89,8 @@ public class UserResource {
             userCredentialsDAO.persist(userCredentials);
             emailSender.sendSignupSuccessMessage(name, email);
             return new LoginView(Optional.<User>absent(), false, true);
-//            "Now that you've signed up, you can log in and find a run to join or create one of your own."
         } catch (IOException e) {
-            // TODO: Handle this better
-            throw new RuntimeException(e);
+            return new CreateUserView(Optional.<User>absent(), "Whoops! Something went wrong, please try again.");
         }
     }
 

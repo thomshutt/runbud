@@ -52,6 +52,18 @@ public class RunResource {
     @GET
     @UnitOfWork
     public RunsView getRuns(@Auth(required = false) User user) {
+        return getRunsLatLon(user, null, null);
+    }
+
+    @GET
+    @UnitOfWork
+    @Path("/{userLatitude}/{userLongitude}")
+    public RunsView getRunsLatLon(
+            @Auth(required = false) User user,
+            @PathParam("userLatitude") Long userLatitude,
+            @PathParam("userLongitude") Long userLongitiude
+    ) {
+        final LatitudeLongitude userLatLon = userLatitude != null && userLongitiude != null ? new LatitudeLongitude(userLatitude, userLongitiude) : PICC_CIRCUS_LAT_LON;
         final List<Run> list = runDAO.list();
         Collections.sort(list, new Comparator<Run>() {
             @Override
@@ -60,8 +72,8 @@ public class RunResource {
                 final LatitudeLongitude run2Start = new LatitudeLongitude(run2.getStartLatitude(), run2.getStartLongitude());
 
                 return (int) Math.round(
-                        LatitudeLongitude.calculateDistanceKmBetween(PICC_CIRCUS_LAT_LON, runStart) -
-                        LatitudeLongitude.calculateDistanceKmBetween(PICC_CIRCUS_LAT_LON, run2Start)
+                        LatitudeLongitude.calculateDistanceKmBetween(userLatLon, runStart) -
+                        LatitudeLongitude.calculateDistanceKmBetween(userLatLon, run2Start)
                 );
             }
         });
