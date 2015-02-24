@@ -9,6 +9,7 @@ import com.thomshutt.runbud.data.CommentDAO;
 import com.thomshutt.runbud.data.RunAttendeeDAO;
 import com.thomshutt.runbud.data.RunDAO;
 import com.thomshutt.runbud.data.UserDAO;
+import com.thomshutt.runbud.util.LatitudeLongitude;
 import com.thomshutt.runbud.util.image.ImageFetcher;
 import com.thomshutt.runbud.util.image.InstagramImageFetcher;
 import com.thomshutt.runbud.views.*;
@@ -18,6 +19,8 @@ import io.dropwizard.views.View;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Path("/runs")
@@ -25,6 +28,7 @@ import java.util.List;
 public class RunResource {
 
     private static final int MAX_RUNS_PER_USER = 2;
+    public static final LatitudeLongitude PICC_CIRCUS_LAT_LON = new LatitudeLongitude(51.510730378916186, -0.13398630345454876);
 
     private final RunDAO runDAO;
     private final UserDAO userDAO;
@@ -48,7 +52,19 @@ public class RunResource {
     @GET
     @UnitOfWork
     public RunsView getRuns(@Auth(required = false) User user) {
-        List<Run> list = runDAO.list();
+        final List<Run> list = runDAO.list();
+        Collections.sort(list, new Comparator<Run>() {
+            @Override
+            public int compare(Run run, Run run2) {
+                final LatitudeLongitude runStart = new LatitudeLongitude(run.getStartLatitude(), run.getStartLongitude());
+                final LatitudeLongitude run2Start = new LatitudeLongitude(run2.getStartLatitude(), run2.getStartLongitude());
+
+                return (int) Math.round(
+                        LatitudeLongitude.calculateDistanceKmBetween(PICC_CIRCUS_LAT_LON, runStart) -
+                        LatitudeLongitude.calculateDistanceKmBetween(PICC_CIRCUS_LAT_LON, run2Start)
+                );
+            }
+        });
         return new RunsView(Optional.fromNullable(user), list);
     }
 
