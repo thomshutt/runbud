@@ -3,8 +3,7 @@
 
         <div id="footer">
             <ul>
-                <li>Contact</li>
-                <li>Twitter</li>
+                <li><a href="mailto:runbud@thomshutt.com">Contact</a></li>
             </ul>
         </div>
 

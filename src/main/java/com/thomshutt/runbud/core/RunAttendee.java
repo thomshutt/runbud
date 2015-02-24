@@ -33,6 +33,8 @@ public class RunAttendee {
     @Column(name = "ATTENDING")
     private boolean attending;
 
+    private String imageUrl;
+
     public RunAttendee() { }
 
     public RunAttendee(long runId, long userId, boolean attending) {
@@ -50,7 +52,10 @@ public class RunAttendee {
     }
 
     public String getImageUrl() {
-        return "/assets/img/user/" + (userId % 9) + ".gif";
+        return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public boolean isAttending() {

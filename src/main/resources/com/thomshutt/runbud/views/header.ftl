@@ -34,7 +34,7 @@
                 display: block;
                 margin: 0 0 10px 0;
             }
-            input, select {
+            input, select, textarea {
                 border:0;
                 padding:10px;
                 font-size:1.3em;
@@ -119,7 +119,7 @@
                 width: 960px;
                 margin: auto;
                 text-align: center;
-                min-height: 500px;
+                min-height: 600px;
             }
             #content2 {
                 display: inline-block;
@@ -155,6 +155,21 @@
                 -webkit-border-radius: 40px;
                 -moz-border-radius: 40px;
                 background: url(http://link-to-your/image.jpg) no-repeat;
+            }
+            .circular-big {
+                width: 160px;
+                height: 160px;
+                border-radius: 80px;
+                -webkit-border-radius: 80px;
+                -moz-border-radius: 80px;
+            }
+            .blurb-row {
+                text-align: center;
+            }
+            .blurb-row p {
+                width: 200px;
+                font-size: 16px;
+                padding-top: 10px;
             }
         </style>
     </head>

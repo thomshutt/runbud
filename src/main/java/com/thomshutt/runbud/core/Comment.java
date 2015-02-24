@@ -26,6 +26,9 @@ public class Comment {
     @Column(name = "CREATED_TIMESTAMP")
     private long createdTimestampUtc;
 
+    private String userName;
+    private String userImageUrl;
+
     public Comment() {}
 
     public Comment(long runId, long userId, String comment) {
@@ -41,6 +44,22 @@ public class Comment {
 
     public String getComment() {
         return comment;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserImageUrl() {
+        return userImageUrl;
+    }
+
+    public void setUserImageUrl(String userImageUrl) {
+        this.userImageUrl = userImageUrl;
     }
 
     @Override

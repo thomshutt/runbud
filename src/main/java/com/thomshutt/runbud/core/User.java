@@ -3,6 +3,7 @@ package com.thomshutt.runbud.core;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.io.File;
 
 @Entity
 @Table(name = "USERS")
@@ -19,6 +20,9 @@ public class User {
 
     @Column(name = "NAME")
     private String name;
+
+    @Column(name = "HAS_IMAGE")
+    private boolean hasImage;
 
     public User() {}
 
@@ -39,7 +43,18 @@ public class User {
         return email;
     }
 
+    public void setHasImage(boolean hasImage) {
+        this.hasImage = hasImage;
+    }
+
+    public boolean hasImage() {
+        return hasImage;
+    }
+
     public String getImageUrl() {
+        if(hasImage) {
+            return "/assets/users/images/" + userId + ".png";
+        }
         return "/assets/img/user/" + (userId % 9) + ".gif";
     }
 

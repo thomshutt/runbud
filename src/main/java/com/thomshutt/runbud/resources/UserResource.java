@@ -14,19 +14,21 @@ import com.thomshutt.runbud.views.SettingsView;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.views.View;
+import net.coobird.thumbnailator.Thumbnails;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.*;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
+import java.nio.file.*;
 import java.util.concurrent.TimeUnit;
 
 @Path("/users")
@@ -42,6 +44,7 @@ public class UserResource {
     private final UserCredentialsDAO userCredentialsDAO;
     private final EmailSender emailSender;
     private final URI URL_SITE_ROOT;
+    private final URI URL_RUNS;
 
     public UserResource(
             UserDAO userDAO,
@@ -53,6 +56,7 @@ public class UserResource {
         this.emailSender = emailSender;
         try {
             URL_SITE_ROOT = new URI("/");
+            URL_RUNS = new URI("/runs");
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -80,12 +84,8 @@ public class UserResource {
             userCredentials.generateNewToken(System.currentTimeMillis() + ONE_WEEK_MILLIS);
             userCredentialsDAO.persist(userCredentials);
             emailSender.sendSignupSuccessMessage(name, email);
-            return new InformationView(
-                    Optional.<User>absent(),
-                    "/assets/img/default_run.png",
-                    "Sign Up Success!",
-                    "Now that you've signed up, you can log in and find a run to join or create one of your own."
-                    );
+            return new LoginView(Optional.<User>absent(), false, true);
+//            "Now that you've signed up, you can log in and find a run to join or create one of your own."
         } catch (IOException e) {
             // TODO: Handle this better
             throw new RuntimeException(e);
@@ -96,7 +96,7 @@ public class UserResource {
     @UnitOfWork
     @Path("/login")
     public LoginView loginPage(@Auth(required = false) User user) {
-        return new LoginView(Optional.fromNullable(user), false);
+        return new LoginView(Optional.fromNullable(user), false, false);
     }
 
     @POST
@@ -106,7 +106,7 @@ public class UserResource {
             @FormParam("email") String email,
             @FormParam("password") String password
     ) {
-        final View loginFailureView = new LoginView(Optional.<User>absent(), true);
+        final View loginFailureView = new LoginView(Optional.<User>absent(), true, false);
         final User user = userDAO.getForEmail(email);
         if(user == null) {
             return Response.ok().entity(loginFailureView).build();
@@ -119,7 +119,7 @@ public class UserResource {
             userCredentialsDAO.persist(userCredentials);
             final NewCookie c_ = new NewCookie(RUNBUD_COOKIE_KEY, userCredentials.getToken());
             final NewCookie c = new NewCookie(RUNBUD_COOKIE_KEY, userCredentials.getToken(), "/", c_.getDomain(), "", (int) TimeUnit.DAYS.toSeconds(7), false);
-            return Response.seeOther(URL_SITE_ROOT).cookie(c).build();
+            return Response.seeOther(URL_RUNS).cookie(c).build();
         } else {
             return Response.ok().entity(loginFailureView).build();
         }
@@ -150,13 +150,21 @@ public class UserResource {
     public SettingsView uploadImage(
             @Auth(required = true) User user,
             @FormDataParam("image") FormDataContentDisposition contentDispositionHeader,
-            @FormDataParam("image") InputStream fileInputStream) {
-        java.nio.file.Path outputPath = FileSystems.getDefault().getPath("/tmp/", user.getUserId() + "");
+            @FormDataParam("image") InputStream fileInputStream
+    ) {
+        // TODO: Get from settings
         try {
-            Files.copy(fileInputStream, outputPath);
+            Thumbnails.of(fileInputStream)
+                    .size(160, 160)
+                    .outputFormat("png")
+                    .toFile(new File("/tmp/", user.getUserId() + ".png"));
+
+            user.setHasImage(true);
+            userDAO.persist(user);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return new SettingsView(Optional.fromNullable(user));
     }
 

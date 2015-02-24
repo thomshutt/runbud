@@ -142,6 +142,18 @@
             <version>2.15</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.bazaarvoice.dropwizard</groupId>
+            <artifactId>dropwizard-configurable-assets-bundle</artifactId>
+            <version>0.2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+        </dependency>
+
     </dependencies>
 
 </project>

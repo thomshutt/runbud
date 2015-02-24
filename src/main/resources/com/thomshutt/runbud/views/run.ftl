@@ -64,7 +64,7 @@
 
     <h1>Who's Running:</h1>
 
-        <div id="runners" style="text-align: left; padding-left: 10px;">
+        <div id="runners" style="text-align: left; padding-left: 10px; margin-bottom: 30px;">
             <div class="circular" style="vertical-align: top; background: url(${initiatingUser.imageUrl?html}) no-repeat; background-position: center; display: inline-block;"></div>
             <#list runAttendees as runner>
                 <div class="circular" style="margin-left: 10px; vertical-align: top; background: url(${runner.imageUrl?html}) no-repeat; background-position: center; display: inline-block;"></div>
@@ -73,17 +73,27 @@
 
     <h1>Comments:</h1>
 
-    <#list comments as comment>
-        <p>
-            ${comment.userId?html}: ${comment.comment?html}
-        </p>
-    </#list>
+
+    <div style="width: 960px; text-align: left; padding-left: 10px;">
+        <#list comments as comment>
+            <p>
+                <div class="circular" style="vertical-align: top; background: url(${comment.userImageUrl?html}) no-repeat; background-position: center; display: inline-block; margin-right: 15px; margin-bottom: 25px;"></div>
+                <div style="display: inline-block;">
+                    <label style="margin: 12px 0px 5px;">${comment.userName?html}</label>
+                    <p class="label-body" style="margin: 0px; font-style: italic;">${comment.comment?html}</p>
+                </div>
+            </p>
+        </#list>
+    </div>
 
     <#if loggedIn>
-        <h2>Post Comment:</h2>
-
-        <form action="/runs/${run.runId}/comment" method="post">
-              <input type="text" name="comment" value="Some comment here" />
+        <#if 0 = comments?size>
+            <p style="font-style: italic; color: #666; margin-bottom: 25px;">
+                Why not leave a comment to let people know that you'll be there?
+            </p>
+        </#if>
+        <form action="/runs/${run.runId}/comment" method="post" style="text-align: left; margin-bottom: 25px;">
+              <textarea rows="3" name="comment" placeholder="Leave a comment..." style="width: 960px;"></textarea>
               <input type="submit" value="Post Comment" />
         </form>
     </#if>

@@ -57,9 +57,20 @@ public class RunResource {
     @Path("/{runId}")
     public RunView getRun(@Auth(required = false) User user, @PathParam("runId") long runId) {
         final Run run = runDAO.get(runId);
+
         final List<Comment> comments = commentDAO.listForRunId(runId);
+        for (Comment comment : comments) {
+            final User commentImageUrl = userDAO.get(comment.getUserId());
+            comment.setUserName(commentImageUrl.getName());
+            comment.setUserImageUrl(commentImageUrl.getImageUrl());
+        }
+
         final List<RunAttendee> runAttendees = runAttendeeDAO.listForRunId(runId);
+        for (RunAttendee runAttendee : runAttendees) {
+            runAttendee.setImageUrl(userDAO.get(runAttendee.getUserId()).getImageUrl());
+        }
         final User initiatingUser = userDAO.get(run.getInitiatingUserId());
+
         return new RunView(Optional.fromNullable(user), run, initiatingUser, comments, runAttendees);
     }
 
@@ -188,12 +199,24 @@ public class RunResource {
             @FormParam("run_name") String runName,
             @FormParam("description") String description
     ) {
+        final List<Run> runs = runDAO.listForInitiatingUser(user);
+        if(runs.size() == MAX_RUNS_PER_USER) {
+            return new InformationView(
+                    Optional.of(user),
+                    "/assets/img/default_run.png",
+                    "Sorry!",
+                    "You can't create more than two runs each day."
+            );
+        }
+
         if(startTimeHours > 23 || startTimeHours < 0) {
             return new CreateRunView(Optional.of(user), Optional.of("Invalid value for 'Hours'"));
         }
         if(startTimeMins > 59 || startTimeMins < 0) {
             return new CreateRunView(Optional.of(user), Optional.of("Invalid value for 'Minutes'"));
         }
+
+        final String imageUrl = user.hasImage() ? user.getImageUrl() : "/assets/img/default_run.png";
 
         final Run run = runDAO.persist(
                 new Run(
@@ -206,17 +229,15 @@ public class RunResource {
                         startTimeMins,
                         runName,
                         description,
-                        "/assets/img/default_run.png"
+                        imageUrl
                 )
         );
-
-        imageFetcher.fetchImageUrl(run, run.getRunId(), startLatitude, startLongitude);
 
         return new InformationView(
                 Optional.of(user),
                 run.getImageUrl(),
                 "Run Created!",
-                "Your run has been created, click here to view it."
+                "Your run has been created, click <a href='/runs/" + run.getRunId() + "'>here</a> to view it."
         );
     }
 

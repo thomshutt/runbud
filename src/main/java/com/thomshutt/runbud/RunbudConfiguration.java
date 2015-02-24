@@ -1,5 +1,7 @@
 package com.thomshutt.runbud;
 
+import com.bazaarvoice.dropwizard.assets.AssetsBundleConfiguration;
+import com.bazaarvoice.dropwizard.assets.AssetsConfiguration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
@@ -11,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class RunbudConfiguration extends Configuration {
+public class RunbudConfiguration extends Configuration implements AssetsBundleConfiguration {
 
     final static Logger LOGGER = LoggerFactory.getLogger(RunbudConfiguration.class);
 
@@ -19,6 +21,11 @@ public class RunbudConfiguration extends Configuration {
     @NotNull
     @JsonProperty("database")
     private DataSourceFactory database = new DataSourceFactory();
+
+    @Valid
+    @NotNull
+    @JsonProperty
+    private final AssetsConfiguration assets = new AssetsConfiguration();
 
     private DataSourceFactory envDatabase;
 
@@ -33,6 +40,11 @@ public class RunbudConfiguration extends Configuration {
         } else {
             return database;
         }
+    }
+
+    @Override
+    public AssetsConfiguration getAssetsConfiguration() {
+        return assets;
     }
 
     public static DataSourceFactory create(String databaseUrl) {

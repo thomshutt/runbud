@@ -1,5 +1,6 @@
 package com.thomshutt.runbud;
 
+import com.bazaarvoice.dropwizard.assets.ConfiguredAssetsBundle;
 import com.google.common.base.Optional;
 import com.thomshutt.runbud.core.*;
 import com.thomshutt.runbud.data.*;
@@ -51,7 +52,8 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
     public void initialize(Bootstrap<RunbudConfiguration> bootstrap) {
         bootstrap.addBundle(new ViewBundle());
         bootstrap.addBundle(runBundle);
-        bootstrap.addBundle(new AssetsBundle());
+//        bootstrap.addBundle(new AssetsBundle());
+        bootstrap.addBundle(new ConfiguredAssetsBundle("/assets"));
         bootstrap.addBundle(new MigrationsBundle<RunbudConfiguration>() {
             @Override
             public DataSourceFactory getDataSourceFactory(RunbudConfiguration configuration) {

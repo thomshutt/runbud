@@ -4,7 +4,9 @@
 
     <h2>Current Photo: </h2>
 
-    <div class="circular" style="margin-left: 10px; vertical-align: top; background: url(${user.imageUrl?html}) no-repeat; background-position: center; display: inline-block;"></div>
+    <div class="circular" style="margin-left: 10px; vertical-align: top; background: url('${user.imageUrl?html}?random=${.now?long}') no-repeat; background-position: center; display: inline-block;"></div>
+
+    <br /><br />
 
     <form action="/users/settings" method="post" enctype="multipart/form-data">
         <input type="file" name="image" />

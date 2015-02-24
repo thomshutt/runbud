@@ -9,7 +9,7 @@
     </#if>
 
     <#if hasInformationText>
-        <h2>${informationText?html}</h2>
+        <h2>${informationText}</h2>
     </#if>
 
 <#include "footer.ftl">

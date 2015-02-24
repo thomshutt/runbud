@@ -7,6 +7,12 @@ server:
   - type: http
     port: 9001
 
+# Asset settings.
+assets:
+  overrides:
+    /assets: src/main/resources/assets/
+    /assets/users/images: /tmp
+
 # Database settings.
 database:
 
