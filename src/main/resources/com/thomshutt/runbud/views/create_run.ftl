@@ -6,7 +6,7 @@
     <div style="display: inline-block; vertical-align: top; text-align: left;">
         <form action="/runs/create" method="post">
             <label>Run Name</label>
-            <input type="text" name="run_name" value="Give your run a name..." />
+            <input type="text" name="run_name" placeholder="Give your run a name..." />
 
             <label>Distance (km)</label>
             <input type="number" name="distance_km" value="1" />
@@ -27,7 +27,7 @@
             </select>
 
             <label>Description</label>
-            <input type="text" name="description" value="Some description..." />
+            <textarea rows="3" name="description" placeholder="How people can find the start point, what sort of pace you'll be running at etc."></textarea>
 
             <input id="inputLatitude" type="hidden" name="start_latitude" value="51.510730378916186" />
             <input id="inputLongitude" type="hidden" name="start_longitude" value="-0.13398630345454876" />

@@ -47,7 +47,7 @@
                 margin-top: 8px;
                 margin:0 0 20px;
             }
-            input {
+            input, textarea {
                 display: block;
                 width:300px;
             }
