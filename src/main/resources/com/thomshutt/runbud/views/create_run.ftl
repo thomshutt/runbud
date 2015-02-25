@@ -12,22 +12,22 @@
             <input type="number" name="distance_km" value="1" />
 
             <label>Start Time</label>
-            <select>
+            <select name="start_time_hours">
                 <#assign x=24>
                 <#list 0..x as i>
-                  <option>${i}</option>
+                  <option value="${i}">${i}</option>
                 </#list>
             </select>
             :
-            <select>
-                <option>00</option>
-                <option>15</option>
-                <option>30</option>
-                <option>45</option>
+            <select name="start_time_mins">
+                <option value="00">00</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="45">45</option>
             </select>
 
             <label>Description</label>
-            <textarea rows="3" name="description" placeholder="How people can find the start point, what sort of pace you'll be running at etc."></textarea>
+            <textarea rows="4" name="description" placeholder="How people can find the start point, what sort of pace you'll be running at etc."></textarea>
 
             <input id="inputLatitude" type="hidden" name="start_latitude" value="51.510730378916186" />
             <input id="inputLongitude" type="hidden" name="start_longitude" value="-0.13398630345454876" />

@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class RunDAO extends AbstractDAO<Run> {
     }
 
     public List<Run> list() throws HibernateException {
-        return Collections.unmodifiableList(
+        return new ArrayList<Run>(
                 super.list(super.criteria().add(Restrictions.eq("isCancelled", false)))
         );
     }

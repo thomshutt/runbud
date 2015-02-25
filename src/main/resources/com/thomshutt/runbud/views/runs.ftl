@@ -5,11 +5,12 @@
         <ol>
             <#list runs as run>
                 <li>
-                    <!-- img style="vertical-align: top; border: 1px solid #3D4F5D;" src="http://lorempixel.com/80/80/?random=${run.runId?html}" -->
                     <div class="circular" style="vertical-align: top; background: url(${run.imageUrl?html}) no-repeat; background-position: center; display: inline-block;"></div>
-                    <div style="display: inline-block; padding: 20px;">
-                        <a href="/runs/${run.runId?html}">${run.runName?html}</a>
-                        <p>${run.description}</p>
+                    <div style="display: inline-block; padding-left: 20px;">
+                        <a href="/runs/${run.runId?html}">${run.startTimeHours?html}:${run.startTimeMins?html} - ${run.distanceKm?html}km - ${run.runName?html}</a>
+                        <p>${run.startAddress}</p>
+                        <br />
+                        <p style="font-style: italic;">${run.description}</p>
                     </div>
                 </li>
             </#list>

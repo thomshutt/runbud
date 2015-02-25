@@ -160,6 +160,14 @@ public class Run {
         return imageUrl;
     }
 
+    public int getStartTimeHours() {
+        return startTimeHours;
+    }
+
+    public int getStartTimeMins() {
+        return startTimeMins;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
