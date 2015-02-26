@@ -2,8 +2,6 @@
 
     <h1>Settings</h1>
 
-    <h2>Current Photo: </h2>
-
     <div class="circular" style="margin-left: 10px; vertical-align: top; background: url('${user.imageUrl?html}?random=${.now?long}') no-repeat; background-position: center; display: inline-block;"></div>
 
     <br /><br />
