@@ -6,16 +6,20 @@
     <div style="display: inline-block; vertical-align: top; text-align: left;">
         <form action="/runs/create" method="post">
             <label>Run Name</label>
-            <input type="text" name="run_name" placeholder="Give your run a name..." />
+            <input type="text" name="run_name" placeholder="Give your run a name..." value="${runName}" />
 
             <label>Distance (km)</label>
-            <input type="number" name="distance_km" value="1" />
+            <input type="number" name="distance_km" value="${distanceKm}" />
 
             <label>Start Time</label>
             <select name="start_time_hours">
                 <#assign x=24>
                 <#list 0..x as i>
-                  <option value="${i}">${i}</option>
+                  <#if i = startTimeHours>
+                    <option value="${i}" selected="true">${i}</option>
+                  <#else>
+                    <option value="${i}">${i}</option>
+                  </#if>
                 </#list>
             </select>
             :
@@ -27,11 +31,11 @@
             </select>
 
             <label>Description</label>
-            <textarea rows="4" name="description" placeholder="How people can find the start point, what sort of pace you'll be running at etc."></textarea>
+            <textarea rows="4" name="description" placeholder="How people can find the start point, what sort of pace you'll be running at etc.">${description}</textarea>
 
-            <input id="inputLatitude" type="hidden" name="start_latitude" value="51.510730378916186" />
-            <input id="inputLongitude" type="hidden" name="start_longitude" value="-0.13398630345454876" />
-            <input id="inputAddress" type="hidden" name="start_address" value="Piccadilly Circus, London W1J, UK" />
+            <input id="inputLatitude" type="hidden" name="start_latitude" value="${startLatitude}" />
+            <input id="inputLongitude" type="hidden" name="start_longitude" value="${startLongitude}" />
+            <input id="inputAddress" type="hidden" name="start_address" value="${startAddress}}" />
             <input type="submit" value="Create Run" />
         </form>
     </div>

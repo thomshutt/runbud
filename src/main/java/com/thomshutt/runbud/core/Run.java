@@ -80,10 +80,6 @@ public class Run {
         this.imageUrl = imageUrl;
     }
 
-    public long getName() {
-        return runId;
-    }
-
     public long getInitiatingUserId() {
         return initiatingUserId;
     }

@@ -16,6 +16,7 @@ import com.thomshutt.runbud.views.*;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.views.View;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -210,7 +211,7 @@ public class RunResource {
                     "You can't create more than two runs each day."
             );
         }
-        return new CreateRunView(Optional.fromNullable(user), Optional.<String>absent());
+        return new CreateRunView(Optional.fromNullable(user), Optional.<Run>absent(), Optional.<String>absent());
     }
 
     @POST
@@ -237,29 +238,36 @@ public class RunResource {
             );
         }
 
-        if(startTimeHours > 23 || startTimeHours < 0) {
-            return new CreateRunView(Optional.of(user), Optional.of("Invalid value for 'Hours'"));
-        }
-        if(startTimeMins > 59 || startTimeMins < 0) {
-            return new CreateRunView(Optional.of(user), Optional.of("Invalid value for 'Minutes'"));
-        }
-
-        final String imageUrl = user.hasImage() ? user.getImageUrl() : "/assets/img/default_run.png";
-
-        final Run run = runDAO.persist(
-                new Run(
-                        user.getUserId(),
-                        startLatitude,
-                        startLongitude,
-                        startAddress,
-                        distanceKm,
-                        startTimeHours,
-                        startTimeMins,
-                        runName,
-                        description,
-                        imageUrl
-                )
+        final Run runValues = new Run(
+                user.getUserId(),
+                startLatitude,
+                startLongitude,
+                startAddress,
+                distanceKm,
+                startTimeHours,
+                startTimeMins,
+                runName,
+                description,
+                user.hasImage() ? user.getImageUrl() : "/assets/img/default_run.png"
         );
+
+        if(startTimeHours > 23 || startTimeHours < 0) {
+            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Invalid value for 'Hours'"));
+        }
+        if(startTimeMins > 59 || startTimeMins < 0 || startTimeMins % 15 != 0) {
+            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Invalid value for 'Minutes'"));
+        }
+        if(distanceKm < 0) {
+            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Distance must be at least 0!"));
+        }
+        if(StringUtils.isBlank(runName)) {
+            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("You need to give your run a name!"));
+        }
+        if(StringUtils.isBlank(description)) {
+            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Let people know a bit more about your run with a description."));
+        }
+
+        final Run run = runDAO.persist(runValues);
 
         return new InformationView(
                 Optional.of(user),
