@@ -1,6 +1,15 @@
 <#-- @ftlvariable name="" type="com.thomshutt.runbud.views.RunsView" -->
 <#include "header.ftl">
     <h1>Runs</h1>
+
+    <div class="info-box">
+        <p>Near to</p>
+        <form action="/runs" method="post">
+            <input type="text" value="Piccadilly Circus, London" style="display: inline-block; margin-right: 15px; width: 510px;" />
+            <input type="submit" value="Search" style="margin: 0px; display: inline-block; " />
+        </form>
+    </div>
+
     <div style="width: 960px; text-align: left">
         <ol>
             <#list runs as run>
