@@ -29,7 +29,6 @@ import java.util.List;
 public class RunResource {
 
     private static final int MAX_RUNS_PER_USER = 2;
-    public static final LatitudeLongitude PICC_CIRCUS_LAT_LON = new LatitudeLongitude(51.510730378916186, -0.13398630345454876);
 
     private final RunDAO runDAO;
     private final UserDAO userDAO;
@@ -53,18 +52,26 @@ public class RunResource {
     @GET
     @UnitOfWork
     public RunsView getRuns(@Auth(required = false) User user) {
-        return getRunsLatLon(user, null, null);
+        return getRunsLatLon(user, null, null, "Piccadilly Circus, London W1D 7ET");
+    }
+
+    @POST
+    @UnitOfWork
+    public RunsView getRunsWithLatLon(@Auth(required = false) User user, @FormParam("address") String address) {
+        LatitudeLongitude latitudeLongitude = LatitudeLongitude.fromAddress(address);
+        return getRunsLatLon(user, latitudeLongitude.latitude, latitudeLongitude.longitude, address);
     }
 
     @GET
     @UnitOfWork
-    @Path("/{userLatitude}/{userLongitude}")
+    @Path("/{userLatitude}/{userLongitude}/{address}")
     public RunsView getRunsLatLon(
             @Auth(required = false) User user,
-            @PathParam("userLatitude") Long userLatitude,
-            @PathParam("userLongitude") Long userLongitiude
+            @PathParam("userLatitude") Double userLatitude,
+            @PathParam("userLongitude") Double userLongitiude,
+            @PathParam("address") String address
     ) {
-        final LatitudeLongitude userLatLon = userLatitude != null && userLongitiude != null ? new LatitudeLongitude(userLatitude, userLongitiude) : PICC_CIRCUS_LAT_LON;
+        final LatitudeLongitude userLatLon = userLatitude != null && userLongitiude != null ? new LatitudeLongitude(userLatitude, userLongitiude) : LatitudeLongitude.PICC_CIRCUS_LAT_LON;
         final List<Run> list = runDAO.list();
         Collections.sort(list, new Comparator<Run>() {
             @Override
@@ -74,11 +81,11 @@ public class RunResource {
 
                 return (int) Math.round(
                         LatitudeLongitude.calculateDistanceKmBetween(userLatLon, runStart) -
-                        LatitudeLongitude.calculateDistanceKmBetween(userLatLon, run2Start)
+                                LatitudeLongitude.calculateDistanceKmBetween(userLatLon, run2Start)
                 );
             }
         });
-        return new RunsView(Optional.fromNullable(user), list);
+        return new RunsView(Optional.fromNullable(user), list, address);
     }
 
     @GET

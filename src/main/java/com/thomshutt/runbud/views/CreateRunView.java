@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 import com.thomshutt.runbud.core.Run;
 import com.thomshutt.runbud.core.User;
 import com.thomshutt.runbud.resources.RunResource;
+import com.thomshutt.runbud.util.LatitudeLongitude;
 
 public class CreateRunView extends LoggedInAwareView {
 
@@ -33,11 +34,11 @@ public class CreateRunView extends LoggedInAwareView {
     }
 
     public double getStartLatitude() {
-        return run.isPresent() ? run.get().getStartLatitude() : RunResource.PICC_CIRCUS_LAT_LON.latitude;
+        return run.isPresent() ? run.get().getStartLatitude() : LatitudeLongitude.PICC_CIRCUS_LAT_LON.latitude;
     }
 
     public double getStartLongitude() {
-        return run.isPresent() ? run.get().getStartLongitude() : RunResource.PICC_CIRCUS_LAT_LON.longitude;
+        return run.isPresent() ? run.get().getStartLongitude() : LatitudeLongitude.PICC_CIRCUS_LAT_LON.longitude;
     }
 
     public String getStartAddress() {
