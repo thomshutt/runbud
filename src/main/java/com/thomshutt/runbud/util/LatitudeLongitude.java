@@ -56,4 +56,9 @@ public class LatitudeLongitude {
         }
     }
 
+    public static long toDate(LatitudeLongitude latitudeLongitude) {
+//        https://maps.googleapis.com/maps/api/timezone/json?location=51.510730378916186,-0.13398630345454876&timestamp=1425458131
+        return 0;
+    }
+
 }
