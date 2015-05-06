@@ -6,13 +6,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "RUNS")
+@Table(name = "runs")
 public class Run {
 
     @Id
     @Column(name = "RUN_ID")
-    @SequenceGenerator(name = "runSeq", sequenceName = "RUN_ID_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "runSeq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long runId;
 
     @Column(name = "INITIATING_USER_ID")

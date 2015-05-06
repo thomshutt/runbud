@@ -6,13 +6,12 @@ import javax.persistence.*;
 import java.io.File;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 public class User {
 
     @Id
     @Column(name = "USER_ID")
-    @SequenceGenerator(name = "userSeq", sequenceName="USER_ID_SEQ", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "userSeq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
     @Column(name = "EMAIL", unique = true)

@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(
-        name = "RUN_ATTENDEES",
+        name = "run_attendees",
         uniqueConstraints = {
                 @UniqueConstraint(
                         columnNames = {
@@ -20,8 +20,7 @@ public class RunAttendee {
 
     @Id
     @Column(name = "RUN_ATTENDEE_ID")
-    @SequenceGenerator(name = "runAttendeeSeq", sequenceName="RUN_ATTENDEE_ID_SEQ", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "runAttendeeSeq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long runAttendeeId;
 
     @Column(name = "RUN_ID")
@@ -33,6 +32,7 @@ public class RunAttendee {
     @Column(name = "ATTENDING")
     private boolean attending;
 
+    @Column(name = "IMAGE_URL")
     private String imageUrl;
 
     public RunAttendee() { }

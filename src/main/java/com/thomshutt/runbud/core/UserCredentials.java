@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "USER_CREDENTIALS")
+@Table(name = "user_credentials")
 public class UserCredentials {
 
     @Id
