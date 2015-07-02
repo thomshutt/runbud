@@ -36,8 +36,8 @@ public class TimezoneToDateConverter {
                     client.executeMethod(get);
                     final String responseBody = new String(get.getResponseBody());
                     final Run run = runDAO.get(runId);
-                    run.setDate(parseEarthToolsXml(responseBody));
-                    runDAO.persist(run);
+//                    run.setDate(parseEarthToolsXml(responseBody));
+//                    runDAO.persist(run);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

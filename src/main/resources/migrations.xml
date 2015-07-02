@@ -27,7 +27,7 @@
             <column name="start_latitude" type="FLOAT"/>
             <column name="start_longitude" type="FLOAT"/>
             <column name="image" type="VARCHAR(255)"/>
-            <column name="date" type="VARCHAR(16)"/>
+            <column name="date" type="BIGINT"/>
             <column name="start_time_hours" type="NUMERIC"/>
             <column name="start_time_mins" type="NUMERIC"/>
         </createTable>

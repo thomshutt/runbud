@@ -2,8 +2,10 @@ package com.thomshutt.runbud.core;
 
 import com.thomshutt.runbud.util.SimpleDate;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.joda.time.DateTimeUtils;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "runs")
@@ -30,7 +32,7 @@ public class Run {
     private double distanceKm;
 
     @Column(name = "DATE")
-    private String date;
+    private long date;
 
     @Column(name = "START_TIME_HOURS")
     private int startTimeHours;
@@ -75,7 +77,7 @@ public class Run {
         this.runName = runName;
         this.description = description;
         this.isCancelled = false;
-        this.date = new SimpleDate(3, 2, 1988).toDbFormat();
+        this.date = DateTimeUtils.currentTimeMillis();
         this.imageUrl = imageUrl;
     }
 
@@ -143,8 +145,8 @@ public class Run {
         this.isCancelled = isCancelled;
     }
 
-    public void setDate(SimpleDate date) {
-        this.date = date.toDbFormat();
+    public void setDate(long date) {
+        this.date = date;
     }
 
     public void setImageUrl(String imageUrl) {
