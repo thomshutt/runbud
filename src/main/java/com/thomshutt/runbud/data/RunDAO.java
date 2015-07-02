@@ -7,10 +7,13 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class RunDAO extends AbstractDAO<Run> {
@@ -27,7 +30,15 @@ public class RunDAO extends AbstractDAO<Run> {
 
     public List<Run> list() throws HibernateException {
         return new ArrayList<Run>(
-                super.list(super.criteria().add(Restrictions.eq("isCancelled", false)))
+                super.list(
+                        super.criteria()
+                                .add(Restrictions.eq("isCancelled", false))
+                                .add(Restrictions.gt(
+                                                "date",
+                                                new DateTime(DateTimeUtils.currentTimeMillis()).withTimeAtStartOfDay()
+                                        )
+                                )
+                )
         );
     }
 
