@@ -35,7 +35,9 @@ public class RunDAO extends AbstractDAO<Run> {
                                 .add(Restrictions.eq("isCancelled", false))
                                 .add(Restrictions.gt(
                                                 "date",
-                                                new DateTime(DateTimeUtils.currentTimeMillis()).withTimeAtStartOfDay()
+                                                new DateTime(DateTimeUtils.currentTimeMillis())
+                                                        .withTimeAtStartOfDay()
+                                                        .getMillis()
                                         )
                                 )
                 )
