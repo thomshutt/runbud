@@ -29,23 +29,36 @@ public class RunDAO extends AbstractDAO<Run> {
     }
 
     public List<Run> list() throws HibernateException {
-        return new ArrayList<Run>(
-                super.list(
-                        super.criteria()
-                                .add(Restrictions.eq("isCancelled", false))
-                                .add(Restrictions.gt(
-                                                "date",
-                                                new DateTime(DateTimeUtils.currentTimeMillis())
-                                                        .withTimeAtStartOfDay()
-                                                        .getMillis()
-                                        )
+        return super.list(
+                super.criteria()
+                        .add(Restrictions.eq("isCancelled", false))
+                        .add(Restrictions.gt(
+                                        "date",
+                                        new DateTime(DateTimeUtils.currentTimeMillis())
+                                                .withTimeAtStartOfDay()
+                                                .getMillis()
                                 )
-                )
+                        )
         );
     }
 
     public List<Run> listForInitiatingUser(User user) throws HibernateException {
-        return super.list(super.criteria().add(Restrictions.eq("initiatingUserId", user.getUserId())));
+        return super.list(
+                super.criteria()
+                        .add(
+                                Restrictions.eq(
+                                        "initiatingUserId",
+                                        user.getUserId()
+                                )
+                        )
+                        .add(Restrictions.gt(
+                                        "date",
+                                        new DateTime(DateTimeUtils.currentTimeMillis())
+                                                .withTimeAtStartOfDay()
+                                                .getMillis()
+                                )
+                        )
+        );
     }
 
     @Override
