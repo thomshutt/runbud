@@ -277,8 +277,8 @@
     };
     $.fn.locationpicker.defaults = {
         location: {
-            latitude: 40.7324319,
-            longitude: -73.82480799999996
+            latitude: 51.5101355,
+            longitude: -0.135068
         },
         locationName: "",
         radius: 500,
