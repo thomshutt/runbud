@@ -170,6 +170,19 @@
                 width: 200px;
                 font-size: 16px;
                 padding-top: 10px;
+            }    
+            .home_subsec {
+                display: inline-block; 
+                padding: 10px;
+                width: 274px;
+                vertical-align: top;
+            }
+            .home_subsec h3 {
+                    font-weight: unset;
+            }
+            .home_subsec_img {
+                width: 274px; 
+                height: 143px; 
             }
         </style>
     </head>

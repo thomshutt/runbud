@@ -1,6 +1,6 @@
 <#include "header.ftl">
 
-    <div style="
+   <div style="
         position: absolute;
         left: 0;
         margin-top: -20px;
@@ -19,29 +19,26 @@
         </h1>
     </div>
 
-    <h1 style="margin-top: 480px;"></h1>
-
-    <div class="blurb-row">
-        <div style="display: inline-block; width: 350px; vertical-align: middle;">
-           <div class="circular-big" style="vertical-align: top; background: url('http://www.codeproject.com/KB/web-image/Google_map/sampleMap.JPG') no-repeat; background-position: center; display: inline-block;"></div>
-           <center><p>Find people that are running in your local area today</p></center>
-        </div>
-
-        <div style="display: inline-block; width: 50px;">
-            <h1 style="text-align: center;">or</h1>
-        </div>
-
-        <div style="display: inline-block; width: 350px; vertical-align: middle;">
-            <div class="circular-big" style="vertical-align: top; background: url('/assets/img/create_run.jpg') no-repeat; background-position: center; display: inline-block;"></div>
-            <center><p>Let people know that you'll be running</p></center>
-        </div>
+    <div style="position: absolute; margin-top: 460px; height: 40px; width: 100%; left: 0px; border-bottom: 1px solid #CCC; border-top: 1px solid #CCC;">
+        <p>Runbud is a site</p>
     </div>
 
-    <br /><br />
-
-    <div class="blurb-row">
-        <div class="circular-big" style="vertical-align: top; background: url('http://cdn2-b.examiner.com/sites/default/files/styles/image_content_width/hash/3a/ca/3acaca2c1cb7e4de694e2c3c40b63b4c.jpg?itok=ibpQ6aT8') no-repeat; background-position: center; display: inline-block;"></div>
-        <center><p>Meet up and run together</p></center>
+    <div class="blurb-row" style="margin-top: 530px;">
+      <div class="home_subsec"> 
+        <div class="home_subsec_img" style="background: url('/assets/img/create_run.jpg') no-repeat scroll 0% 40%;"/><!-- --></div> 
+        <h2>Create</h2>        
+        <h3>Let people know when and where you'll be running</h3>
+      </div>
+      <div class="home_subsec">
+        <div class="home_subsec_img" style="background: url('/assets/img/sample_map.jpg') no-repeat;"><!-- --></div> 
+        <h2>Find</h2>        
+        <h3>See who's running in your neighbourhood</h3>
+      </div>
+      <div class="home_subsec">
+        <div class="home_subsec_img" style="background: url('/assets/img/run_more.jpg') no-repeat;"><!-- --></div> 
+        <h2>Run</h2>        
+        <h3>Meet up, make friends and run more</h3>
+      </div>
     </div>
 
     <br /><br />
