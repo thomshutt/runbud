@@ -66,14 +66,20 @@
                 width: 100%;
                 border-top: 1px solid #E5E5E5;
                 background-color: rgb(61, 79, 93);
+                padding-top: 8px;
             }
             #footer li {
-                padding-left: 125px;
                 color: white;
                 text-transform: uppercase;
                 border-bottom: none;
                 font-size: 11px;
-                padding-top: 12px;
+                padding: 0px 0px 5px 125px;
+            }
+            #footer li a {
+                color: white;
+            }
+            #footer li a:hover {
+                text-decoration: underline;
             }
             p.label-body {
                 margin-bottom: 15px;
