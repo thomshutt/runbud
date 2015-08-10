@@ -26,21 +26,27 @@
     </div>
 
     <div class="blurb-row" style="margin-top: 550px;">
-      <div class="home_subsec"> 
-        <div class="home_subsec_img" style="background: url('/assets/img/create_run.jpg') no-repeat scroll 0% 40%;"/><!-- --></div> 
-        <h2>Create</h2>        
-        <h3>Let people know when and where you'll be running</h3>
-      </div>
-      <div class="home_subsec">
-        <div class="home_subsec_img" style="background: url('/assets/img/sample_map.jpg') no-repeat;"><!-- --></div> 
-        <h2>Find</h2>        
-        <h3>See who's running in your neighbourhood</h3>
-      </div>
-      <div class="home_subsec">
-        <div class="home_subsec_img" style="background: url('/assets/img/run_more.jpg') no-repeat;"><!-- --></div> 
-        <h2>Run</h2>        
-        <h3>Meet up, make friends and run more</h3>
-      </div>
+      <a href="/runs/create">
+        <div class="home_subsec">
+          <div class="home_subsec_img" style="background: url('/assets/img/create_run.jpg') no-repeat scroll 0% 40%;"/><!-- --></div>
+          <h2>Create</h2>
+          <h3>Let people know when and where you'll be running</h3>
+        </div>
+      </a>
+      <a href="/runs">
+        <div class="home_subsec">
+          <div class="home_subsec_img" style="background: url('/assets/img/sample_map.jpg') no-repeat;"><!-- --></div>
+          <h2>Find</h2>
+          <h3>See who's running in your neighbourhood</h3>
+        </div>
+      </a>
+      <a href="/runs">
+        <div class="home_subsec">
+          <div class="home_subsec_img" style="background: url('/assets/img/run_more.jpg') no-repeat;"><!-- --></div>
+          <h2>Run</h2>
+          <h3>Meet up, make friends and run more</h3>
+        </div>
+      </a>
     </div>
 
     <br /><br />

@@ -182,9 +182,19 @@
                 padding: 10px;
                 width: 274px;
                 vertical-align: top;
+                color: rgb(61, 79, 93);
+            }
+            .home_subsec h2, .home_subsec h3 {
+                color: rgb(61, 79, 93);
             }
             .home_subsec h3 {
-                    font-weight: unset;
+                min-height: 42px;
+            }
+            .home_subsec:hover, .home_subsec h3:hover {
+                background-color: #EEE;
+            }
+            .home_subsec h3 {
+                font-weight: unset;
             }
             .home_subsec_img {
                 width: 274px; 
