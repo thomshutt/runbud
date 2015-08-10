@@ -19,11 +19,13 @@
         </h1>
     </div>
 
-    <div style="position: absolute; margin-top: 460px; height: 40px; width: 100%; left: 0px; border-bottom: 1px solid #CCC; border-top: 1px solid #CCC;">
-        <p>Runbud is a site</p>
+    <div style="position: absolute; margin-top: 460px; height: 40px; width: 100%; left: 0px; border-top: 1px solid #CCC;">
+        <p style="font-family: Arial,sans-serif; font-size: 44px; line-height: 44px; text-align: center; color: #11242A; margin: 25px;">
+          Runbud is a site for meeting people to run with
+        </p>
     </div>
 
-    <div class="blurb-row" style="margin-top: 530px;">
+    <div class="blurb-row" style="margin-top: 550px;">
       <div class="home_subsec"> 
         <div class="home_subsec_img" style="background: url('/assets/img/create_run.jpg') no-repeat scroll 0% 40%;"/><!-- --></div> 
         <h2>Create</h2>        
