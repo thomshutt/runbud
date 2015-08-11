@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
+import org.joda.time.DateTimeZone;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,9 +35,7 @@ public class RunDAO extends AbstractDAO<Run> {
                         .add(Restrictions.eq("isCancelled", false))
                         .add(Restrictions.gt(
                                         "date",
-                                        new DateTime(DateTimeUtils.currentTimeMillis())
-                                                .withTimeAtStartOfDay()
-                                                .getMillis()
+                                        DateTime.now(DateTimeZone.forOffsetHours(0)).getMillis()
                                 )
                         )
         );
@@ -51,11 +50,10 @@ public class RunDAO extends AbstractDAO<Run> {
                                         user.getUserId()
                                 )
                         )
-                        .add(Restrictions.gt(
+                        .add(
+                                Restrictions.gt(
                                         "date",
-                                        new DateTime(DateTimeUtils.currentTimeMillis())
-                                                .withTimeAtStartOfDay()
-                                                .getMillis()
+                                        DateTime.now(DateTimeZone.forOffsetHours(0)).getMillis()
                                 )
                         )
         );

@@ -10,6 +10,7 @@ import com.thomshutt.runbud.data.RunAttendeeDAO;
 import com.thomshutt.runbud.data.RunDAO;
 import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.util.LatitudeLongitude;
+import com.thomshutt.runbud.util.TimezoneToDateConverter;
 import com.thomshutt.runbud.util.image.ImageFetcher;
 import com.thomshutt.runbud.util.image.InstagramImageFetcher;
 import com.thomshutt.runbud.views.*;
@@ -251,7 +252,7 @@ public class RunResource {
                 startLongitude,
                 startAddress,
                 distanceKm,
-                0L,
+                TimezoneToDateConverter.getUtcForCurrentDay(startLatitude, startLongitude, startTimeHours, startTimeMins),
                 startTimeHours,
                 startTimeMins,
                 runName,

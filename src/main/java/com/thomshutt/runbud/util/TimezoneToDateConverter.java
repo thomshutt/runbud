@@ -1,8 +1,10 @@
 package com.thomshutt.runbud.util;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class TimezoneToDateConverter {
 
@@ -16,8 +18,15 @@ public class TimezoneToDateConverter {
         return offsetMillis / 1000 / 60;
     }
 
-    public static void main(String[] args) {
-        System.out.println(getOffsetMins(51.5072, 0.1275));
+    public static long getUtcForCurrentDay(double lat, double lon, int hours, int mins) {
+        final int offsetMins = getOffsetMins(lat, lon);
+        final int offsetHours = (int) TimeUnit.MINUTES.toHours(offsetMins);
+
+        return DateTime.now(DateTimeZone.forOffsetHours(offsetHours))
+                .withTimeAtStartOfDay()
+                .plusHours(hours)
+                .plusMinutes(mins)
+                .getMillis();
     }
 
 }
