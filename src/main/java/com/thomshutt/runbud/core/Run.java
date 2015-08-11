@@ -1,11 +1,8 @@
 package com.thomshutt.runbud.core;
 
-import com.thomshutt.runbud.util.SimpleDate;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.joda.time.DateTimeUtils;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "runs")
@@ -61,6 +58,7 @@ public class Run {
             double startLongitude,
             String startAddress,
             double distanceKm,
+            long date,
             int startTimeHours,
             int startTimeMins,
             String runName,
@@ -77,7 +75,7 @@ public class Run {
         this.runName = runName;
         this.description = description;
         this.isCancelled = false;
-        this.date = DateTimeUtils.currentTimeMillis();
+        this.date = date;
         this.imageUrl = imageUrl;
     }
 
@@ -147,6 +145,10 @@ public class Run {
 
     public void setDate(long date) {
         this.date = date;
+    }
+
+    public long getDate() {
+        return date;
     }
 
     public void setImageUrl(String imageUrl) {

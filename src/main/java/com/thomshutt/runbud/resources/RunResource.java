@@ -251,6 +251,7 @@ public class RunResource {
                 startLongitude,
                 startAddress,
                 distanceKm,
+                0L,
                 startTimeHours,
                 startTimeMins,
                 runName,
