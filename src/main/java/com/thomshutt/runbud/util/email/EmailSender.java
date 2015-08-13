@@ -13,7 +13,7 @@ public class EmailSender {
 
     public static final String MAILGUN_URL = "https://api.mailgun.net/v2/sandboxb537115489554c9882a653427036f2bb.mailgun.org/messages";
     public static final String API_KEY = DatatypeConverter.printBase64Binary("api:key-79f9a3d0330c0a4933a156f8b2db34a4".getBytes());
-    public static final String FROM_VALUE = "Runbud <postmaster@sandboxb537115489554c9882a653427036f2bb.mailgun.org>";
+    public static final String FROM_VALUE = "YOU/ME/RUN <postmaster@sandboxb537115489554c9882a653427036f2bb.mailgun.org>";
 
     private final HttpClient client;
     private final Executor executor = Executors.newFixedThreadPool(10);
@@ -23,7 +23,12 @@ public class EmailSender {
     }
 
     public void sendSignupSuccessMessage(final String toName, final String toEmail) {
-        sendEmail(toName, toEmail, "Welcome to Runbud " + toName, "Thanks for signing up to Runbud!");
+        sendEmail(toName, toEmail, 
+		"Welcome to YOU/ME/RUN " + toName, "Thanks for signing up to YOU/ME/RUN!\n\n" + 
+		"If you have any questions then please get in touch at youmerun@thomshutt.com\n\n\n\n" + 
+		"Thanks,\n\n" + 
+		"Thom Shutt (YOU/ME/RUN Owner)"
+	);
     }
 
     private void sendEmail(final String toName, final String toEmail, final String subject, final String message) {

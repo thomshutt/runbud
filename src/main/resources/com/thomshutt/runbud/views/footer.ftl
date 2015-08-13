@@ -3,7 +3,7 @@
 
         <div id="footer">
             <ul>
-                <li><a href="mailto:runbud@thomshutt.com">Contact</a></li>
+                <li><a href="mailto:youmerun@thomshutt.com">Contact</a></li>
                 <li>&copy; 2015 Thom Shutt</li>
             </ul>
         </div>

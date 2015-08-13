@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 public class UserResource {
 
     private static final long ONE_WEEK_MILLIS = TimeUnit.DAYS.toMillis(7);
-    public static final String RUNBUD_COOKIE_KEY = "runbud.cookie";
+    public static final String RUNBUD_COOKIE_KEY = "youmerun.cookie";
 
     private final PasswordHasher passwordHasher = new PasswordHasher();
 

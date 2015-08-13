@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Runbud</title>
+        <title>YOU/ME/RUN</title>
         <style type="text/css">
             body, div, p {
                 margin: 0;
@@ -205,7 +205,7 @@
     <body>
         <div id="header">
             <div class="row nav-bar">
-                <div id="logo">RUNBUD</div>
+                <div id="logo">YOU/ME/RUN</div>
                 <ul class="global-nav text-right">
                     <li><a href="/">Home</a></li>
                     <li><a href="/runs">Runs</a></li>

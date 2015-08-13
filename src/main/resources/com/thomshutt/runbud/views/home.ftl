@@ -21,7 +21,7 @@
 
     <div style="position: absolute; margin-top: 460px; height: 40px; width: 100%; left: 0px; border-top: 1px solid #CCC;">
         <p style="font-family: Arial,sans-serif; font-size: 40px; line-height: 40px; text-align: center; color: #11242A; margin: 25px;">
-          Runbud is a site for meeting people to run with
+          YOU/ME/RUN is a site for meeting people to run with
         </p>
     </div>
 
