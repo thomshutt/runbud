@@ -4,8 +4,8 @@
         <p style="margin-bottom: 10px;">Email or password incorrect.</p>
     </#if>
     <form action="/users/login" method="post">
-        <input type="text" name="email" value="thomscott@thomshutt.com" />
-        <input type="password" name="password" value="password" />
+        <input type="text" name="email" placeholder="email@example.com" />
+        <input type="password" name="password" placeholder="password" />
         <input type="submit" value="Log In" />
     </form>
 <#include "footer.ftl">
