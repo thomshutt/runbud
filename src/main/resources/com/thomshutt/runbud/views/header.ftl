@@ -172,6 +172,7 @@
             }
             .blurb-row {
                 text-align: center;
+                margin-top: 20px;
             }
             .blurb-row p {
                 width: 200px;

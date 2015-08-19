@@ -21,7 +21,7 @@
         <!-- Spacemaker for absolute div above -->
     </div>
 
-    <div style="height: 40px; width: 100%; padding: 10%;">
+    <div style="width: 100%;">
         <p style="font-family: Arial,sans-serif; font-size: 40px; line-height: 40px; text-align: center; color: #11242A;">
           YOU/ME/RUN is a site for meeting people to run with
         </p>
