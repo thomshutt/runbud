@@ -5,18 +5,16 @@
         left: 0;
         margin-top: -20px;
         width: 100%;
-        height: 480px;
+        max-height: 480px;
+        height: 60%;
         background-image: url('/assets/img/home_banner.jpg');
+        display: table
     ">
-        <h1 style="
-            width: 100%;
-            text-align: center;
-            margin-top: 220px;
-            color: white;
-            font-size: 80px;
-        ">
-            Running Is Better Together
-        </h1>
+        <div style="display: table-cell; vertical-align: middle;">
+           <h1 style="width: 100%; text-align: center; color: white; font-size: 6.5vw;">
+               Running Is Better Together
+           </h1>
+        </div>
     </div>
 
     <div style="position: absolute; margin-top: 460px; height: 40px; width: 100%; left: 0px; border-top: 1px solid #CCC;">
