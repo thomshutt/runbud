@@ -8,22 +8,26 @@
         max-height: 480px;
         height: 60%;
         background-image: url('/assets/img/home_banner.jpg');
-        display: table
+        display: table;
+        border-bottom: 1px solid #CCC;
     ">
         <div style="display: table-cell; vertical-align: middle;">
-           <h1 style="width: 100%; text-align: center; color: white; font-size: 6.5vw;">
+           <h1 style="width: 100%; text-align: center; color: white; font-size: 6.5vw; line-height: 1.5em;">
                Running Is Better Together
            </h1>
         </div>
     </div>
+    <div style="width: 100%; max-height: 480px; height: 60%; margin-top: 20px;">
+        <!-- Spacemaker for absolute div above -->
+    </div>
 
-    <div style="position: absolute; margin-top: 460px; height: 40px; width: 100%; left: 0px; border-top: 1px solid #CCC;">
-        <p style="font-family: Arial,sans-serif; font-size: 40px; line-height: 40px; text-align: center; color: #11242A; margin: 25px;">
+    <div style="height: 40px; width: 100%; padding: 10%;">
+        <p style="font-family: Arial,sans-serif; font-size: 40px; line-height: 40px; text-align: center; color: #11242A;">
           YOU/ME/RUN is a site for meeting people to run with
         </p>
     </div>
 
-    <div class="blurb-row" style="margin-top: 550px;">
+    <div class="blurb-row">
       <a href="/runs/create">
         <div class="home_subsec">
           <div class="home_subsec_img" style="background: url('/assets/img/create_run.jpg') no-repeat scroll 0% 40%;"/><!-- --></div>

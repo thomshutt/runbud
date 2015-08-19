@@ -122,7 +122,8 @@
                 color: rgb(61, 79, 93);
             }
             #content {
-                width: 960px;
+                width: 95%;
+                max-width: 960px;
                 margin: auto;
                 text-align: center;
                 min-height: 600px;
