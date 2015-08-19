@@ -4,7 +4,7 @@
         <p style="margin-bottom: 10px;">${errorMessage}</p>
     </#if>
     <form action="/users/create" method="post">
-        <input type="text" name="name" value="Your Name" />
+        <input type="text" name="name" placeholder="Your Name" />
         <input type="text" name="email" placeholder="email@example.com" />
         <input type="password" name="password" placeholder="password" />
         <input type="submit" value="Sign Up" />
