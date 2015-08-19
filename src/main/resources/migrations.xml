@@ -73,4 +73,7 @@
             <column name="user_id"/>
         </createIndex>
     </changeSet>
+    <changeSet author="thomshutt" id="1422392477458-17">
+        <addUniqueConstraint catalogName="runbud" columnNames="email" constraintName="const_email_uniq" tableName="users"/>
+    </changeSet>
 </databaseChangeLog>
