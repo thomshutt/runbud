@@ -29,4 +29,17 @@ public class TimezoneToDateConverter {
                 .getMillis();
     }
 
+    public static long getStartOfCurrentDayUtc(double lat, double lon) {
+        final int offsetMins = getOffsetMins(lat, lon);
+        final int offsetHours = (int) TimeUnit.MINUTES.toHours(offsetMins);
+
+        return DateTime.now(DateTimeZone.forOffsetHours(offsetHours))
+                .withTimeAtStartOfDay()
+                .getMillis();
+    }
+
+    public static long getCurrentTimeUtc() {
+        return DateTime.now(DateTimeZone.forOffsetHours(0)).getMillis();
+    }
+
 }

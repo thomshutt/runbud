@@ -1,5 +1,18 @@
 package com.thomshutt.runbud.resources;
 
+import java.util.Collections;
+import java.util.List;
+
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.common.base.Optional;
 import com.thomshutt.runbud.core.Comment;
 import com.thomshutt.runbud.core.Run;
@@ -10,20 +23,19 @@ import com.thomshutt.runbud.data.RunAttendeeDAO;
 import com.thomshutt.runbud.data.RunDAO;
 import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.util.LatitudeLongitude;
+import com.thomshutt.runbud.util.NewestThenClosestComparator;
 import com.thomshutt.runbud.util.TimezoneToDateConverter;
 import com.thomshutt.runbud.util.image.ImageFetcher;
-import com.thomshutt.runbud.util.image.InstagramImageFetcher;
-import com.thomshutt.runbud.views.*;
+import com.thomshutt.runbud.views.CancelRunSuccessView;
+import com.thomshutt.runbud.views.CreateRunView;
+import com.thomshutt.runbud.views.EditRunView;
+import com.thomshutt.runbud.views.InformationView;
+import com.thomshutt.runbud.views.RunView;
+import com.thomshutt.runbud.views.RunsView;
+
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.views.View;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 @Path("/runs")
 @Produces(MediaType.TEXT_HTML)
@@ -35,19 +47,17 @@ public class RunResource {
     private final UserDAO userDAO;
     private final CommentDAO commentDAO;
     private final RunAttendeeDAO runAttendeeDAO;
-    private final ImageFetcher imageFetcher;
 
     public RunResource(
             RunDAO runDAO,
             UserDAO userDAO,
             CommentDAO commentDAO,
-            RunAttendeeDAO runAttendeeDAO,
-            ImageFetcher imageFetcher) {
+            RunAttendeeDAO runAttendeeDAO
+    ) {
         this.runDAO = runDAO;
         this.userDAO = userDAO;
         this.commentDAO = commentDAO;
         this.runAttendeeDAO = runAttendeeDAO;
-        this.imageFetcher = imageFetcher;
     }
 
     @GET
@@ -73,19 +83,16 @@ public class RunResource {
             @PathParam("address") String address
     ) {
         final LatitudeLongitude userLatLon = userLatitude != null && userLongitiude != null ? new LatitudeLongitude(userLatitude, userLongitiude) : LatitudeLongitude.PICC_CIRCUS_LAT_LON;
-        final List<Run> list = runDAO.list();
-        Collections.sort(list, new Comparator<Run>() {
-            @Override
-            public int compare(Run run, Run run2) {
-                final LatitudeLongitude runStart = new LatitudeLongitude(run.getStartLatitude(), run.getStartLongitude());
-                final LatitudeLongitude run2Start = new LatitudeLongitude(run2.getStartLatitude(), run2.getStartLongitude());
 
-                return (int) Math.round(
-                        LatitudeLongitude.calculateDistanceKmBetween(userLatLon, runStart) -
-                                LatitudeLongitude.calculateDistanceKmBetween(userLatLon, run2Start)
-                );
-            }
-        });
+        final List<Run> list = runDAO.list(
+                TimezoneToDateConverter.getStartOfCurrentDayUtc(userLatLon.latitude, userLatLon.longitude)
+        );
+
+        Collections.sort(
+                list,
+                new NewestThenClosestComparator(TimezoneToDateConverter.getCurrentTimeUtc(), userLatLon)
+        );
+
         return new RunsView(Optional.fromNullable(user), list, address);
     }
 

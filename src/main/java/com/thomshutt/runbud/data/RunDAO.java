@@ -29,13 +29,13 @@ public class RunDAO extends AbstractDAO<Run> {
         return run.isCancelled() ? null : run;
     }
 
-    public List<Run> list() throws HibernateException {
+    public List<Run> list(long afterTimestamp) throws HibernateException {
         return super.list(
                 super.criteria()
                         .add(Restrictions.eq("isCancelled", false))
                         .add(Restrictions.gt(
                                         "date",
-                                        DateTime.now(DateTimeZone.forOffsetHours(0)).getMillis()
+                                        afterTimestamp
                                 )
                         )
         );

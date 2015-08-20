@@ -167,6 +167,10 @@ public class Run {
         return startTimeMins;
     }
 
+    public boolean alreadyHappened(long currentTime) {
+        return date < currentTime;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);

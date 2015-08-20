@@ -52,7 +52,6 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
     public void initialize(Bootstrap<RunbudConfiguration> bootstrap) {
         bootstrap.addBundle(new ViewBundle());
         bootstrap.addBundle(runBundle);
-//        bootstrap.addBundle(new AssetsBundle());
         bootstrap.addBundle(new ConfiguredAssetsBundle("/assets"));
         bootstrap.addBundle(new MigrationsBundle<RunbudConfiguration>() {
             @Override
@@ -67,15 +66,14 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
         final SessionFactory sessionFactory = runBundle.getSessionFactory();
         final UserDAO userDAO = new UserDAO(sessionFactory);
         final UserCredentialsDAO userCredentialsDAO = new UserCredentialsDAO(sessionFactory);
-        final ImageFetcher imageFetcher = new InstagramImageFetcher(sessionFactory);
-//        final ImageFetcher imageFetcher = new FlickrImageFetcher(sessionFactory);
 
         final RunResource runResource = new RunResource(
                 new RunDAO(sessionFactory),
                 userDAO,
                 new CommentDAO(sessionFactory),
-                new RunAttendeeDAO(sessionFactory),
-                imageFetcher);
+                new RunAttendeeDAO(sessionFactory)
+        );
+
         environment.jersey().register(MultiPartFeature.class);
         environment.jersey().register(runResource);
         environment.jersey().register(new SiteResource());
