@@ -66,18 +66,20 @@ public class RunbudApplication extends Application<RunbudConfiguration> {
         final SessionFactory sessionFactory = runBundle.getSessionFactory();
         final UserDAO userDAO = new UserDAO(sessionFactory);
         final UserCredentialsDAO userCredentialsDAO = new UserCredentialsDAO(sessionFactory);
+        EmailSender emailSender = new EmailSender();
 
         final RunResource runResource = new RunResource(
                 new RunDAO(sessionFactory),
                 userDAO,
                 new CommentDAO(sessionFactory),
-                new RunAttendeeDAO(sessionFactory)
+                new RunAttendeeDAO(sessionFactory),
+                emailSender
         );
 
         environment.jersey().register(MultiPartFeature.class);
         environment.jersey().register(runResource);
         environment.jersey().register(new SiteResource());
-        environment.jersey().register(new UserResource(userDAO, userCredentialsDAO, new EmailSender()));
+        environment.jersey().register(new UserResource(userDAO, userCredentialsDAO, emailSender));
         environment.jersey().register(AuthFactory.binder(new BasicAuthFactory<User>(new Authenticator<Cookie[], User>() {
             @Override
             public Optional<User> authenticate(Cookie[] cookies) throws AuthenticationException {

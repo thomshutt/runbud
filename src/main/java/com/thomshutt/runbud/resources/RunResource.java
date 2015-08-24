@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.google.common.collect.Lists;
+import com.thomshutt.runbud.util.email.EmailSender;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Optional;
@@ -48,17 +49,20 @@ public class RunResource {
     private final UserDAO userDAO;
     private final CommentDAO commentDAO;
     private final RunAttendeeDAO runAttendeeDAO;
+    private EmailSender emailSender;
 
     public RunResource(
             RunDAO runDAO,
             UserDAO userDAO,
             CommentDAO commentDAO,
-            RunAttendeeDAO runAttendeeDAO
+            RunAttendeeDAO runAttendeeDAO,
+            EmailSender emailSender
     ) {
         this.runDAO = runDAO;
         this.userDAO = userDAO;
         this.commentDAO = commentDAO;
         this.runAttendeeDAO = runAttendeeDAO;
+        this.emailSender = emailSender;
     }
 
     @GET
@@ -159,6 +163,11 @@ public class RunResource {
             attendee.setAttending(true);
             runAttendeeDAO.persist(attendee);
         }
+
+        final Run run = runDAO.get(runId);
+        final User runOwner = userDAO.get(run.getInitiatingUserId());
+        emailSender.sendSomeoneJoinedYourRunMessage(runOwner.getName(), runOwner.getEmail(), user.getName(), run);
+
         SiteResource.doRedirect("/runs/" + runId);
     }
 

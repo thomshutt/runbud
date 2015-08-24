@@ -1,5 +1,6 @@
 package com.thomshutt.runbud.util.email;
 
+import com.thomshutt.runbud.core.Run;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
 
@@ -7,7 +8,6 @@ import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class EmailSender {
 
@@ -22,13 +22,32 @@ public class EmailSender {
         client = new HttpClient();
     }
 
-    public void sendSignupSuccessMessage(final String toName, final String toEmail) {
-        sendEmail(toName, toEmail, 
-		"Welcome to YOU/ME/RUN " + toName, "Thanks for signing up to YOU/ME/RUN!\n\n" + 
-		"If you have any questions then please get in touch at youmerun@thomshutt.com\n\n\n\n" + 
-		"Thanks,\n\n" + 
-		"Thom Shutt (YOU/ME/RUN Owner)"
-	);
+    public void sendSignupSuccessMessage(String toName, String toEmail) {
+        sendEmail(
+                toName,
+                toEmail,
+                "Welcome to YOU/ME/RUN " + toName,
+                "Thanks for signing up to YOU/ME/RUN!\n\n" +
+                        "If you have any questions then please get in touch at youmerun@thomshutt.com\n\n\n\n" +
+                        "Thanks,\n\n" +
+                        "Thom Shutt (YOU/ME/RUN Owner)"
+        );
+    }
+
+    public void sendSomeoneJoinedYourRunMessage(
+            String toName,
+            String toEmail,
+            String joinerName,
+            Run run
+    ) {
+        sendEmail(
+                toName,
+                toEmail,
+                joinerName + " just signed up for your Run!",
+                "Congratulations - " + joinerName + " has decided to join you on your run: " +
+                        "\"" + run.getRunName() + "\"!\n\n" +
+                        "View the run and see who else will be there at http://www.youmerun.com/runs/" + run.getRunId()
+        );
     }
 
     private void sendEmail(final String toName, final String toEmail, final String subject, final String message) {
