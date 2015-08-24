@@ -37,7 +37,7 @@ database:
 logging:
 
   # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
-  level: INFO
+  level: DEBUG
 
   # Logger-specific levels.
   loggers:
@@ -48,4 +48,10 @@ logging:
     org.hibernate.SQL: ALL
 
   appenders:
-    - type: console
+    - type: file
+          currentLogFilename: /var/log/runbud.log
+          threshold: ALL
+          archive: true
+          archivedLogFilenamePattern: /var/log/runbud-%d.log
+          archivedFileCount: 10
+          timeZone: UTC
