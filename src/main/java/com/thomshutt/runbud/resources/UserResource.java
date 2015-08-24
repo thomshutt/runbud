@@ -77,16 +77,21 @@ public class UserResource {
             @FormParam("email") String email,
             @FormParam("password") String password
     ) {
+        System.out.println("Checking for existing user...");
         final User existingUser = userDAO.getForEmail(email);
         if(existingUser != null) {
             return new CreateUserView(Optional.<User>absent(), "Looks like someone has already registered with that Email Address");
         }
+        System.out.println("Generating salt...");
         final String salt = passwordHasher.generateSalt();
         try {
+            System.out.println("Persisting new user...");
             final User user = userDAO.persist(new User(email, name));
             final UserCredentials userCredentials = new UserCredentials(user.getUserId(), passwordHasher.hash(password, salt), salt, "", 0);
             userCredentials.generateNewToken(System.currentTimeMillis() + ONE_WEEK_MILLIS);
+            System.out.println("Persisting new user credentials...");
             userCredentialsDAO.persist(userCredentials);
+            System.out.println("Sending signup success message...");
             emailSender.sendSignupSuccessMessage(name, email);
             return new LoginView(Optional.<User>absent(), false, true);
         } catch (IOException e) {
