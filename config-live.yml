@@ -49,9 +49,9 @@ logging:
 
   appenders:
     - type: file
-          currentLogFilename: /var/log/runbud.log
-          threshold: ALL
-          archive: true
-          archivedLogFilenamePattern: /var/log/runbud-%d.log
-          archivedFileCount: 10
-          timeZone: UTC
+      currentLogFilename: /var/log/runbud.log
+      threshold: ALL
+      archive: true
+      archivedLogFilenamePattern: /var/log/runbud-%d.log
+      archivedFileCount: 10
+      timeZone: UTC

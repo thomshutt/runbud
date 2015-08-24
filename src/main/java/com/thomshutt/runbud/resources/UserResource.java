@@ -17,6 +17,8 @@ import io.dropwizard.views.View;
 import net.coobird.thumbnailator.Thumbnails;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.Path;
@@ -34,6 +36,8 @@ import java.util.concurrent.TimeUnit;
 @Path("/users")
 @Produces(MediaType.TEXT_HTML)
 public class UserResource {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserResource.class);
 
     private static final long ONE_WEEK_MILLIS = TimeUnit.DAYS.toMillis(7);
     public static final String RUNBUD_COOKIE_KEY = "youmerun.cookie";
@@ -77,21 +81,21 @@ public class UserResource {
             @FormParam("email") String email,
             @FormParam("password") String password
     ) {
-        System.out.println("Checking for existing user...");
+        LOG.info("Checking for existing user...");
         final User existingUser = userDAO.getForEmail(email);
         if(existingUser != null) {
             return new CreateUserView(Optional.<User>absent(), "Looks like someone has already registered with that Email Address");
         }
-        System.out.println("Generating salt...");
+        LOG.info("Generating salt...");
         final String salt = passwordHasher.generateSalt();
         try {
-            System.out.println("Persisting new user...");
+            LOG.info("Persisting new user...");
             final User user = userDAO.persist(new User(email, name));
             final UserCredentials userCredentials = new UserCredentials(user.getUserId(), passwordHasher.hash(password, salt), salt, "", 0);
             userCredentials.generateNewToken(System.currentTimeMillis() + ONE_WEEK_MILLIS);
-            System.out.println("Persisting new user credentials...");
+            LOG.info("Persisting new user credentials...");
             userCredentialsDAO.persist(userCredentials);
-            System.out.println("Sending signup success message...");
+            LOG.info("Sending signup success message...");
             emailSender.sendSignupSuccessMessage(name, email);
             return new LoginView(Optional.<User>absent(), false, true);
         } catch (IOException e) {
