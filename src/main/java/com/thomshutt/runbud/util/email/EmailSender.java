@@ -30,7 +30,7 @@ public class EmailSender {
                 "Thanks for signing up to YOU/ME/RUN!\n\n" +
                         "If you have any questions then please get in touch at youmerun@thomshutt.com\n\n\n\n" +
                         "Thanks,\n\n" +
-                        "Thom Shutt (YOU/ME/RUN Owner)"
+                        "Thom Shutt (YOU/ME/RUN Creator)"
         );
     }
 
