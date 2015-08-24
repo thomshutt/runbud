@@ -5,16 +5,18 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Random;
 
 public class PasswordHasher {
 
     final MessageDigest digest;
-    final SecureRandom random;
+    final Random random;
 
     public PasswordHasher() {
         try {
             digest = MessageDigest.getInstance("SHA-1");
-            random = SecureRandom.getInstance("SHA1PRNG");
+//            random = SecureRandom.getInstance("SHA1PRNG");
+            random = new Random(System.currentTimeMillis());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }

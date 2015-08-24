@@ -81,21 +81,16 @@ public class UserResource {
             @FormParam("email") String email,
             @FormParam("password") String password
     ) {
-        LOG.info("Checking for existing user...");
         final User existingUser = userDAO.getForEmail(email);
         if(existingUser != null) {
             return new CreateUserView(Optional.<User>absent(), "Looks like someone has already registered with that Email Address");
         }
-        LOG.info("Generating salt...");
         final String salt = passwordHasher.generateSalt();
         try {
-            LOG.info("Persisting new user...");
             final User user = userDAO.persist(new User(email, name));
             final UserCredentials userCredentials = new UserCredentials(user.getUserId(), passwordHasher.hash(password, salt), salt, "", 0);
             userCredentials.generateNewToken(System.currentTimeMillis() + ONE_WEEK_MILLIS);
-            LOG.info("Persisting new user credentials...");
             userCredentialsDAO.persist(userCredentials);
-            LOG.info("Sending signup success message...");
             emailSender.sendSignupSuccessMessage(name, email);
             return new LoginView(Optional.<User>absent(), false, true);
         } catch (IOException e) {
