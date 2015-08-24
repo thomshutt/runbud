@@ -5,6 +5,9 @@
 
     <div style="display: inline-block; vertical-align: top; text-align: left;">
         <form action="/runs/create" method="post">
+            <label>Starting Point</label>
+            <p id="starting_point" style="margin-left: 5px; margin-bottom: 12px; font-size: 16px; color: #555;">Piccadilly Circus, London, W12</p>
+
             <label>Run Name</label>
             <input type="text" name="run_name" placeholder="Give your run a name..." value="${runName}" />
 
@@ -50,6 +53,7 @@
             $('#inputLatitude').val(currentLocation.latitude);
             $('#inputLongitude').val(currentLocation.longitude);
             $('#inputAddress').val(address);
+            $('#starting_point').text(address);
         }
 
         $('#googleMap').locationpicker({
