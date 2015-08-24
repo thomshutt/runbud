@@ -11,17 +11,38 @@
     </div>
 
     <div style="width: 960px; text-align: left">
-        <ol>
-            <#list runs as run>
-                <li>
-                    <div class="circular" style="vertical-align: top; background: url(${run.imageUrl?html}) no-repeat; background-position: center; display: inline-block;"></div>
-                    <div style="display: inline-block; padding-left: 20px; padding-top: 3px;">
-                        <a href="/runs/${run.runId?html}" style="max-width: 800px;">${run.distanceKm?html}km - ${run.runName?html}</a>
-                        <p style="margin-top: 5px; max-width: 800px;">${run.startTimeHours?string["00"]}:${run.startTimeMins?string["00"]} @ ${run.startAddress}</p>
-                        <p style="font-style: italic; margin-top: 5px; max-width: 800px;">${run.description}</p>
-                    </div>
-                </li>
-            </#list>
-        </ol>
+
+        <#if 0 < newRuns?size>
+            <h2>Later Today</h2>
+            <ol>
+                <#list newRuns as run>
+                    <li>
+                        <div class="circular" style="vertical-align: top; background: url(${run.imageUrl?html}) no-repeat; background-position: center; display: inline-block;"></div>
+                        <div style="display: inline-block; padding-left: 20px; padding-top: 3px;">
+                            <a href="/runs/${run.runId?html}" style="max-width: 800px;">${run.distanceKm?html}km - ${run.runName?html}</a>
+                            <p style="margin-top: 5px; max-width: 800px;">${run.startTimeHours?string["00"]}:${run.startTimeMins?string["00"]} @ ${run.startAddress}</p>
+                            <p style="font-style: italic; margin-top: 5px; max-width: 800px;">${run.description}</p>
+                        </div>
+                    </li>
+                </#list>
+            </ol>
+        </#if>
+
+        <#if 0 < oldRuns?size>
+            <h2>Already Happened</h2>
+            <ol>
+                <#list oldRuns as run>
+                    <li>
+                        <div class="circular" style="vertical-align: top; background: url(${run.imageUrl?html}) no-repeat; background-position: center; display: inline-block;"></div>
+                        <div style="display: inline-block; padding-left: 20px; padding-top: 3px;">
+                            <a href="/runs/${run.runId?html}" style="max-width: 800px;">${run.distanceKm?html}km - ${run.runName?html}</a>
+                            <p style="margin-top: 5px; max-width: 800px;">${run.startTimeHours?string["00"]}:${run.startTimeMins?string["00"]} @ ${run.startAddress}</p>
+                            <p style="font-style: italic; margin-top: 5px; max-width: 800px;">${run.description}</p>
+                        </div>
+                    </li>
+                </#list>
+            </ol>
+        </#if>
+
     </div>
 <#include "footer.ftl">

@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Optional;
@@ -69,7 +70,7 @@ public class RunResource {
     @POST
     @UnitOfWork
     public RunsView getRunsWithLatLon(@Auth(required = false) User user, @FormParam("address") String address) {
-        LatitudeLongitude latitudeLongitude = LatitudeLongitude.fromAddress(address);
+        final LatitudeLongitude latitudeLongitude = LatitudeLongitude.fromAddress(address);
         return getRunsLatLon(user, latitudeLongitude.latitude, latitudeLongitude.longitude, address);
     }
 
@@ -88,12 +89,26 @@ public class RunResource {
                 TimezoneToDateConverter.getStartOfCurrentDayUtc(userLatLon.latitude, userLatLon.longitude)
         );
 
-        Collections.sort(
-                list,
-                new NewestThenClosestComparator(TimezoneToDateConverter.getCurrentTimeUtc(), userLatLon)
-        );
+        final NewestThenClosestComparator orderer =
+                new NewestThenClosestComparator(TimezoneToDateConverter.getCurrentTimeUtc(), userLatLon);
 
-        return new RunsView(Optional.fromNullable(user), list, address);
+        return new RunsView(
+                Optional.fromNullable(user),
+                filterRuns(list, false, orderer),
+                filterRuns(list, true, orderer),
+                address
+        );
+    }
+
+    private List<Run> filterRuns(List<Run> runs, boolean happened, NewestThenClosestComparator orderer) {
+        final List <Run> filteredRuns = Lists.newArrayList();
+        for (Run run : runs) {
+            if(run.alreadyHappened(TimezoneToDateConverter.getCurrentTimeUtc()) == happened) {
+                filteredRuns.add(run);
+            }
+        }
+        Collections.sort(filteredRuns, orderer);
+        return filteredRuns;
     }
 
     @GET

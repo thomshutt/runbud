@@ -13,7 +13,7 @@ public class RunResourceHealthCheck extends HealthCheck {
 
     @Override
     protected Result check() throws Exception {
-        if(runResource.getRuns(null).getRuns().size() == 0) {
+        if(runResource.getRuns(null).getNewRuns().size() == 0) {
             return Result.unhealthy("No runs found...");
         }
         return Result.healthy();
