@@ -8,6 +8,8 @@
         max-height: 480px;
         height: 60%;
         background-image: url('/assets/img/home_banner.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
         display: table;
         border-bottom: 1px solid #CCC;
     ">
