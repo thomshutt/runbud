@@ -11,11 +11,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.google.common.collect.Lists;
-import com.thomshutt.runbud.util.email.EmailSender;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
 import com.thomshutt.runbud.core.Comment;
 import com.thomshutt.runbud.core.Run;
 import com.thomshutt.runbud.core.RunAttendee;
@@ -27,10 +26,9 @@ import com.thomshutt.runbud.data.UserDAO;
 import com.thomshutt.runbud.util.LatitudeLongitude;
 import com.thomshutt.runbud.util.NewestThenClosestComparator;
 import com.thomshutt.runbud.util.TimezoneToDateConverter;
-import com.thomshutt.runbud.util.image.ImageFetcher;
+import com.thomshutt.runbud.util.email.EmailSender;
 import com.thomshutt.runbud.views.CancelRunSuccessView;
 import com.thomshutt.runbud.views.CreateRunView;
-import com.thomshutt.runbud.views.EditRunView;
 import com.thomshutt.runbud.views.InformationView;
 import com.thomshutt.runbud.views.RunView;
 import com.thomshutt.runbud.views.RunsView;
@@ -209,7 +207,7 @@ public class RunResource {
         // TODO: Confirm user is owner
         // TODO: Confirm run not null
         final Run run = runDAO.get(runId);
-        return new EditRunView(Optional.of(user), run);
+        return new CreateRunView(Optional.of(user), Optional.of(run), Optional.<String>absent(), true);
     }
 
     @POST
@@ -263,7 +261,7 @@ public class RunResource {
                     "You can't create more than two runs each day."
             );
         }
-        return new CreateRunView(Optional.fromNullable(user), Optional.<Run>absent(), Optional.<String>absent());
+        return new CreateRunView(Optional.fromNullable(user), Optional.<Run>absent(), Optional.<String>absent(), false);
     }
 
     @POST
@@ -305,19 +303,19 @@ public class RunResource {
         );
 
         if(startTimeHours > 23 || startTimeHours < 0) {
-            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Invalid value for 'Hours'"));
+            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Invalid value for 'Hours'"), false);
         }
         if(startTimeMins > 59 || startTimeMins < 0 || startTimeMins % 15 != 0) {
-            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Invalid value for 'Minutes'"));
+            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Invalid value for 'Minutes'"), false);
         }
         if(distanceKm < 0) {
-            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Distance must be at least 0!"));
+            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Distance must be at least 0!"), false);
         }
         if(StringUtils.isBlank(runName)) {
-            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("You need to give your run a name!"));
+            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("You need to give your run a name!"), false);
         }
         if(StringUtils.isBlank(description)) {
-            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Let people know a bit more about your run with a description."));
+            return new CreateRunView(Optional.of(user), Optional.of(runValues), Optional.of("Let people know a bit more about your run with a description."), false);
         }
 
         final Run run = runDAO.persist(runValues);

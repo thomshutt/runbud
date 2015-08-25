@@ -10,11 +10,13 @@ public class CreateRunView extends LoggedInAwareView {
 
     private final Optional<Run> run;
     private final Optional<String> errorMessage;
+    private final boolean isEdit;
 
-    public CreateRunView(Optional<User> user, Optional<Run> run, Optional<String> errorMessage) {
+    public CreateRunView(Optional<User> user, Optional<Run> run, Optional<String> errorMessage, boolean isEdit) {
         super("create_run.ftl", user);
         this.run = run;
         this.errorMessage = errorMessage;
+        this.isEdit = isEdit;
     }
 
     public Optional<Run> getRun() {

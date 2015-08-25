@@ -8,6 +8,9 @@
                 <p>
                      You're hosting this run!
                 </p>
+                <form action="/runs/${run.runId}/edit" method="post">
+                    <input type="submit" value="Edit Run" style="margin: 0px;" />
+                </form>
             <#else>
                 <#if userIsAttending>
                     <p>
