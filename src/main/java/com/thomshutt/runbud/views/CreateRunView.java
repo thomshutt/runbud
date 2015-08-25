@@ -55,8 +55,13 @@ public class CreateRunView extends LoggedInAwareView {
         return run.isPresent() ? run.get().getDistanceKm() : 1;
     }
 
+    public Long getRunId(){ return run.isPresent() ? run.get().getRunId() : null; }
+
     public Optional<String> getErrorMessage() {
         return errorMessage;
     }
 
+    public boolean isEdit() {
+        return isEdit;
+    }
 }

@@ -204,34 +204,66 @@ public class RunResource {
             @Auth User user,
             @PathParam("runId") long runId
     ) {
-        // TODO: Confirm user is owner
-        // TODO: Confirm run not null
         final Run run = runDAO.get(runId);
+        if(run == null || run.getInitiatingUserId() != user.getUserId()) {
+            SiteResource.doRedirect("/runs/" + runId);
+            return null;
+        }
+
         return new CreateRunView(Optional.of(user), Optional.of(run), Optional.<String>absent(), true);
     }
 
     @POST
     @UnitOfWork
     @Path("/{runId}/edit")
-    public void doEditRun(
+    public CreateRunView doEditRun(
             @Auth User user,
             @PathParam("runId") long runId,
             @FormParam("start_latitude") double startLatitude,
             @FormParam("start_longitude") double startLongitude,
+            @FormParam("start_time_hours") int startTimeHours,
+            @FormParam("start_time_mins") int startTimeMins,
             @FormParam("start_address") String startAddress,
             @FormParam("distance_km") int distanceKm,
+            @FormParam("run_name") String runName,
             @FormParam("description") String description
     ) {
-        // TODO: Confirm user is owner
-        // TODO: Confirm run not null
+        // TODO: Remove duplication with create
+
         final Run run = runDAO.get(runId);
-        run.setDescription(description);
-        run.setDistanceKm(distanceKm);
+        if(run == null || run.getInitiatingUserId() != user.getUserId()) {
+            SiteResource.doRedirect("/runs/" + runId);
+            return null;
+        }
+
+        if(startTimeHours > 23 || startTimeHours < 0) {
+            return new CreateRunView(Optional.of(user), Optional.of(run), Optional.of("Invalid value for 'Hours'"), true);
+        }
+        if(startTimeMins > 59 || startTimeMins < 0 || startTimeMins % 15 != 0) {
+            return new CreateRunView(Optional.of(user), Optional.of(run), Optional.of("Invalid value for 'Minutes'"), true);
+        }
+        if(distanceKm < 0) {
+            return new CreateRunView(Optional.of(user), Optional.of(run), Optional.of("Distance must be at least 0!"), true);
+        }
+        if(StringUtils.isBlank(runName)) {
+            return new CreateRunView(Optional.of(user), Optional.of(run), Optional.of("You need to give your run a name!"), true);
+        }
+        if(StringUtils.isBlank(description)) {
+            return new CreateRunView(Optional.of(user), Optional.of(run), Optional.of("Let people know a bit more about your run with a description."), true);
+        }
+
         run.setStartLatitude(startLatitude);
         run.setStartLongitude(startLongitude);
+        run.setStartTimeHours(startTimeHours);
+        run.setStartTimeMins(startTimeMins);
         run.setStartAddress(startAddress);
+        run.setDistanceKm(distanceKm);
+        run.setRunName(runName);
+        run.setDescription(description);
+        run.setDate(TimezoneToDateConverter.getUtcForCurrentDay(startLatitude, startLongitude, startTimeHours, startTimeMins));
         runDAO.persist(run);
         SiteResource.doRedirect("/runs/" + runId);
+        return null;
     }
 
     @POST
@@ -241,8 +273,12 @@ public class RunResource {
             @Auth User user,
             @PathParam("runId") long runId
     ) {
-        // TODO: Confirm user is owner
         final Run run = runDAO.get(runId);
+        if(run == null || run.getInitiatingUserId() != user.getUserId()) {
+            SiteResource.doRedirect("/runs/" + runId);
+            return null;
+        }
+
         run.setCancelled(true);
         runDAO.persist(run);
         return new CancelRunSuccessView(Optional.of(user));

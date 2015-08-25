@@ -167,6 +167,14 @@ public class Run {
         return startTimeMins;
     }
 
+    public void setStartTimeHours(int startTimeHours) {
+        this.startTimeHours = startTimeHours;
+    }
+
+    public void setStartTimeMins(int startTimeMins) {
+        this.startTimeMins = startTimeMins;
+    }
+
     public boolean alreadyHappened(long currentTime) {
         return date < currentTime;
     }

@@ -1,12 +1,22 @@
 <#include "header.ftl">
-    <h1>Create A Run</h1>
+    <#if edit>
+        <h1>Edit Your Run</h1>
+    <#else>
+        <h1>Create A Run</h1>
+    </#if>
 
     <div id="googleMap" style="width: 500px; height: 400px; display: inline-block; margin-right: 20px;"></div>
 
     <div style="display: inline-block; vertical-align: top; text-align: left;">
-        <form action="/runs/create" method="post">
+        <#if edit>
+            <form action="/runs/${runId}/edit" method="post">
+        <#else>
+            <form action="/runs/create" method="post">
+        </#if>
             <label>Starting Point</label>
-            <p id="starting_point" style="margin-left: 5px; margin-bottom: 12px; font-size: 16px; color: #555;">Piccadilly Circus, London, W12</p>
+            <p id="starting_point" style="margin-left: 5px; margin-bottom: 12px; font-size: 16px; color: #555;">
+                Piccadilly Circus, London, W12
+            </p>
 
             <label>Run Name</label>
             <input type="text" name="run_name" placeholder="Give your run a name..." value="${runName}" />
@@ -38,8 +48,12 @@
 
             <input id="inputLatitude" type="hidden" name="start_latitude" value="${startLatitude}" />
             <input id="inputLongitude" type="hidden" name="start_longitude" value="${startLongitude}" />
-            <input id="inputAddress" type="hidden" name="start_address" value="${startAddress}}" />
-            <input type="submit" value="Create Run" />
+            <input id="inputAddress" type="hidden" name="start_address" value="${startAddress}" />
+            <#if edit>
+                <input type="submit" value="Edit Run" />
+            <#else>
+                <input type="submit" value="Create Run" />
+            </#if>
         </form>
     </div>
 
@@ -56,9 +70,20 @@
             $('#starting_point').text(address);
         }
 
-        $('#googleMap').locationpicker({
-            onchanged: mapPosChanged
-        });
+        <#if edit>
+            $('#googleMap').locationpicker({
+                onchanged: mapPosChanged,
+                location: {
+                    latitude: ${startLatitude},
+                    longitude: ${startLongitude}
+                }
+            });
+            $('#starting_point').text("${startAddress}");
+        <#else>
+            $('#googleMap').locationpicker({
+                onchanged: mapPosChanged
+            });
+        </#if>
 
         navigator.geolocation.getCurrentPosition(function(position){
              var lat = position.coords.latitude;
