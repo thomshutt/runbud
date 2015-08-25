@@ -80,7 +80,7 @@
                 <div class="circular" style="vertical-align: top; background: url(${comment.userImageUrl?html}) no-repeat; background-position: center; display: inline-block; margin-right: 15px; margin-bottom: 25px;"></div>
                 <div style="display: inline-block;">
                     <label style="margin: 12px 0px 5px;">${comment.userName?html}</label>
-                    <p class="label-body" style="margin: 0px; font-style: italic;">${comment.comment?html}</p>
+                    <p class="label-body" style="margin: 0px; font-style: italic; max-width: 840px;">${comment.comment?html}</p>
                 </div>
             </p>
         </#list>
