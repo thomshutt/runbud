@@ -50,6 +50,25 @@ public class EmailSender {
         );
     }
 
+    public void sendSomeoneCommentedOnYourRunMessage(
+            String toName,
+            String toEmail,
+            String joinerName,
+            String comment,
+            Run run
+    ) {
+        sendEmail(
+                toName,
+                toEmail,
+                joinerName + " just left a comment on your Run!",
+                joinerName + " just left a comment on your run: " +
+                        "\"" + run.getRunName() + "\"!\n\n" +
+                        "They said: \n\n" +
+                        "\"" + comment + "\"\n\n" +
+                        "View the run at http://www.youmerun.com/runs/" + run.getRunId()
+        );
+    }
+
     private void sendEmail(final String toName, final String toEmail, final String subject, final String message) {
         executor.execute(new Runnable() {
             @Override

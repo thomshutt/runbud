@@ -146,6 +146,17 @@ public class RunResource {
             @FormParam("comment") String comment
     ) {
         commentDAO.persist(new Comment(runId, user.getUserId(), comment));
+
+        final Run run = runDAO.get(runId);
+        final User runOwner = userDAO.get(run.getInitiatingUserId());
+        emailSender.sendSomeoneCommentedOnYourRunMessage(
+                runOwner.getName(),
+                runOwner.getEmail(),
+                user.getName(),
+                comment,
+                run
+        );
+
         SiteResource.doRedirect("/runs/" + runId);
     }
 
