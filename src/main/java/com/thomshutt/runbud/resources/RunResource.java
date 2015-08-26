@@ -2,6 +2,7 @@ package com.thomshutt.runbud.resources;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -88,7 +89,7 @@ public class RunResource {
         final LatitudeLongitude userLatLon = userLatitude != null && userLongitiude != null ? new LatitudeLongitude(userLatitude, userLongitiude) : LatitudeLongitude.PICC_CIRCUS_LAT_LON;
 
         final List<Run> list = runDAO.list(
-                TimezoneToDateConverter.getStartOfCurrentDayUtc(userLatLon.latitude, userLatLon.longitude)
+                TimezoneToDateConverter.getCurrentTimeUtc() - TimeUnit.DAYS.toMillis(1)
         );
 
         final NewestThenClosestComparator orderer =
