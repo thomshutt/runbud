@@ -1,5 +1,6 @@
 package com.thomshutt.runbud.resources;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -92,13 +93,18 @@ public class RunResource {
                 TimezoneToDateConverter.getCurrentTimeUtc() - TimeUnit.DAYS.toMillis(1)
         );
 
+        final List<Run> viewRuns = new ArrayList<Run>(list.size());
+        for (Run run : list) {
+            viewRuns.add(run.clone().setUserStartPoint(userLatLon));
+        }
+
         final NewestThenClosestComparator orderer =
                 new NewestThenClosestComparator(TimezoneToDateConverter.getCurrentTimeUtc(), userLatLon);
 
         return new RunsView(
                 Optional.fromNullable(user),
-                filterRuns(list, false, orderer),
-                filterRuns(list, true, orderer),
+                filterRuns(viewRuns, false, orderer),
+                filterRuns(viewRuns, true, orderer),
                 address
         );
     }

@@ -20,7 +20,7 @@
                         <div class="circular" style="vertical-align: top; background: url(${run.imageUrl?html}) no-repeat; background-position: center; display: inline-block;"></div>
                         <div style="display: inline-block; padding-left: 20px; padding-top: 3px;">
                             <a href="/runs/${run.runId?html}" style="max-width: 800px;">${run.distanceKm?html}km - ${run.runName?html}</a>
-                            <p style="margin-top: 5px; max-width: 800px;">${run.startTimeHours?string["00"]}:${run.startTimeMins?string["00"]} @ ${run.startAddress}</p>
+                            <p style="margin-top: 5px; max-width: 800px;">${run.startTimeHours?string["00"]}:${run.startTimeMins?string["00"]} @ ${run.startAddress} (${run.distanceFromUserStartPoint} miles away)</p>
                             <p style="font-style: italic; margin-top: 5px; max-width: 800px;">${run.description}</p>
                         </div>
                     </li>

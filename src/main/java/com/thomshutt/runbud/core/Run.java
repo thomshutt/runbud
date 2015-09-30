@@ -1,5 +1,6 @@
 package com.thomshutt.runbud.core;
 
+import com.thomshutt.runbud.util.LatitudeLongitude;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
@@ -49,6 +50,9 @@ public class Run {
     @Column(name = "IMAGE")
     private String imageUrl;
 
+    @Transient
+    private LatitudeLongitude userStartPoint;
+
     public Run() {
     }
 
@@ -77,6 +81,25 @@ public class Run {
         this.isCancelled = false;
         this.date = date;
         this.imageUrl = imageUrl;
+    }
+
+    public Run clone() {
+        final Run run = new Run(
+                this.initiatingUserId,
+                this.startLatitude,
+                this.startLongitude,
+                this.startAddress,
+                this.distanceKm,
+                this.date,
+                this.startTimeHours,
+                this.startTimeMins,
+                this.runName,
+                this.description,
+                this.imageUrl
+        );
+        run.isCancelled = this.isCancelled;
+        run.runId = this.runId;
+        return run;
     }
 
     public long getInitiatingUserId() {
@@ -177,6 +200,18 @@ public class Run {
 
     public boolean alreadyHappened(long currentTime) {
         return date < currentTime;
+    }
+
+    public Run setUserStartPoint(LatitudeLongitude userStartPoint) {
+        this.userStartPoint = userStartPoint;
+        return this;
+    }
+
+    public double getDistanceFromUserStartPoint() {
+        return LatitudeLongitude.calculateDistanceKmBetween(
+                userStartPoint,
+                new LatitudeLongitude(startLatitude, startLongitude)
+        );
     }
 
     @Override
